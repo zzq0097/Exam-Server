@@ -35,7 +35,7 @@ public class CourseController {
         return courseService.deleteCourse(courseid);
     }
 
-    @GetMapping("/getChapterList")
+    @GetMapping("/listChapter")
     public ResDTO getChapter(Integer courseid, Integer pageIndex, Integer pageSize){
         System.out.println("pageIndex"+pageIndex);
         System.out.println("pageSize"+pageSize);
