@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.ClassDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Class">
+    <id column="classid" jdbcType="INTEGER" property="classid" />
+    <result column="classname" jdbcType="VARCHAR" property="classname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    classid, classname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from class
+    where classid = #{classid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from class
+    where classid = #{classid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="classid" keyProperty="classid" parameterType="com.zyg.exam.model.Class" useGeneratedKeys="true">
+    insert into class (classname)
+    values (#{classname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="classid" keyProperty="classid" parameterType="com.zyg.exam.model.Class" useGeneratedKeys="true">
+    insert into class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classname != null">
+        classname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Class">
+    update class
+    <set>
+      <if test="classname != null">
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where classid = #{classid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectStudent" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.User">
+    select
+           userid,name,number,phone
+    from class left join  user on user.classid=class.classid
+    where class.classid = #{classid}
+
+  </select>
+  <select id="selectTeachInfo" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.TeachInfo">
+    select * from(select name from  (select teacherid,courseid,time from (select teachid from class join getclass on class.classid = getclass.classid where class.classid=#{classid})a join teach on teach.teachid = a.teachid)a join user on a.teacherid = user.userid)a
+            ,
+                 (select coursename from  (select teacherid,courseid,time from (select teachid from class join getclass on class.classid = getclass.classid where class.classid=#{classid})a join teach on teach.teachid = a.teachid)a join course on a.courseid = course.courseid)b
+            ,
+                 (select a.teachid,time from (select teachid from class join getclass on class.classid = getclass.classid where class.classid=#{classid})a join teach on teach.teachid = a.teachid)c
+            ,
+                 (select classname from class where classid=#{classid})d
+
+  </select>
+  <select id="listClass" resultType="com.zyg.exam.model.Class">
+    select
+    <include refid="Base_Column_List" />
+    from class
+  </select>
+
+</mapper>

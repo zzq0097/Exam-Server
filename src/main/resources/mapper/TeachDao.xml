@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.TeachDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Teach">
+    <result column="teacherid" jdbcType="INTEGER" property="teacherid" />
+    <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="teachid" jdbcType="INTEGER" property="teachid" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+  </resultMap>
+  <insert id="insert" keyColumn="teachid" keyProperty="teachid" parameterType="com.zyg.exam.model.Teach" useGeneratedKeys="true">
+    insert into teach (teacherid, courseid, `time`
+      )
+    values (#{teacherid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="teachid" keyProperty="teachid" parameterType="com.zyg.exam.model.Teach" useGeneratedKeys="true">
+    insert into teach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherid != null">
+        teacherid,
+      </if>
+      <if test="courseid != null">
+        courseid,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="listTeachInfo" resultType="com.zyg.exam.model.TeachInfo">
+    select * from(select name from teach join user on teach.teacherid = user.userid)a
+            ,
+                 (select coursename from teach join course on teach.courseid = course.courseid)b
+            ,
+                 (select teachid,time from teach)c
+            ,
+                 (select classname from(select classid from teach join getclass on teach.teachid = getclass.teachid)a join class on a.classid = class.classid)d
+  </select>
+  <delete id="deleteTeach" parameterType="java.lang.Integer">
+    delete
+    from teach where
+    teachid = #{teachid}
+
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Teach">
+    update teach
+    <set>
+      <if test="teacherid != null">
+        `teacherid` = #{teacherid},
+      </if>
+      <if test="courseid != null">
+        `courseid` = #{courseid},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teachid = #{teachid,jdbcType=INTEGER}
+  </update>
+</mapper>

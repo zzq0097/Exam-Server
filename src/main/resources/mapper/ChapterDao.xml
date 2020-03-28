@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.ChapterDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Chapter">
+    <id column="chapterid" jdbcType="INTEGER" property="chapterid" />
+    <result column="chaptername" jdbcType="VARCHAR" property="chaptername" />
+    <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="index" jdbcType="VARCHAR" property="index" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chapterid, chaptername, courseid,index
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chapter
+    where chapterid = #{chapterid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from chapter
+    where chapterid = #{chapterid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="chapterid" keyProperty="chapterid" parameterType="com.zyg.exam.model.Chapter" useGeneratedKeys="true">
+    insert into chapter (chaptername, courseid,index)
+    values (#{chaptername,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER},#{index,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="chapterid" keyProperty="chapterid" parameterType="com.zyg.exam.common.ChapterDTO" useGeneratedKeys="true">
+    insert into chapter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chaptername != null">
+        chaptername,
+      </if>
+      <if test="courseid != null">
+        courseid,
+      </if>
+      <if test="index != null">
+        chapter.index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chaptername != null">
+        #{chaptername,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        (select courseid from course where coursename=#{coursename,jdbcType=VARCHAR}),
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.common.ChapterDTO">
+    update chapter
+    <set>
+      <if test="chaptername != null">
+        chaptername = #{chaptername,jdbcType=VARCHAR},
+      </if>
+      <if test="courseid != null">
+        courseid = (select courseid from course where coursename=#{coursename,jdbcType=VARCHAR}),
+      </if>
+      <if test="index != null">
+        chapter.index = #{index,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where chapterid = #{chapterid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyg.exam.model.Chapter">
+    update chapter
+    set chaptername = #{chaptername,jdbcType=VARCHAR},
+      courseid = #{courseid,jdbcType=INTEGER},
+      index = #{index,jdbcType=VARCHAR}
+    where chapterid = #{chapterid,jdbcType=INTEGER}
+  </update>
+  <select id="listChapter" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.ChapterDTO">
+    <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
+    select
+    chapterid,chaptername,course.coursename,chapter.index
+    from chapter join course on chapter.courseid=course.courseid order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
+  </select>
+  <select id="selectQuestion" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.QuestionDTO">
+    select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from
+       (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question
+           left join chapter  on question.chapterid=chapter.chapterid where chapter.chapterid=#{chapterid})a
+           left join course on course.courseid=a.courseid
+  </select>
+
+</mapper>

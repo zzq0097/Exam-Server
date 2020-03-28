@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="class" jdbcType="INTEGER" property="classname" />
+    <result column="insert_date" jdbcType="DATE" property="insert_date"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, `password`, tel, `username`, `role`, class,`insert_date`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyg.exam.common.UserDTO" useGeneratedKeys="true">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="username != null">
+        `username`,
+      </if>
+      <if test="role != null">
+        `role`,
+      </if>
+      <if test="classname != null">
+        class,
+      </if>
+      <if test="insert_date != null">
+        insert_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="insert_date != null">
+        #{insert_date,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.common.UserDTO">
+    update user
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        `role` = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        `class` = (select classid from class where classname=#{classname,jdbcType=VARCHAR}),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="login" parameterType="string" resultType="string">
+    select
+      password
+    from user
+    where number = #{number}
+  </select>
+  <select id="selectByRole" parameterType="string" resultType="com.zyg.exam.common.UserDTO">
+    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
+    where role = #{role}
+  </select>
+  <select id="selectUser" resultType="com.zyg.exam.common.UserDTO">
+    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
+  </select>
+  <select id="selectByName" parameterType="java.lang.String" resultType="com.zyg.exam.common.UserDTO">
+    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class where name=#{name}
+  </select>
+  <select id="selectCourse" parameterType="java.lang.Integer" resultType="string">
+    select course.coursename from course  join
+        (select courseid from teach left join user on teach.teacherid=user.id where user.id=#{id})a
+            on course.courseid=a.courseid
+  </select>
+</mapper>
