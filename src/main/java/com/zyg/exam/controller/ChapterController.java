@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class ChapterController {
     @Autowired
@@ -30,6 +32,11 @@ public class ChapterController {
     @PostMapping("/insertChapter")
     public JsonBean insertChapter(Chapter chapter){
         return chapterService.insertChapter(chapter);
+    }
+
+    @GetMapping("/getChapterList")
+    public List<String> getChapterName(int courseid){
+        return chapterService.getChapterName(courseid);
     }
 
 

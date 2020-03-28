@@ -58,4 +58,9 @@ public class ChapterServiceImpl implements ChapterService {
             return new JsonBean(500,null,"查询结果为空");
         }
     }
+
+    @Override
+    public List<String> getChapterName(int courseid) {
+        return chapterDao.getChapterName(courseid);
+    }
 }

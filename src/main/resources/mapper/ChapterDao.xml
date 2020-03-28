@@ -83,5 +83,8 @@
            left join chapter  on question.chapterid=chapter.chapterid where chapter.chapterid=#{chapterid})a
            left join course on course.courseid=a.courseid
   </select>
+  <select id="getChapterName" parameterType="java.lang.Integer" resultType="string">
+    select chaptername from chapter where courseid=#{courseid}
+  </select>
 
 </mapper>
