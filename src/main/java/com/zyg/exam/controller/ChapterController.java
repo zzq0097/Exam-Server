@@ -35,7 +35,7 @@ public class ChapterController {
     }
 
     @GetMapping("/getChapterList")
-    public List<String> getChapterName(int courseid){
+    public List<Chapter> getChapterName(Integer courseid){
         return chapterService.getChapterName(courseid);
     }
 

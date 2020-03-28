@@ -27,5 +27,5 @@ public interface ChapterDao {
 
     List<Object> selectQuestion(Integer chapterid);
 
-    List<String> getChapterName(int courseid);
+    List<Chapter> getChapterName(int courseid);
 }

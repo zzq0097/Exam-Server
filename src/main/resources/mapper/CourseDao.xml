@@ -67,7 +67,7 @@
   </select>
   <select id="getChapterByCourseId" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.ChapterDTO">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select chapterid,chaptername,chapter.index,course.coursename
+    select chapterid,chaptername,chapter.index,course.coursename,course.courseid
     from chapter  join course
     on chapter.courseid=course.courseid where course.courseid=#{courseid} order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
   </select>

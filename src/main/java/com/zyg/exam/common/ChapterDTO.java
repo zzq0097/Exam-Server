@@ -26,4 +26,8 @@ public class ChapterDTO {
      * 章节顺序
      */
     private String index;
+    /**
+     * 课程id
+     */
+    private int courseid;
 }

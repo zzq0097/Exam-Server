@@ -24,7 +24,7 @@
     insert into chapter (chaptername, courseid,index)
     values (#{chaptername,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER},#{index,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="chapterid" keyProperty="chapterid" parameterType="com.zyg.exam.common.ChapterDTO" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="chapterid" keyProperty="chapterid" parameterType="com.zyg.exam.model.Chapter" useGeneratedKeys="true">
     insert into chapter
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="chaptername != null">
@@ -42,21 +42,21 @@
         #{chaptername,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null">
-        (select courseid from course where coursename=#{coursename,jdbcType=VARCHAR}),
+       #{courseid,jdbcType=INTEGER},
       </if>
       <if test="index != null">
         #{index,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.common.ChapterDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Chapter">
     update chapter
     <set>
       <if test="chaptername != null">
         chaptername = #{chaptername,jdbcType=VARCHAR},
       </if>
       <if test="courseid != null">
-        courseid = (select courseid from course where coursename=#{coursename,jdbcType=VARCHAR}),
+        courseid = #{courseid,jdbcType=INTEGER},
       </if>
       <if test="index != null">
         chapter.index = #{index,jdbcType=VARCHAR},
@@ -74,7 +74,7 @@
   <select id="listChapter" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.ChapterDTO">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select
-    chapterid,chaptername,course.coursename,chapter.index
+    chapterid,chaptername,course.coursename,chapter.index,course.courseid
     from chapter join course on chapter.courseid=course.courseid order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
   </select>
   <select id="selectQuestion" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.QuestionDTO">
@@ -83,8 +83,8 @@
            left join chapter  on question.chapterid=chapter.chapterid where chapter.chapterid=#{chapterid})a
            left join course on course.courseid=a.courseid
   </select>
-  <select id="getChapterName" parameterType="java.lang.Integer" resultType="string">
-    select chaptername from chapter where courseid=#{courseid}
+  <select id="getChapterName" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.Chapter">
+    select chapterid,chaptername,chapter.index from chapter where courseid=#{courseid}
   </select>
 
 </mapper>

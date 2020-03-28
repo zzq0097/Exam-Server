@@ -60,7 +60,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public List<String> getChapterName(int courseid) {
+    public List<Chapter> getChapterName(Integer courseid) {
         return chapterDao.getChapterName(courseid);
     }
 }

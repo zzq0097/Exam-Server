@@ -18,5 +18,5 @@ public interface ChapterService {
 
     JsonBean selectQuestion(Integer chapterid);
 
-    List<String> getChapterName(int courseid);
+    List<Chapter> getChapterName(Integer courseid);
 }
