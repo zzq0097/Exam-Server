@@ -33,9 +33,11 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey">
+    delete from user where id in
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
   </delete>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyg.exam.model.User" useGeneratedKeys="true">
     insert into user
@@ -116,10 +118,6 @@
     from user
     where number = #{number}
   </select>
-  <select id="selectByRole" parameterType="string" resultType="com.zyg.exam.common.UserDTO">
-    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
-    where role = #{role}
-  </select>
   <select id="selectUser" resultMap="UserDTOMap,count">
     select SQL_CALC_FOUND_ROWS * from
     (select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class)a
@@ -130,10 +128,6 @@
       where role = #{role}
     </if>
     limit #{pageIndex}, #{pageSize};select found_rows() count;
-  </select>
-  <select id="selectByName" parameterType="java.lang.String" resultType="com.zyg.exam.common.UserDTO">
-
-    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class where name=#{name}
   </select>
   <select id="selectCourse" parameterType="java.lang.Integer" resultType="string">
 

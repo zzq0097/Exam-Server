@@ -13,23 +13,15 @@ import java.util.Map;
 @Repository
 public interface UserDao {
 
-    int deleteByPrimaryKey(Integer id);
-
-
+    int deleteByPrimaryKey(int[] ids);
 
     int insertSelective(User user);
 
-    User selectByPrimaryKey(Integer userid);
-
     int updateByPrimaryKeySelective(User user);
-
-    List<Object> selectByRole(String role);
 
     String login(String number);
 
     List<List<Object>> selectUser(Map<String,Object> params);
-
-    List<Object> selectByName(String name);
 
     List<String> selectCourse(int id);
 }

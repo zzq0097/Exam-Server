@@ -44,16 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JsonBean deleteUser(ArrayList<Integer> ids) {
-        int num=0;
-       for (int i=0;i<ids.size();i++){
-            num = userDao.deleteByPrimaryKey(ids.size())+1;
-       }
-        if (num>ids.size()){
-            return new JsonBean(HttpStatus.OK.value(),null,"删除成功");
-        }else {
-            return new JsonBean(500,null,"删除失败");
-        }
+    public JsonBean deleteUser(int[] ids) {
+        return new JsonBean(200,null,"删除了"+userDao.deleteByPrimaryKey(ids)+"条数据");
     }
 
     @Override

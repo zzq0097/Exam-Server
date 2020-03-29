@@ -2,17 +2,16 @@ package com.zyg.exam.controller;
 
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResDTO;
-import com.zyg.exam.common.UserDTO;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 @RestController
 public class TestController {
 @Autowired
@@ -24,17 +23,16 @@ private UserService userService;
 
     @PutMapping("/updateUser")
     public JsonBean updateUser(User user){
-        System.out.println(user.toString());
         return userService.updateUser(user);
     }
 
-    @DeleteMapping("/deleteUser")
-    public JsonBean deleteUser(ArrayList<Integer> ids){
-        System.out.println(ids.size());
-        for (int i=0;i<ids.size();i++){
-            System.out.println(ids.get(i));
+    @PostMapping("/deleteUser")
+    public JsonBean deleteUser(int[] ids){
+        if (ids.length>0){
+            return userService.deleteUser(ids);
+        } else {
+            return new JsonBean(200,null,"未选择条目：删除了0条数据");
         }
-        return userService.deleteUser(ids);
     }
 
     @PostMapping("/insertUser")
@@ -44,7 +42,6 @@ private UserService userService;
 
     @GetMapping("/selectUser")
     public ResDTO selectByRole(String role, String name, Integer pageIndex, Integer pageSize){
-
         return userService.selectUser(name,role,pageIndex,pageSize);
     }
 
@@ -52,6 +49,4 @@ private UserService userService;
     public List<String> selectCourse(int id){
         return userService.selectCourse(id);
     }
-
-
 }

@@ -2,12 +2,9 @@ package com.zyg.exam.service;
 
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResDTO;
-import com.zyg.exam.common.UserDTO;
 import com.zyg.exam.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public interface UserService {
 
@@ -15,14 +12,11 @@ public interface UserService {
 
     JsonBean updateUser(User user);
 
-    JsonBean deleteUser(ArrayList<Integer> ids);
+    JsonBean deleteUser(int[] ids);
 
     JsonBean insertUser(User user);
 
     ResDTO selectUser(String name, String role, Integer pageIndex, Integer pageSie);
 
     List<String> selectCourse(int id);
-
-
-
 }
