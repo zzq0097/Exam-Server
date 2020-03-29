@@ -19,7 +19,7 @@ public interface UserService {
 
     JsonBean insertUser(User user);
 
-    ResDTO selectUser(String name, String role);
+    ResDTO selectUser(String name, String role, Integer pageIndex, Integer pageSie);
 
     List<String> selectCourse(int id);
 

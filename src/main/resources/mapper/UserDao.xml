@@ -11,6 +11,19 @@
     <result column="class" jdbcType="INTEGER" property="classid" />
     <result column="insert_date" jdbcType="DATE" property="insert_date"/>
   </resultMap>
+  <resultMap id="UserDTOMap" type="com.zyg.exam.common.UserDTO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="classname" jdbcType="VARCHAR" property="classname" />
+    <result column="insert_date" jdbcType="DATE" property="insert_date"/>
+  </resultMap>
+  <resultMap id="count" type="java.lang.Long">
+    <result column="count" jdbcType="BIGINT"/>
+  </resultMap>
   <sql id="Base_Column_List">
     id, `name`, `password`, tel, `username`, `role`, class,`insert_date`
   </sql>
@@ -107,9 +120,16 @@
     select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
     where role = #{role}
   </select>
-  <select id="selectUser" resultType="com.zyg.exam.common.UserDTO">
-
-    select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
+  <select id="selectUser" resultMap="UserDTOMap,count">
+    select SQL_CALC_FOUND_ROWS * from
+    (select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class)a
+    <if test="name!=null and name!= ''">
+      where name = #{name}
+    </if>
+    <if test="role!=null and role!= ''">
+      where role = #{role}
+    </if>
+    limit #{pageIndex}, #{pageSize};select found_rows() count;
   </select>
   <select id="selectByName" parameterType="java.lang.String" resultType="com.zyg.exam.common.UserDTO">
 

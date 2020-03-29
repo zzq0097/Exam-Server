@@ -43,9 +43,9 @@ private UserService userService;
     }
 
     @GetMapping("/selectUser")
-    public ResDTO selectByRole(String role, String name){
+    public ResDTO selectByRole(String role, String name, Integer pageIndex, Integer pageSize){
 
-        return userService.selectUser(name,role);
+        return userService.selectUser(name,role,pageIndex,pageSize);
     }
 
     @GetMapping("/getCourse")

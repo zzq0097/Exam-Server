@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,23 +67,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResDTO selectUser(String name, String role) {
-        List<Object> users = new ArrayList<>();
-
-        if(name==null&&role==null){
-            users = userDao.selectUser();
-        }else if (!role.isEmpty()&&role!=null){
-            users = userDao.selectByRole(role);
-        }else if (!name.isEmpty()&&name!=null){
-            users = userDao.selectByName(name);
-        }
-        return new ResDTO(users,users.size());
+    public ResDTO selectUser(String name, String role,Integer pageIndex,Integer pageSize) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("name",name);
+        params.put("role",role);
+        params.put("pageIndex",(pageIndex-1)*pageSize);
+        params.put("pageSize",pageSize);
+        List<Object> users = userDao.selectUser(params).get(0);
+        long count = (long)userDao.selectUser(params).get(1).get(0);
+        int total = (int)count;
+        return new ResDTO(users,total);
     }
 
     @Override
     public List<String> selectCourse(int id) {
         return userDao.selectCourse(id);
     }
-
-
 }
