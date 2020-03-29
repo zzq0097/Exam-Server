@@ -13,11 +13,11 @@ public interface UserService {
 
     JsonBean isLogin(String number, String password);
 
-    JsonBean updateUser(UserDTO userDTO);
+    JsonBean updateUser(User user);
 
     JsonBean deleteUser(ArrayList<Integer> ids);
 
-    JsonBean insertUser(UserDTO userDTO);
+    JsonBean insertUser(User user);
 
     ResDTO selectUser(String name, String role);
 

@@ -6,10 +6,7 @@ import com.zyg.exam.common.ResDTO;
 import com.zyg.exam.model.Question;
 import com.zyg.exam.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class QuestionController {
@@ -31,5 +28,10 @@ public class QuestionController {
     @GetMapping("/selectQuestion")
     public ResDTO selectByDifficulty(String difficulty, Integer chapterid, Integer courseid, String key){
         return questionService.selectQuestion(difficulty,chapterid,courseid,key);
+    }
+
+    @PostMapping("/updateQuestion")
+    public JsonBean updateQuestion(Question question){
+        return questionService.updateQuestion(question);
     }
 }

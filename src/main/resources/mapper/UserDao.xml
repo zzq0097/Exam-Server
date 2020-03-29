@@ -8,7 +8,7 @@
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="role" jdbcType="VARCHAR" property="role" />
-    <result column="class" jdbcType="INTEGER" property="classname" />
+    <result column="class" jdbcType="INTEGER" property="classid" />
     <result column="insert_date" jdbcType="DATE" property="insert_date"/>
   </resultMap>
   <sql id="Base_Column_List">
@@ -24,7 +24,7 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyg.exam.common.UserDTO" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.zyg.exam.model.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -42,7 +42,7 @@
       <if test="role != null">
         `role`,
       </if>
-      <if test="classname != null">
+      <if test="classid != null">
         class,
       </if>
       <if test="insert_date != null">
@@ -65,15 +65,15 @@
       <if test="role != null">
         #{role,jdbcType=VARCHAR},
       </if>
-      <if test="classname != null">
-        #{classname,jdbcType=VARCHAR},
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
       </if>
       <if test="insert_date != null">
         #{insert_date,jdbcType=DATE},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.common.UserDTO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.User">
     update user
     <set>
       <if test="name != null">
@@ -91,8 +91,8 @@
       <if test="role != null">
         `role` = #{role,jdbcType=VARCHAR},
       </if>
-      <if test="classname != null">
-        `class` = (select classid from class where classname=#{classname,jdbcType=VARCHAR}),
+      <if test="classid!= null">
+        `class` = #{classid},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -108,12 +108,15 @@
     where role = #{role}
   </select>
   <select id="selectUser" resultType="com.zyg.exam.common.UserDTO">
+
     select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class
   </select>
   <select id="selectByName" parameterType="java.lang.String" resultType="com.zyg.exam.common.UserDTO">
+
     select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class where name=#{name}
   </select>
   <select id="selectCourse" parameterType="java.lang.Integer" resultType="string">
+
     select course.coursename from course  join
         (select courseid from teach left join user on teach.teacherid=user.id where user.id=#{id})a
             on course.courseid=a.courseid

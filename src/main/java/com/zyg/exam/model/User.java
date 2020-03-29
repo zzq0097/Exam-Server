@@ -50,7 +50,7 @@ public class User implements Serializable {
     /**
      * 学生所属班级
      */
-    private Integer classname;
+    private Integer classid;
 
 
 

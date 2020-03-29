@@ -23,9 +23,9 @@ private UserService userService;
     }
 
     @PutMapping("/updateUser")
-    public JsonBean updateUser(UserDTO userDTO){
-        System.out.println(userDTO.toString());
-        return userService.updateUser(userDTO);
+    public JsonBean updateUser(User user){
+        System.out.println(user.toString());
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/deleteUser")
@@ -38,8 +38,8 @@ private UserService userService;
     }
 
     @PostMapping("/insertUser")
-    public JsonBean insertUser(UserDTO userDTO){
-        return userService.insertUser(userDTO);
+    public JsonBean insertUser(User user){
+        return userService.insertUser(user);
     }
 
     @GetMapping("/selectUser")

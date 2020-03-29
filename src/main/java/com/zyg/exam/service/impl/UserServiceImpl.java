@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JsonBean updateUser(UserDTO userDTO) {
-        int num=userDao.updateByPrimaryKeySelective(userDTO);
+    public JsonBean updateUser(User user) {
+        int num=userDao.updateByPrimaryKeySelective(user);
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),null,"更新成功");
         }else {
@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JsonBean insertUser(UserDTO userDTO) {
-        int num = userDao.insertSelective(userDTO);
+    public JsonBean insertUser(User user) {
+        int num = userDao.insertSelective(user);
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),null,"插入成功");
         }else {

@@ -16,11 +16,11 @@ public interface UserDao {
 
 
 
-    int insertSelective(UserDTO userDTO);
+    int insertSelective(User user);
 
     User selectByPrimaryKey(Integer userid);
 
-    int updateByPrimaryKeySelective(UserDTO userDTO);
+    int updateByPrimaryKeySelective(User user);
 
     List<Object> selectByRole(String role);
 
