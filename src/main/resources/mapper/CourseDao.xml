@@ -6,6 +6,14 @@
     <result column="coursename" jdbcType="VARCHAR" property="coursename" />
     <result column="programleader" jdbcType="VARCHAR" property="programleader" />
   </resultMap>
+  <resultMap id="ChapterMap" type="com.zyg.exam.common.ChapterDTO">
+    <id column="chapterid" jdbcType="INTEGER" property="chapterid" />
+    <result column="chaptername" jdbcType="VARCHAR" property="chaptername" />
+    <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="index" jdbcType="VARCHAR" property="index" />
+    <result column="coursename" jdbcType="VARCHAR" property="coursename"/>
+  </resultMap>
+
   <sql id="Base_Column_List">
     courseid, coursename, programleader
   </sql>
@@ -65,11 +73,14 @@
     <include refid="Base_Column_List" />
     from course
   </select>
-  <select id="getChapterByCourseId" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.ChapterDTO">
+  <select id="getChapterByCourseId"  resultMap="ChapterMap,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select chapterid,chaptername,chapter.index,course.coursename,course.courseid
-    from chapter  join course
-    on chapter.courseid=course.courseid where course.courseid=#{courseid} order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
+    select SQL_CALC_FOUND_ROWS * from(select chapterid,chaptername,chapter.index,course.coursename,course.courseid
+      from chapter  join course on chapter.courseid=course.courseid
+        <if test="courseid!=null">
+          where course.courseid=#{courseid}
+        </if>
+       order by chapter.courseid,chapter.index)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
   <select id="selectQuestion" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.QuestionDTO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from

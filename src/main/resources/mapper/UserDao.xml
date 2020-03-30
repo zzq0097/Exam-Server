@@ -27,12 +27,6 @@
   <sql id="Base_Column_List">
     id, `name`, `password`, tel, `username`, `role`, class,`insert_date`
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
   <delete id="deleteByPrimaryKey">
     delete from user where id in
     <foreach collection="array" item="id" open="(" separator="," close=")">

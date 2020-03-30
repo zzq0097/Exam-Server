@@ -6,6 +6,7 @@ import com.zyg.exam.model.Question;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CourseDao {
@@ -23,7 +24,7 @@ public interface CourseDao {
 
     List<Course> listCourse();
 
-    List<Object> getChapterByCourseId(int courseid,int pageIndex,int pageSize);
+    List<List<Object>> getChapterByCourseId(Map<String,Object> param);
 
     List<Object> selectQuestion(Integer courseid);
 }

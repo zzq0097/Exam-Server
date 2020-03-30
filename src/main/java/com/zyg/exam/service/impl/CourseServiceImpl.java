@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -61,13 +63,14 @@ private ChapterDao chapterDao;
 
     @Override
     public ResDTO selectChapter(Integer courseid,int pageIndex, int pageSize) {
-        List<Object> chapters = new ArrayList<>();
-        if (courseid==null){
-            chapters = chapterDao.listChapter(pageIndex,pageSize);
-        }else {
-            chapters = courseDao.getChapterByCourseId(courseid,pageIndex,pageSize);
-        }
-        return new ResDTO(chapters,chapters.size());
+        Map<String,Object> param = new HashMap<>();
+        param.put("courseid",courseid);
+        param.put("pageIndex",pageIndex);
+        param.put("pageSize",pageSize);
+        List<Object> chapters=courseDao.getChapterByCourseId(param).get(0);
+        long count = (long)courseDao.getChapterByCourseId(param).get(1).get(0);
+        int total = (int)count;
+        return new ResDTO(chapters,total);
 
     }
 

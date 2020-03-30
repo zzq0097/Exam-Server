@@ -2,7 +2,6 @@ package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResDTO;
-import com.zyg.exam.common.UserDTO;
 import com.zyg.exam.dao.UserDao;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
