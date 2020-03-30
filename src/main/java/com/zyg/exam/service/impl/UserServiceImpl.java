@@ -23,14 +23,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonBean isLogin(String number, String password) {
         String pass = userDao.login(number);
-        boolean flag = false;
         if (pass.equals(password)){
-            flag=true;
             return new JsonBean(HttpStatus.OK.value(),null,"登录成功");
         }else {
             return new JsonBean(0,null,"登录失败");
         }
-
     }
 
     @Override
