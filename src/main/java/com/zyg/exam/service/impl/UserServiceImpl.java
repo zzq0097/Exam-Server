@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         Map<String,Object> params = new HashMap<>();
         params.put("name",name);
         params.put("role",role);
-        params.put("pageIndex",(pageIndex-1)*pageSize);
+        params.put("beginIndex",(pageIndex-1)*pageSize);
         params.put("pageSize",pageSize);
         List<Object> users = userDao.selectUser(params).get(0);
         long count = (long)userDao.selectUser(params).get(1).get(0);

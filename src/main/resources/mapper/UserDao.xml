@@ -130,7 +130,7 @@
     <if test="name!=null and name!= '' and role!=null and role!= ''">
       where name = #{name} and role = #{role}
     </if>
-    limit #{pageIndex}, #{pageSize};select found_rows() count;
+    limit #{beginIndex}, #{pageSize};select found_rows() count;
   </select>
   <select id="selectCourse" parameterType="java.lang.Integer" resultType="string">
 
