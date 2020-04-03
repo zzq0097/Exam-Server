@@ -17,7 +17,18 @@
     <result column="coursename" jdbcType="INTEGER" property="courseName" />
     <result column="finishtime" jdbcType="TIMESTAMP" property="finishTime" />
   </resultMap>
-
+  <resultMap id="Question1" type="com.zyg.exam.model.Question">
+    <id column="subjectid" jdbcType="INTEGER" property="subjectid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="option1" jdbcType="VARCHAR" property="option1" />
+    <result column="option2" jdbcType="VARCHAR" property="option2" />
+    <result column="option3" jdbcType="VARCHAR" property="option3" />
+    <result column="option4" jdbcType="VARCHAR" property="option4" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="difficulty" jdbcType="VARCHAR" property="difficulty" />
+    <result column="chapterid" jdbcType="INTEGER" property="chapterid" />
+  </resultMap>
   <sql id="Base_Column_List">
     paperid, starttime, finishtime, pattern, ismonitor, courseid
   </sql>
@@ -124,7 +135,7 @@
             where class.classname=#{className,jdbcType=VARCHAR})a on a.teachid=teach.teachid)a on course.courseid=a.courseid)a
             on a.courseid=paper.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
-  <select id="selectQuestion" resultMap="Question,count">
+  <select id="selectQuestion" resultMap="Question1,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select question.* from question join (select questionid from paper_question
     where paperid=#{paperid,jdbcType=INTEGER})a on question.subjectid=a.questionid)a
