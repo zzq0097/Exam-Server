@@ -1,13 +1,16 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+
 
 @RestController
 public class PaperController {
@@ -17,5 +20,20 @@ public class PaperController {
     @GetMapping("/getPaperList")
     public ResDTO getPaperList(String className, String courseName, String startTime,Integer pageSize,Integer pageIndex){
         return paperService.selectPaper(courseName,startTime,className,pageIndex,pageSize);
+    }
+
+    @PostMapping("/deletePaper")
+    public JsonBean deletePaper(Integer paperId){
+        return paperService.deletePaper(paperId);
+    }
+
+    @GetMapping("/listQuestion")
+    public ResDTO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize){
+        return paperService.selectQuestion(paperId,pageIndex,pageSize);
+    }
+
+    @PutMapping("/updateQuestion")
+    public JsonBean updatePaper(Paper paper){
+        return paperService.updatePaper(paper);
     }
 }

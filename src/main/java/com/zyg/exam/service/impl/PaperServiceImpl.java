@@ -1,9 +1,12 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResDTO;
 import com.zyg.exam.dao.PaperDao;
+import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,7 +27,10 @@ public class PaperServiceImpl implements PaperService {
         long count=0;
         int total=0;
         if (className!=null&&!className.isEmpty()){
+            System.out.println(className);
             papers=paperDao.selectByClass(params).get(0);
+            System.out.println(paperDao.selectByClass(params));
+            System.out.println(papers);
             count=(long)paperDao.selectByClass(params).get(1).get(0);
             total=(int)count;
         }else {
@@ -33,5 +39,37 @@ public class PaperServiceImpl implements PaperService {
             total=(int)count;
         }
         return new ResDTO(papers,total);
+    }
+
+    @Override
+    public JsonBean deletePaper(Integer paperId) {
+        int num = paperDao.deleteByPrimaryKey(paperId);
+        if (num>0){
+            return new JsonBean(HttpStatus.OK.value(),null,"删除成功");
+        }else {
+            return new JsonBean(500,null,"删除失败");
+        }
+    }
+
+    @Override
+    public ResDTO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("paperId",paperId);
+        params.put("pageIndex",pageIndex);
+        params.put("pageSize",pageSize);
+        List<Object> questions = paperDao.selectQuestion(params).get(0);
+        long count = (long)paperDao.selectQuestion(params).get(1).get(0);
+        int total=(int)count;
+        return new ResDTO(questions,total);
+    }
+
+    @Override
+    public JsonBean updatePaper(Paper paper) {
+        int num = paperDao.updateByPrimaryKeySelective(paper);
+        if (num>0){
+            return new JsonBean(HttpStatus.OK.value(),null,"修改成功");
+        }else {
+            return new JsonBean(500,null,"修改失败");
+        }
     }
 }

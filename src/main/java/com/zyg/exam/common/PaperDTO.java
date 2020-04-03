@@ -35,4 +35,8 @@ public class PaperDTO {
      * 课程名称
      */
     private String courseName;
+    /**
+     * 结束时间
+     */
+    private Date finishTime;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zyg.exam.dao.QuestionDao">
-  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Question">
+  <resultMap id="Question" type="com.zyg.exam.model.Question">
     <id column="subjectid" jdbcType="INTEGER" property="subjectid" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -17,7 +17,7 @@
     subjectid, `type`, content, option1, option2, option3, option4, answer, difficulty, 
     chapterid
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Question">
     select 
     <include refid="Base_Column_List" />
     from question
@@ -177,4 +177,71 @@
         left join course on course.courseid=a.courseid
 
   </select>
+  <insert id="insertQuestionDTO"  parameterType="com.zyg.exam.common.QuestionDTO">
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subjectid != null">
+        subjectid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="option1 != null">
+        option1,
+      </if>
+      <if test="option2 != null">
+        option2,
+      </if>
+      <if test="option3 != null">
+        option3,
+      </if>
+      <if test="option4 != null">
+        option4,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="chapterName != null">
+        chapterid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="option1 != null">
+        #{option1,jdbcType=VARCHAR},
+      </if>
+      <if test="option2 != null">
+        #{option2,jdbcType=VARCHAR},
+      </if>
+      <if test="option3 != null">
+        #{option3,jdbcType=VARCHAR},
+      </if>
+      <if test="option4 != null">
+        #{option4,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="chapterName != null">
+        (select chapterid from chapter where chaptername=#{chapterName,jdbcType=VARCHAR}),
+      </if>
+    </trim>
+  </insert>
 </mapper>
