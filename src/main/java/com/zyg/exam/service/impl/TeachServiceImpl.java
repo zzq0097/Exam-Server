@@ -19,9 +19,9 @@ public class TeachServiceImpl implements TeachService {
     public JsonBean listTeachInfo() {
         List<TeachInfo> teachInfos = teachDao.listTeachInfo();
         if (teachInfos.size()>0){
-            return new JsonBean(HttpStatus.OK.value(),teachInfos,"");
+            return new JsonBean(HttpStatus.OK.value(),"",teachInfos);
         }else {
-            return new JsonBean(500,null,"所查结果为空");
+            return new JsonBean(500,"所查结果为空",null);
         }
     }
 
@@ -29,9 +29,9 @@ public class TeachServiceImpl implements TeachService {
     public JsonBean deleteTeach(int teachId) {
         int num = teachDao.deleteTeach(teachId);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"删除成功");
+            return new JsonBean(HttpStatus.OK.value(),"删除成功",null);
         }else {
-            return new JsonBean(500,null,"删除失败");
+            return new JsonBean(500,"删除失败",null);
         }
     }
 
@@ -39,9 +39,9 @@ public class TeachServiceImpl implements TeachService {
     public JsonBean insertTeach(Teach teach) {
         int num = teachDao.insertSelective(teach);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"添加成功");
+            return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {
-            return new JsonBean(500,null,"删除失败");
+            return new JsonBean(500,"删除失败",null);
         }
     }
 
@@ -49,9 +49,9 @@ public class TeachServiceImpl implements TeachService {
     public JsonBean updateTeach(Teach teach) {
         int num = teachDao.updateByPrimaryKeySelective(teach);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"修改成功");
+            return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {
-            return new JsonBean(500,null,"修改失败");
+            return new JsonBean(500,"修改失败",null);
         }
     }
 }

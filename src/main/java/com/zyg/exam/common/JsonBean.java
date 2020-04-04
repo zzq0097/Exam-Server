@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class JsonBean {
     private int code;
-
-    private Object data;
-
     private String msg;
+    private Object data;
 }

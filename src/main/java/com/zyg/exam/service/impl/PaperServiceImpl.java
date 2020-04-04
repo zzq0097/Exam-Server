@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PaperServiceImpl implements PaperService {
@@ -23,7 +25,7 @@ public class PaperServiceImpl implements PaperService {
         params.put("className",className);
         params.put("pageIndex",pageIndex);
         params.put("pageSize",pageSize);
-        List<Object> papers = new ArrayList<>();
+        List<Object> papers;
         long count=0;
         int total=0;
         if (className!=null&&!className.isEmpty()){
@@ -45,9 +47,9 @@ public class PaperServiceImpl implements PaperService {
     public JsonBean deletePaper(Integer paperId) {
         int num = paperDao.deleteByPrimaryKey(paperId);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"删除成功");
+            return new JsonBean(HttpStatus.OK.value(),"删除成功",null);
         }else {
-            return new JsonBean(500,null,"删除失败");
+            return new JsonBean(500,"删除失败",null);
         }
     }
 
@@ -67,9 +69,9 @@ public class PaperServiceImpl implements PaperService {
     public JsonBean updatePaper(Paper paper) {
         int num = paperDao.updateByPrimaryKeySelective(paper);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"修改成功");
+            return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {
-            return new JsonBean(500,null,"修改失败");
+            return new JsonBean(500,"修改失败",null);
         }
     }
 }

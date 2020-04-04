@@ -33,7 +33,7 @@ public class TestController {
         if (ids.length>0){
             return userService.deleteUser(ids);
         } else {
-            return new JsonBean(200,null,"未选择条目：删除了0条数据");
+            return new JsonBean(200,"未选择条目：删除了0条数据",null);
         }
     }
 

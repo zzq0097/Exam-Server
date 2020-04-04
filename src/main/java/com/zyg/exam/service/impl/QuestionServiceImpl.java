@@ -4,8 +4,6 @@ import com.zyg.exam.common.DTO.QuestionDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.VO.QuestionVO;
 import com.zyg.exam.common.ResVO;
-import com.zyg.exam.dao.ChapterDao;
-import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.exception.MyException;
 import com.zyg.exam.model.Question;
@@ -27,20 +25,17 @@ import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
+
     @Autowired
     private QuestionDao questionDao;
-    @Autowired
-    private ChapterDao chapterDao;
-    @Autowired
-    private CourseDao courseDao;
 
     @Override
     public JsonBean insertQuestion(Question question) {
         int num = questionDao.insertSelective(question);
         if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"添加成功");
+            return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {
-            return new JsonBean(500,null,"添加失败");
+            return new JsonBean(500,"添加失败",null);
         }
     }
 
@@ -141,8 +136,6 @@ public class QuestionServiceImpl implements QuestionService {
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,所属章节未填写)");
             }
 
-
-
             questionDTO.setType(type);
             questionDTO.setContent(content);
             questionDTO.setOption1(option1);
@@ -152,8 +145,6 @@ public class QuestionServiceImpl implements QuestionService {
             questionDTO.setAnswer(answer);
             questionDTO.setDifficulty(difficulty);
             questionDTO.setChapterName(chapterName);
-
-
 
             questionDTOS.add(questionDTO);
             System.out.println(questionDTO);
@@ -166,10 +157,8 @@ public class QuestionServiceImpl implements QuestionService {
         }
         JsonBean jsonBean=new JsonBean();
       if (num>0){
-           jsonBean= new JsonBean(200,"","导入成功");
+           jsonBean= new JsonBean(200,"导入成功","");
       }
         return jsonBean;
     }
-
-
 }
