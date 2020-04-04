@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.model.Question;
@@ -24,7 +25,7 @@ public interface CourseDao {
 
     List<Course> listCourse();
 
-    List<List<Object>> getChapterByCourseId(Map<String,Object> param);
+    List<List<Object>> selectChapter(ChapterDTO chapterDTO);
 
     List<Object> selectQuestion(Integer courseid);
 }

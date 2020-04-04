@@ -1,7 +1,8 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Slf4j
 @RestController
 public class TestController {
-@Autowired
-private UserService userService;
+
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/login")
     public JsonBean login(String number,String password){
         return userService.isLogin(number,password);
@@ -41,8 +43,8 @@ private UserService userService;
     }
 
     @GetMapping("/selectUser")
-    public ResDTO selectByRole(String role, String name, Integer pageIndex, Integer pageSize){
-        return userService.selectUser(name,role,pageIndex,pageSize);
+    public ResVO selectByRole(UserDTO userDTO){
+        return userService.selectUser(userDTO);
     }
 
     @GetMapping("/getCourse")

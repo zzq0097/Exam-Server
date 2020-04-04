@@ -9,7 +9,7 @@
     <result column="ismonitor" jdbcType="VARCHAR" property="ismonitor" />
     <result column="courseid" jdbcType="INTEGER" property="courseid" />
   </resultMap>
-  <resultMap id="PaperDTO" type="com.zyg.exam.common.PaperDTO">
+  <resultMap id="PaperDTO" type="com.zyg.exam.common.VO.PaperVO">
     <id column="paperid" jdbcType="INTEGER" property="paperId" />
     <result column="starttime" jdbcType="TIMESTAMP" property="startTime" />
     <result column="pattern" jdbcType="INTEGER" property="pattern" />

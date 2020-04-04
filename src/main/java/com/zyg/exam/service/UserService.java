@@ -1,7 +1,8 @@
 package com.zyg.exam.service;
 
+import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.User;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface UserService {
 
     JsonBean insertUser(User user);
 
-    ResDTO selectUser(String name, String role, Integer pageIndex, Integer pageSie);
+    ResVO selectUser(UserDTO userDTO);
 
     List<String> selectCourse(int id);
 }

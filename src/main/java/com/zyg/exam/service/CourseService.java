@@ -1,10 +1,9 @@
 package com.zyg.exam.service;
 
+import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
-import com.zyg.exam.model.Chapter;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Course;
-import org.omg.CORBA.INTERNAL;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface CourseService {
 
     JsonBean deleteCourse(int courseid);
 
-    ResDTO selectChapter(Integer courseid, int pageIndex, int pageSize);
+    ResVO selectChapter(ChapterDTO chapterDTO);
 
     JsonBean selectQuestion(Integer courseid);
 }

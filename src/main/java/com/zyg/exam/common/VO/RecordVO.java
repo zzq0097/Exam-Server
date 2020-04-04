@@ -1,6 +1,5 @@
-package com.zyg.exam.common;
+package com.zyg.exam.common.VO;
 
-import ch.qos.logback.core.joran.spi.NoAutoStart;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecordDTO {
+public class RecordVO {
     private Integer recordId;
 
     /**

@@ -1,7 +1,7 @@
 package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.PaperDao;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
@@ -16,7 +16,7 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperDao paperDao;
     @Override
-    public ResDTO selectPaper(String courseName, String startTime, String className,Integer pageIndex,Integer pageSize) {
+    public ResVO selectPaper(String courseName, String startTime, String className, Integer pageIndex, Integer pageSize) {
         Map<String,Object> params = new HashMap<>();
         params.put("courseName",courseName);
         params.put("startTime",startTime);
@@ -38,7 +38,7 @@ public class PaperServiceImpl implements PaperService {
             count=(long)paperDao.selectPaper(params).get(1).get(0);
             total=(int)count;
         }
-        return new ResDTO(papers,total);
+        return new ResVO(papers,total);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public ResDTO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize) {
+    public ResVO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize) {
         Map<String,Object> params = new HashMap<>();
         params.put("paperId",paperId);
         params.put("pageIndex",pageIndex);
@@ -60,7 +60,7 @@ public class PaperServiceImpl implements PaperService {
         List<Object> questions = paperDao.selectQuestion(params).get(0);
         long count = (long)paperDao.selectQuestion(params).get(1).get(0);
         int total=(int)count;
-        return new ResDTO(questions,total);
+        return new ResVO(questions,total);
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.zyg.exam.service.impl;
 
-import com.zyg.exam.common.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.model.Chapter;
-import com.zyg.exam.model.Question;
 import com.zyg.exam.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

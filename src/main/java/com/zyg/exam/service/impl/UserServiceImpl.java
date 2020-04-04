@@ -1,7 +1,8 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.UserDao;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
@@ -55,16 +56,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResDTO selectUser(String name, String role,Integer pageIndex,Integer pageSize) {
-        Map<String,Object> params = new HashMap<>();
-        params.put("name",name);
-        params.put("role",role);
-        params.put("beginIndex",(pageIndex-1)*pageSize);
-        params.put("pageSize",pageSize);
-        List<Object> users = userDao.selectUser(params).get(0);
-        long count = (long)userDao.selectUser(params).get(1).get(0);
-        int total = (int)count;
-        return new ResDTO(users,total);
+    public ResVO selectUser(UserDTO userDTO) {
+        List<Object> users = userDao.selectUser(userDTO).get(0);
+        long count = (long)userDao.selectUser(userDTO).get(1).get(0);
+        return new ResVO(users,count);
     }
 
     @Override

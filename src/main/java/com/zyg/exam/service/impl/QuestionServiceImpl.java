@@ -1,8 +1,9 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.DTO.QuestionDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.QuestionDTO;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.VO.QuestionVO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.dao.QuestionDao;
@@ -22,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,41 +64,16 @@ public class QuestionServiceImpl implements QuestionService {
         }
     }
 
-
-
     @Override
-    public ResDTO selectQuestion(String difficulty, Integer chapterid, Integer courseid, String key) {
-        List<Object> questions = new ArrayList<>();
-
-
-         if(!difficulty.isEmpty()&&difficulty!=null){
-             System.out.println("只执行难度");
-            questions = questionDao.selectByDifficulty(difficulty);
-        }else if(chapterid!=null){
-             System.out.println("执行chapterid");
-            questions = chapterDao.selectQuestion(chapterid);
-        }else if(courseid!=null){
-             System.out.println("只执行courseid");
-            questions = courseDao.selectQuestion(courseid);
-        }else if(!key.isEmpty()&&key!=null){
-            questions = questionDao.selectByContent(key);
-        }else if(difficulty!=null&&chapterid!=null&&!difficulty.isEmpty()){
-            questions = questionDao.selectByCHapterAndDifficulty(difficulty,chapterid);
-         }else if(difficulty!=null&&courseid!=null&&!difficulty.isEmpty()){
-             questions = questionDao.selectByCourseAndDifficulty(difficulty,courseid);
-         }
-         else {
-            questions = questionDao.listQuestion();
-        }
-        return new ResDTO(questions,questions.size());
+    public ResVO selectQuestion(QuestionDTO questionDTO) {
+        return new ResVO(null,0);
     }
 
     @Override
     public JsonBean batchImport(String fileName, MultipartFile file) throws Exception {
 
-
         boolean notNull = false;
-        List<QuestionDTO> questionDTOS = new ArrayList<QuestionDTO>();
+        List<QuestionVO> questionDTOS = new ArrayList();
         if (!fileName.matches("^.+\\.(?i)(xls)$") && !fileName.matches("^.+\\.(?i)(xlsx)$")) {
             throw new MyException(500,"上传文件格式不正确");
         }
@@ -117,14 +92,14 @@ public class QuestionServiceImpl implements QuestionService {
         if(sheet!=null){
             notNull = true;
         }
-        QuestionDTO questionDTO;
+        QuestionVO questionDTO;
         for (int r = 1; r <= sheet.getLastRowNum(); r++) {
             Row row = sheet.getRow(r);
             if (row == null){
                 continue;
             }
 
-            questionDTO = new QuestionDTO();
+            questionDTO = new QuestionVO();
 
             if( row.getCell(0).getCellType() !=1){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,题目类型请设为文本格式)");
@@ -185,7 +160,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
         int num=0;
 
-        for (QuestionDTO questionDTO1 : questionDTOS) {
+        for (QuestionVO questionDTO1 : questionDTOS) {
             System.out.println(questionDTO1);
              num=questionDao.insertQuestionDTO(questionDTO1);
         }

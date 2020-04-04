@@ -1,4 +1,4 @@
-package com.zyg.exam.common;
+package com.zyg.exam.common.VO;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserVO {
     private Integer id;
 
     /**

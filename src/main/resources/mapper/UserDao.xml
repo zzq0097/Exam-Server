@@ -11,7 +11,7 @@
     <result column="class" jdbcType="INTEGER" property="classid" />
     <result column="insert_date" jdbcType="DATE" property="insert_date"/>
   </resultMap>
-  <resultMap id="UserDTOMap" type="com.zyg.exam.common.UserDTO">
+  <resultMap id="UserVO" type="com.zyg.exam.common.VO.UserVO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -112,7 +112,8 @@
     from user
     where number = #{number}
   </select>
-  <select id="selectUser" resultMap="UserDTOMap,count">
+  <select id="selectUser" resultMap="UserVO,count">
+    <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from
     (select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class)a
     <if test="name!=null and name!= ''">

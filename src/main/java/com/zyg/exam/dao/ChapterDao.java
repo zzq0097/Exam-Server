@@ -1,8 +1,6 @@
 package com.zyg.exam.dao;
 
-import com.zyg.exam.common.ChapterDTO;
 import com.zyg.exam.model.Chapter;
-import com.zyg.exam.model.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,5 @@
 package com.zyg.exam.controller;
 
-import com.zyg.exam.common.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.service.ChapterService;
@@ -16,8 +15,6 @@ import java.util.List;
 public class ChapterController {
     @Autowired
     private ChapterService chapterService;
-
-
 
     @DeleteMapping("/deleteChapter")
     public JsonBean deleteChapter(int chapterId){
@@ -38,6 +35,4 @@ public class ChapterController {
     public List<Chapter> getChapterName(Integer courseid){
         return chapterService.getChapterName(courseid);
     }
-
-
 }

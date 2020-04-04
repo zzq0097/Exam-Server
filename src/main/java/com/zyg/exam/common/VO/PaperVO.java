@@ -1,4 +1,4 @@
-package com.zyg.exam.common;
+package com.zyg.exam.common.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PaperDTO {
+public class PaperVO {
     /**
      * 试卷id
      */
@@ -18,8 +18,6 @@ public class PaperDTO {
      * 开始时间
      */
     private Date startTime;
-
-
 
     /**
      * 1:限通信模式,2:霸屏模式

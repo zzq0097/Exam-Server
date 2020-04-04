@@ -1,7 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class PaperController {
     private PaperService paperService;
 
     @GetMapping("/getPaperList")
-    public ResDTO getPaperList(String className, String courseName, String startTime,Integer pageSize,Integer pageIndex){
+    public ResVO getPaperList(String className, String courseName, String startTime, Integer pageSize, Integer pageIndex){
         return paperService.selectPaper(courseName,startTime,className,pageIndex,pageSize);
     }
 
@@ -28,7 +28,7 @@ public class PaperController {
     }
 
     @GetMapping("/listQuestion")
-    public ResDTO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize){
+    public ResVO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize){
         return paperService.selectQuestion(paperId,pageIndex,pageSize);
     }
 

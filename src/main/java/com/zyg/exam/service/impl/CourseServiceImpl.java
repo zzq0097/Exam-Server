@@ -1,18 +1,17 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.model.Course;
-import com.zyg.exam.model.Question;
 import com.zyg.exam.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,15 +61,10 @@ private ChapterDao chapterDao;
 
 
     @Override
-    public ResDTO selectChapter(Integer courseid,int pageIndex, int pageSize) {
-        Map<String,Object> param = new HashMap<>();
-        param.put("courseid",courseid);
-        param.put("pageIndex",pageIndex);
-        param.put("pageSize",pageSize);
-        List<Object> chapters=courseDao.getChapterByCourseId(param).get(0);
-        long count = (long)courseDao.getChapterByCourseId(param).get(1).get(0);
-        int total = (int)count;
-        return new ResDTO(chapters,total);
+    public ResVO selectChapter(ChapterDTO chapterDTO) {
+        List<Object> chapters=courseDao.selectChapter(chapterDTO).get(0);
+        long count = (long)courseDao.selectChapter(chapterDTO).get(1).get(0);
+        return new ResVO(chapters,count);
 
     }
 

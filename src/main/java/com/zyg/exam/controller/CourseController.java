@@ -1,8 +1,8 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
-import com.zyg.exam.model.Chapter;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,7 @@ public class CourseController {
     }
 
     @GetMapping("/listChapter")
-    public ResDTO getChapter(Integer courseid, Integer pageIndex, Integer pageSize){
-        System.out.println("pageIndex"+pageIndex);
-        System.out.println("pageSize"+pageSize);
-        return courseService.selectChapter(courseid,pageIndex,pageSize); }
-
-
+    public ResVO getChapter(ChapterDTO chapterDTO){
+        return courseService.selectChapter(chapterDTO);
+    }
 }

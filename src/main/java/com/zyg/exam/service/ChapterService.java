@@ -1,6 +1,5 @@
 package com.zyg.exam.service;
 
-import com.zyg.exam.common.ChapterDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.model.Chapter;
 

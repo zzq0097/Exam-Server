@@ -150,26 +150,26 @@
       chapterid = #{chapterid,jdbcType=INTEGER}
     where subjectid = #{subjectid,jdbcType=INTEGER}
   </update>
-  <select id="listQuestion" resultType="com.zyg.exam.common.QuestionDTO">
+  <select id="listQuestion" resultType="com.zyg.exam.common.VO.QuestionVO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question left join chapter  on question.chapterid=chapter.chapterid )a left join course on course.courseid=a.courseid
   </select>
-  <select id="selectByDifficulty" parameterType="java.lang.String" resultType="com.zyg.exam.common.QuestionDTO">
+  <select id="selectByDifficulty" parameterType="java.lang.String" resultType="com.zyg.exam.common.VO.QuestionVO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question left join chapter  on question.chapterid=chapter.chapterid where question.difficulty=#{difficulty})a left join course on course.courseid=a.courseid
   </select>
-  <select id="selectByContent" parameterType="java.lang.String" resultType="com.zyg.exam.common.QuestionDTO">
+  <select id="selectByContent" parameterType="java.lang.String" resultType="com.zyg.exam.common.VO.QuestionVO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from
         (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question
             left join chapter  on question.chapterid=chapter.chapterid where question.content like CONCAT('%',#{question},'%'))a left join course on course.courseid=a.courseid
 
 
   </select>
-  <select id="selectByCourseAndDifficulty"  resultType="com.zyg.exam.common.QuestionDTO">
+  <select id="selectByCourseAndDifficulty"  resultType="com.zyg.exam.common.VO.QuestionVO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from
        (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question
            left join chapter  on question.chapterid=chapter.chapterid where question.difficulty=#{difficulty,jdbcType=VARCHAR} )a
            left join course on course.courseid=a.courseid where course.courseid=#{courseid,jdbcType=INTEGER}
   </select>
-  <select id="selectByCHapterAndDifficulty" resultType="com.zyg.exam.common.QuestionDTO">
+  <select id="selectByCHapterAndDifficulty" resultType="com.zyg.exam.common.VO.QuestionVO">
 
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from
       (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid from question
@@ -177,7 +177,7 @@
         left join course on course.courseid=a.courseid
 
   </select>
-  <insert id="insertQuestionDTO"  parameterType="com.zyg.exam.common.QuestionDTO">
+  <insert id="insertQuestionDTO"  parameterType="com.zyg.exam.common.VO.QuestionVO">
     insert into question
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="subjectid != null">

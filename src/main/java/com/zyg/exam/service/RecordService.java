@@ -1,11 +1,11 @@
 package com.zyg.exam.service;
 
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 
 
 
 public interface  RecordService {
-    ResDTO selectRecordByUserName(String name,Integer pageIndex,Integer pageSize,String courseName,String className);
+    ResVO selectRecordByUserName(String name, Integer pageIndex, Integer pageSize, String courseName, String className);
 
     String selectMonitor(Integer recordId);
 }

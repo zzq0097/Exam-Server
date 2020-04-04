@@ -1,14 +1,17 @@
 package com.zyg.exam.controller;
 
 
+import com.zyg.exam.common.DTO.QuestionDTO;
 import com.zyg.exam.common.JsonBean;
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Question;
 import com.zyg.exam.service.QuestionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RestController
 public class QuestionController {
     @Autowired
@@ -24,11 +27,9 @@ public class QuestionController {
         return questionService.deleteQuestion(subjectId);
     }
 
-
-
     @GetMapping("/selectQuestion")
-    public ResDTO selectByDifficulty(String difficulty, Integer chapterid, Integer courseid, String key){
-        return questionService.selectQuestion(difficulty,chapterid,courseid,key);
+    public ResVO selectByDifficulty(QuestionDTO questionDTO){
+        return questionService.selectQuestion(questionDTO);
     }
 
     @PostMapping("/updateQuestion")
@@ -40,6 +41,7 @@ public class QuestionController {
     public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
         JsonBean jsonBean=new JsonBean();
         String fileName = file.getOriginalFilename();
+        log.info("{}",fileName);
         try {
             jsonBean=questionService.batchImport(fileName,file);
         } catch (Exception e) {

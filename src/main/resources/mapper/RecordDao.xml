@@ -8,7 +8,7 @@
     <result column="monitor" jdbcType="VARCHAR" property="monitor" />
     <result column="paperid" jdbcType="INTEGER" property="paperid" />
   </resultMap>
-  <resultMap id="RecordDto" type="com.zyg.exam.common.RecordDTO">
+  <resultMap id="RecordDto" type="com.zyg.exam.common.VO.RecordVO">
     <id column="recordid" jdbcType="INTEGER" property="recordId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="grade" jdbcType="INTEGER" property="grade" />

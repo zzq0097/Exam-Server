@@ -1,6 +1,7 @@
 package com.zyg.exam.dao;
 
-import com.zyg.exam.common.QuestionDTO;
+import com.zyg.exam.common.DTO.QuestionDTO;
+import com.zyg.exam.common.VO.QuestionVO;
 import com.zyg.exam.model.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public interface QuestionDao {
 
     int updateByPrimaryKey(Question record);
 
-    List<Object> listQuestion();
+    List<List<Object>> selectQuestion(QuestionDTO questionDTO);
 
     List<Object> selectByDifficulty(String difficulty);
 
@@ -32,5 +33,5 @@ public interface QuestionDao {
 
     List<Object> selectByCHapterAndDifficulty(String difficulty,Integer chapterid);
 
-    int insertQuestionDTO(QuestionDTO questionDTO);
+    int insertQuestionDTO(QuestionVO questionVO);
 }

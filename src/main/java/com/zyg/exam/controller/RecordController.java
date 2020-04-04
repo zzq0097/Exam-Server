@@ -1,6 +1,6 @@
 package com.zyg.exam.controller;
 
-import com.zyg.exam.common.ResDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ public class RecordController {
     private RecordService recordService;
 
     @GetMapping("/getRecordList")
-    public ResDTO selectRecord(String name,Integer pageIndex,Integer pageSize,String courseName,String className){
+    public ResVO selectRecord(String name, Integer pageIndex, Integer pageSize, String courseName, String className){
         return recordService.selectRecordByUserName(name, pageIndex, pageSize,courseName,className);
     }
 
