@@ -34,4 +34,8 @@ public interface QuestionDao {
     List<Object> selectByCHapterAndDifficulty(String difficulty,Integer chapterid);
 
     int insertQuestionDTO(QuestionVO questionVO);
+
+    List<Integer> selectByType(String type);
+
+    List<Integer> selectByChapter(String difficulty,Integer chapterid,String type);
 }

@@ -141,4 +141,8 @@
     where paperid=#{paperid,jdbcType=INTEGER})a on question.subjectid=a.questionid)a
     limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
+  <insert id="insertPaperQuestion" parameterType="java.lang.Integer">
+    insert into paper_question (questionid,paperid)
+    values (#{questionid},#{paperid});
+  </insert>
 </mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.StrategyDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Strategy">
+    <id column="strategyid" jdbcType="INTEGER" property="strategyid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="paperid" jdbcType="INTEGER" property="paperid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    strategyid, `type`, `value`, `count`, paperid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from strategy
+    where strategyid = #{strategyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from strategy
+    where strategyid = #{strategyid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="strategyid" keyProperty="strategyid" parameterType="com.zyg.exam.model.Strategy" useGeneratedKeys="true">
+    insert into strategy (`type`, `value`, `count`, 
+      paperid)
+    values (#{type,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{paperid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="strategyid" keyProperty="strategyid" parameterType="com.zyg.exam.model.Strategy" useGeneratedKeys="true">
+    insert into strategy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="value != null">
+        `value`,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="paperid != null">
+        paperid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="paperid != null">
+        #{paperid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Strategy">
+    update strategy
+    <set>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        `value` = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="paperid != null">
+        paperid = #{paperid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where strategyid = #{strategyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyg.exam.model.Strategy">
+    update strategy
+    set `type` = #{type,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER},
+      paperid = #{paperid,jdbcType=INTEGER}
+    where strategyid = #{strategyid,jdbcType=INTEGER}
+  </update>
+</mapper>

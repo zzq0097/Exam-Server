@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StrategyDTO {
-    private Integer type;
+    private String type;
     private Integer count;
     private Integer score;
     private Integer chapterid;
-    private Integer difficulty;
+    private String difficulty;
 }

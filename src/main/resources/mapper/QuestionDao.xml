@@ -244,4 +244,17 @@
       </if>
     </trim>
   </insert>
+  <select id="selectByType" parameterType="string" resultType="integer">
+    select
+    subjectid
+    from question
+    where question.type=#{type,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByChapter" resultType="integer">
+    select
+      subjectid
+    from question
+    where difficulty=#{difficulty,jdbcType=VARCHAR} and chapterid=#{chapterid,jdbcType=INTEGER} and type=#{type,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

@@ -27,4 +27,6 @@ public interface PaperDao {
     List<List<Object>> selectByClass(Map<String,Object> params);
 
     List<List<Object>> selectQuestion(Map<String,Object> params);
+
+    int  insertPaperQuestion(Integer questionid,Integer paperid);
 }
