@@ -18,12 +18,12 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public JsonBean isLogin(String number, String password) {
-        String pass = userDao.login(number);
-        if (pass.equals(password)){
-            return new JsonBean(HttpStatus.OK.value(),"登录成功",null);
+    public JsonBean isLogin(String username, String password) {
+        List<User> user = userDao.login(username,password);
+        if ( user.size() == 1){
+            return new JsonBean(200,"登录成功",user.get(0));
         }else {
-            return new JsonBean(0,"登录失败",null);
+            return new JsonBean(502,"登录失败",null);
         }
     }
 

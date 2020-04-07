@@ -15,7 +15,7 @@ public interface UserDao {
 
     int updateByPrimaryKeySelective(User user);
 
-    String login(String number);
+    List<User> login(String username, String password);
 
     List<List<Object>> selectUser(UserDTO userDTO);
 

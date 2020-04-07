@@ -18,9 +18,9 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public JsonBean login(String number,String password){
-        return userService.isLogin(number,password);
+    @GetMapping("/login")
+    public JsonBean login(String username,String password){
+        return userService.isLogin(username,password);
     }
 
     @PutMapping("/updateUser")
