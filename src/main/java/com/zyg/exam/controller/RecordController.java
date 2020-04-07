@@ -1,10 +1,11 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.CorrectPaperDTO;
+import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecordController {
@@ -21,4 +22,9 @@ public class RecordController {
         return recordService.selectMonitor(recordId);
     }
 
+    @RequestMapping(value = "/correctObjective", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JsonBean correctObjective(@RequestBody CorrectPaperDTO correctPaperDTO){
+        System.out.println(correctPaperDTO);
+        return recordService.correctPaper(correctPaperDTO);
+    }
 }

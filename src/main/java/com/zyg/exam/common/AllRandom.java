@@ -2,6 +2,7 @@ package com.zyg.exam.common;
 
 import com.zyg.exam.dao.PaperDao;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 @Slf4j
-@Service
+
 public class AllRandom  {
 
 @Autowired
 private PaperDao paperDao;
+
+private AllRandom allRandom;
+
+@PostConstruct
+public void init(){
+    allRandom=this;
+    allRandom.paperDao=this.paperDao;
+}
 
 
     public List<Integer> randomQuestion(List<Integer> list,int n){

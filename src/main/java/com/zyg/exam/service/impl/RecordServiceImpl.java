@@ -1,6 +1,10 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.DTO.CorrectPaperDTO;
+import com.zyg.exam.common.DTO.CreditDTO;
+import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import java.util.Map;
 public class RecordServiceImpl implements RecordService {
     @Autowired
     private RecordDao recordDao;
+    @Autowired
+    private AnswerDao answerDao;
     @Override
     public ResVO selectRecordByUserName(String name, Integer pageIndex, Integer pageSize, String courseName, String className) {
         Map<String,Object> params = new HashMap<>();
@@ -42,5 +48,21 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public String selectMonitor(Integer recordId) {
         return recordDao.selectMonitor(recordId);
+    }
+
+    @Override
+    public JsonBean correctPaper( CorrectPaperDTO correctPaperDTO) {
+       List<CreditDTO>  lists = correctPaperDTO.getCreditDTOS();
+        for (CreditDTO creditDTO:lists){
+            answerDao.correctObject(correctPaperDTO.getRecordid(),creditDTO.getQuestionid(),creditDTO.getCredit());
+        }
+        int grade = answerDao.selectObjectiveCredit(correctPaperDTO.getRecordid());
+
+        int num = recordDao.setGrade(correctPaperDTO.getRecordid(),grade);
+        if (num>0){
+            return new JsonBean(200,"批改",null);
+        }else {
+            return new JsonBean(500,"批改失败",null);
+        }
     }
 }

@@ -30,4 +30,6 @@ public interface RecordDao {
     List<List<Object>> selectByClass(Map<String,Object> params);
 
     String selectMonitor(int recordId);
+
+    int setGrade(int recordid,int grade);
 }

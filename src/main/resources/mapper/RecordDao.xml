@@ -112,4 +112,8 @@
     select monitor from record
     where recordid=#{recordId,jdbcType=INTEGER}
   </select>
+  <update id="setGrade">
+    update record set grade=#{grade,jdbcType=INTEGER}
+    where recordid=#{recordid,jdbcType=INTEGER}
+  </update>
 </mapper>

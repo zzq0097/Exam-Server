@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.AnswerDao">
+  <resultMap id="BaseResultMap" type="com.zyg.exam.model.Answer">
+    <result column="recordid" jdbcType="INTEGER" property="recordid" />
+    <result column="questionid" jdbcType="INTEGER" property="questionid" />
+    <result column="answer" jdbcType="VARCHAR" property="answer" />
+    <result column="credit" jdbcType="VARCHAR" property="credit" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zyg.exam.model.Answer">
+    insert into answer (recordid, questionid, answer, 
+      credit)
+    values (#{recordid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyg.exam.model.Answer">
+    insert into answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordid != null">
+        recordid,
+      </if>
+      <if test="questionid != null">
+        questionid,
+      </if>
+      <if test="answer != null">
+        answer,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordid != null">
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null">
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectObjectiveCredit" parameterType="java.lang.Integer" resultType="integer">
+    select sum(credit) from answer join record on answer.recordid=record.recordid
+    where record.recordid=#{recordid}
+  </select>
+  <update id="correctObject">
+    update answer set credit=#{credit,jdbcType=INTEGER} where questionid=#{questionid,jdbcType=INTEGER}
+    and recordid=#{recordid,jdbcType=INTEGER}
+  </update>
+</mapper>

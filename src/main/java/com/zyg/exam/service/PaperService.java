@@ -12,4 +12,6 @@ public interface PaperService {
     ResVO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize);
 
     JsonBean updatePaper(Paper paper);
+
+
 }
