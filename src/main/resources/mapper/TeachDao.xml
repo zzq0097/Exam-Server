@@ -47,11 +47,11 @@
             ,
                  (select classname from(select classid from teach join getclass on teach.teachid = getclass.teachid)a join class on a.classid = class.classid)d
   </select>
-  <delete id="deleteTeach" parameterType="java.lang.Integer">
-    delete
-    from teach where
-    teachid = #{teachid}
-
+  <delete id="deleteTeach">
+    delete from teach where teachid in
+    <foreach collection="array" item="teachid" open="(" separator="," close=")">
+      #{teachid}
+    </foreach>
   </delete>
   <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Teach">
     update teach

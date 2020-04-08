@@ -20,8 +20,8 @@ public class TeachController {
     }
 
     @PostMapping("/deleteTeach")
-    public JsonBean deleteTeach(int teachId){
-        return teachService.deleteTeach(teachId);
+    public JsonBean deleteTeach(int[] ids){
+        return teachService.deleteTeach(ids);
     }
 
     @PostMapping("/insertTeach")

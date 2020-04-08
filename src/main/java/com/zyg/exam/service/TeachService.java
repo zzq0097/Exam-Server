@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public interface TeachService {
     JsonBean listTeachInfo();
 
-    JsonBean deleteTeach(int teachId);
+    JsonBean deleteTeach(int[] teachids);
 
     JsonBean insertTeach(Teach teach);
 

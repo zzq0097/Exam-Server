@@ -16,7 +16,7 @@ public interface TeachDao {
 
     List<TeachInfo> listTeachInfo();
 
-    int deleteTeach(int teachid);
+    int deleteTeach(int[] teachids);
 
     int updateByPrimaryKeySelective(Teach teach);
 }
