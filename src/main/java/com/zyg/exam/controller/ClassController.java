@@ -31,7 +31,7 @@ public class ClassController {
     }
 
     @PostMapping("/deleteClass")
-    public JsonBean deleteClass(int[] classids){
-        return classService.deleteClass(classids);
+    public JsonBean deleteClass(int[] ids){
+        return classService.deleteClass(ids);
     }
 }

@@ -23,8 +23,8 @@ public class QuestionController {
     }
 
     @PostMapping("/deleteQuestion")
-    public JsonBean deleteQuestion(int[] subjectids){
-        return questionService.deleteQuestion(subjectids);
+    public JsonBean deleteQuestion(int[] ids){
+        return questionService.deleteQuestion(ids);
     }
 
     @GetMapping("/selectQuestion")

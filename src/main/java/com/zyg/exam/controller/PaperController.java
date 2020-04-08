@@ -23,8 +23,8 @@ public class PaperController {
     }
 
     @PostMapping("/deletePaper")
-    public JsonBean deletePaper(int[] paperids){
-        return paperService.deletePaper(paperids);
+    public JsonBean deletePaper(int[] ids){
+        return paperService.deletePaper(ids);
     }
 
     @GetMapping("/listQuestion")
@@ -32,7 +32,7 @@ public class PaperController {
         return paperService.selectQuestion(paperId,pageIndex,pageSize);
     }
 
-    @PutMapping("/updateQuestion")
+    @PutMapping("/updatePaper")
     public JsonBean updatePaper(Paper paper){
         return paperService.updatePaper(paper);
     }

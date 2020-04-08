@@ -5,6 +5,7 @@ import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.PaperDao;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Service
 public class PaperServiceImpl implements PaperService {
     @Autowired
@@ -62,6 +63,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public JsonBean updatePaper(Paper paper) {
+        System.out.println(paper);
         int num = paperDao.updateByPrimaryKeySelective(paper);
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"修改成功",null);

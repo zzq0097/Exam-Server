@@ -13,5 +13,5 @@ public interface ClassService {
 
     List<Class> listClass();
 
-    JsonBean deleteClass(int[] classids);
+    JsonBean deleteClass(int[] ids);
 }
