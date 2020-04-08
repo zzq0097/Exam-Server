@@ -17,7 +17,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @PutMapping("/insertQuestion")
+    @PostMapping("/insertQuestion")
     public JsonBean insertQuestion(Question question){
         return questionService.insertQuestion(question);
     }

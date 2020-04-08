@@ -22,7 +22,7 @@ public class CourseController {
         return courseService.listCourse();
     }
 
-    @PutMapping("/insertCourse")
+    @PostMapping("/insertCourse")
     public JsonBean insertCourse(Course course){
         return courseService.insertCourse(course);
     }
