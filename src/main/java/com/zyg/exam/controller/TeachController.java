@@ -19,7 +19,7 @@ public class TeachController {
         return teachService.listTeachInfo();
     }
 
-    @DeleteMapping("/deleteTeach")
+    @PostMapping("/deleteTeach")
     public JsonBean deleteTeach(int teachId){
         return teachService.deleteTeach(teachId);
     }

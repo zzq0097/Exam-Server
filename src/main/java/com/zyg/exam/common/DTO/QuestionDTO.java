@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class QuestionDTO {
     private Integer courseid;
     private Integer chapterid;
-    private Integer difficulty;
+    private String difficulty;
     private String key;
     private Integer pageIndex;
     private Integer pageSize;

@@ -29,6 +29,7 @@ public class QuestionController {
 
     @GetMapping("/selectQuestion")
     public ResVO selectByDifficulty(QuestionDTO questionDTO){
+        System.out.println(questionDTO);
         return questionService.selectQuestion(questionDTO);
     }
 

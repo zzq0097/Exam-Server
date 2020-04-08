@@ -4,6 +4,8 @@ import com.zyg.exam.common.DTO.QuestionDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.VO.QuestionVO;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.dao.ChapterDao;
+import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.exception.MyException;
 import com.zyg.exam.model.Question;
@@ -28,6 +30,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private QuestionDao questionDao;
+    @Autowired
+    private CourseDao courseDao;
+    @Autowired
+    private ChapterDao chapterDao;
 
     @Override
     public JsonBean insertQuestion(Question question) {
@@ -56,7 +62,33 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public ResVO selectQuestion(QuestionDTO questionDTO) {
-        return new ResVO(null,0);
+        List<Object> questions = new ArrayList<>();
+        String difficulty = questionDTO.getDifficulty();
+        Integer chapterid = questionDTO.getChapterid();
+        Integer courseid = questionDTO.getCourseid();
+        String key = questionDTO.getKey();
+
+        if(!difficulty.isEmpty()&&difficulty!=null){
+            System.out.println("只执行难度");
+            questions = questionDao.selectByDifficulty(difficulty);
+        }else if(chapterid!=null){
+            System.out.println("执行chapterid");
+            questions = chapterDao.selectQuestion(chapterid);
+        }else if(courseid!=null){
+            System.out.println("只执行courseid");
+            questions = courseDao.selectQuestion(courseid);
+        }else if(!key.isEmpty()&&key!=null){
+            questions = questionDao.selectByContent(key);
+        }else if(difficulty!=null&&chapterid!=null&&!difficulty.isEmpty()){
+            questions = questionDao.selectByCHapterAndDifficulty(difficulty,chapterid);
+        }else if(difficulty!=null&&courseid!=null&&!difficulty.isEmpty()){
+            questions = questionDao.selectByCourseAndDifficulty(difficulty,courseid);
+        }
+        else {
+            questions = questionDao.listQuestion();
+        }
+        return new ResVO(questions,questions.size());
+
     }
 
     @Override

@@ -38,4 +38,6 @@ public interface QuestionDao {
     List<Integer> selectByType(String type);
 
     List<Integer> selectByChapter(String difficulty,Integer chapterid,String type);
+
+    List<Object>  listQuestion();
 }
