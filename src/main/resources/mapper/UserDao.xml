@@ -106,11 +106,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="login" parameterType="string" resultType="string">
-    select
-      password
-    from user
-    where number = #{number}
+  <select id="login" resultMap="BaseResultMap">
+    select * from user where username = #{username} and password = #{password}
   </select>
   <select id="selectUser" resultMap="UserVO,count">
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
