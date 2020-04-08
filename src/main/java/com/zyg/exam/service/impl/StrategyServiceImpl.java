@@ -76,13 +76,13 @@ public class StrategyServiceImpl implements StrategyService {
             lists.add(fill1);
             lists.add(judge1);
             lists.add(ques1);
-            allRandom.insertPaperQuestion(lists,paper.getPaperid());
-            /*for (int i=0;i<lists.size();i++){
+            //allRandom.insertPaperQuestion(lists,paper.getPaperid());
+            for (int i=0;i<lists.size();i++){
                 for (int n=0;n<lists.get(i).size();n++){
                     System.out.println(lists.get(i).get(n)+"  "+paper.getPaperid());
                     paperDao.insertPaperQuestion(lists.get(i).get(n),paper.getPaperid());
                 }
-            }*/
+            }
         }else if (addPaperDTO.getMode()==2){//部分随机
             List<List<Integer>> lists = new ArrayList<>();
             for (StrategyDTO strategy:addPaperDTO.getStrategyDTOS()) {
