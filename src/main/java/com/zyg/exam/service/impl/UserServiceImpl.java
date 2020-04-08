@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +23,10 @@ public class UserServiceImpl implements UserService {
     public JsonBean isLogin(String username, String password) {
         List<User> user = userDao.login(username,password);
         if ( user.size() == 1){
-            return new JsonBean(200,"登录成功",user.get(0));
+            Map<String,String> map = new HashMap<>();
+            map.put("name",user.get(0).getName());
+            map.put("role",user.get(0).getRole());
+            return new JsonBean(200,"登录成功",map);
         }else {
             return new JsonBean(502,"登录失败",null);
         }
