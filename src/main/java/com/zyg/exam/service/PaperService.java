@@ -7,7 +7,7 @@ import com.zyg.exam.model.Paper;
 public interface PaperService {
     ResVO selectPaper(String courseName, String startTime, String className, Integer pageIndex, Integer pageSize);
 
-    JsonBean deletePaper(Integer paperId);
+    JsonBean deletePaper(int[] paperids);
 
     ResVO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize);
 

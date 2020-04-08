@@ -40,13 +40,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public JsonBean deleteQuestion(int subjectId) {
-        int num = questionDao.deleteByPrimaryKey(subjectId);
-        if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),null,"删除成功");
-        }else {
-            return new JsonBean(500,null,"删除失败");
-        }
+    public JsonBean deleteQuestion(int[] subjectids) {
+        return new JsonBean(200,"删除了"+questionDao.deleteByPrimaryKey(subjectids)+"条数据",null);
     }
 
     @Override
@@ -102,7 +97,7 @@ public class QuestionServiceImpl implements QuestionService {
             String type = row.getCell(0).getStringCellValue();
 
             if(type == null || type.isEmpty()){
-                throw new MyException(500,"导入失败(第"+(r+1)+"行,姓名未填写)");
+                throw new MyException(500,"导入失败(第"+(r+1)+"行,题目类型未填写)");
             }
 
             row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);

@@ -8,6 +8,7 @@ import com.zyg.exam.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,5 +51,18 @@ public class TestController {
     @GetMapping("/getCourse")
     public List<String> selectCourse(int id){
         return userService.selectCourse(id);
+    }
+
+    @PostMapping("/importUser")
+    public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
+        JsonBean jsonBean=new JsonBean();
+        String fileName = file.getOriginalFilename();
+        log.info("{}",fileName);
+        try {
+            jsonBean=userService.batchImport(fileName,file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  jsonBean;
     }
 }

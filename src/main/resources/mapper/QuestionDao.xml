@@ -23,9 +23,11 @@
     from question
     where subjectid = #{subjectid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from question
-    where subjectid = #{subjectid,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey">
+    delete from question where subjectid in
+    <foreach collection="array" item="subjectid" open="(" separator="," close=")">
+      #{subjectid}
+    </foreach>
   </delete>
   <insert id="insert" parameterType="com.zyg.exam.model.Question">
     insert into question (subjectid, `type`, content, 

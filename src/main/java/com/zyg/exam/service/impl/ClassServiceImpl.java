@@ -42,4 +42,9 @@ public class ClassServiceImpl implements ClassService {
     public List<Class> listClass() {
         return classDao.listClass();
     }
+
+    @Override
+    public JsonBean deleteClass(int[] classids) {
+        return new JsonBean(200,"删除了"+classDao.deleteByPrimaryKey(classids)+"条数据",null);
+    }
 }

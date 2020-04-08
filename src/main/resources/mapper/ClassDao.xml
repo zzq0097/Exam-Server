@@ -14,9 +14,11 @@
     from class
     where classid = #{classid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from class
-    where classid = #{classid,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey">
+    delete from class where classid in
+    <foreach collection="array" item="classid" open="(" separator="," close=")">
+      #{classid}
+    </foreach>
   </delete>
   <insert id="insert" keyColumn="classid" keyProperty="classid" parameterType="com.zyg.exam.model.Class" useGeneratedKeys="true">
     insert into class (classname)

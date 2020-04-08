@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 @Repository
 public interface PaperDao {
-    int deleteByPrimaryKey(Integer paperid);
+    int deleteByPrimaryKey(int[] paperids);
 
     int insert(Paper record);
 

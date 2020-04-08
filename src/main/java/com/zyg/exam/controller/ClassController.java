@@ -5,6 +5,7 @@ import com.zyg.exam.model.Class;
 import com.zyg.exam.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,5 +28,10 @@ public class ClassController {
     @GetMapping("/getClassList")
     public List<Class> listClass(){
         return classService.listClass();
+    }
+
+    @PostMapping("/deleteClass")
+    public JsonBean deleteClass(int[] classids){
+        return classService.deleteClass(classids);
     }
 }

@@ -5,11 +5,13 @@ import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.service.CourseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 public class CourseController {
     @Autowired
@@ -30,13 +32,27 @@ public class CourseController {
         return courseService.updateCourse(course);
     }
 
-    @DeleteMapping("/deleteCourse")
-    public JsonBean deleteCourse(int courseid){
-        return courseService.deleteCourse(courseid);
+    @PostMapping("/deleteCourse")
+    public JsonBean deleteCourse(int[] courseids){
+        System.out.println(courseids);
+        return courseService.deleteCourse(courseids);
     }
 
     @GetMapping("/listChapter")
     public ResVO getChapter(ChapterDTO chapterDTO){
         return courseService.selectChapter(chapterDTO);
+    }
+
+    @PostMapping("/importCourse")
+    public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
+        JsonBean jsonBean=new JsonBean();
+        String fileName = file.getOriginalFilename();
+        log.info("{}",fileName);
+        try {
+            jsonBean=courseService.batchImport(fileName,file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  jsonBean;
     }
 }

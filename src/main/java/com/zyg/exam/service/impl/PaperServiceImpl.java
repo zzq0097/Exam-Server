@@ -44,13 +44,8 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public JsonBean deletePaper(Integer paperId) {
-        int num = paperDao.deleteByPrimaryKey(paperId);
-        if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),"删除成功",null);
-        }else {
-            return new JsonBean(500,"删除失败",null);
-        }
+    public JsonBean deletePaper(int[] paperids) {
+        return new JsonBean(200,"删除了"+paperDao.deleteByPrimaryKey(paperids)+"条数据",null);
     }
 
     @Override

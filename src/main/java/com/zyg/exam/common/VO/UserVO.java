@@ -7,6 +7,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO {
+
     private Integer id;
 
     /**

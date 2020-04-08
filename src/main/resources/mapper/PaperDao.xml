@@ -38,9 +38,11 @@
     from paper
     where paperid = #{paperid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from paper
-    where paperid = #{paperid,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey">
+    delete from paper where paperid in
+    <foreach collection="array" item="paperid" open="(" separator="," close=")">
+      #{paperid}
+    </foreach>
   </delete>
   <insert id="insert" keyColumn="paperid" keyProperty="paperid" parameterType="com.zyg.exam.model.Paper" useGeneratedKeys="true">
     insert into paper (starttime, finishtime, pattern, 

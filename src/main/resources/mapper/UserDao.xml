@@ -130,4 +130,53 @@
         (select courseid from teach left join user on teach.teacherid=user.id where user.id=#{id})a
             on course.courseid=a.courseid
   </select>
+  <insert id="importUser"   parameterType="com.zyg.exam.common.VO.UserVO" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="username != null">
+        `username`,
+      </if>
+      <if test="role != null">
+        `role`,
+      </if>
+      <if test="classname != null">
+        class,
+      </if>
+
+        insert_date,
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        (select classid from class where classname=#{classname,jdbcType=VARCHAR}),
+      </if>
+
+        now(),
+
+    </trim>
+  </insert>
 </mapper>

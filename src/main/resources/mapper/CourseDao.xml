@@ -23,9 +23,11 @@
     from course
     where courseid = #{courseid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from course
-    where courseid = #{courseid,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey">
+    delete from course where courseid in
+    <foreach collection="array" item="courseid" open="(" separator="," close=")">
+      #{courseid}
+    </foreach>
   </delete>
   <insert id="insert" keyColumn="courseid" keyProperty="courseid" parameterType="com.zyg.exam.model.Course" useGeneratedKeys="true">
     insert into course (coursename, programleader)
@@ -89,6 +91,25 @@
 
 
   </select>
+  <insert id="importCourse"  parameterType="com.zyg.exam.common.VO.CourseVO" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coursename != null">
+        coursename,
+      </if>
+      <if test="name != null">
+        programleader,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coursename != null">
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        (select id from user where name=#{name,jdbcType=VARCHAR}),
+      </if>
+    </trim>
+  </insert>
 
 
 

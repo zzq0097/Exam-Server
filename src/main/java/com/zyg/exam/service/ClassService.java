@@ -12,4 +12,6 @@ public interface ClassService {
     JsonBean selectTeachInfo(int classid);
 
     List<Class> listClass();
+
+    JsonBean deleteClass(int[] classids);
 }

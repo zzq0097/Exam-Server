@@ -1,6 +1,7 @@
 package com.zyg.exam.dao;
 
 import com.zyg.exam.common.DTO.ChapterDTO;
+import com.zyg.exam.common.VO.CourseVO;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.model.Question;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 @Repository
 public interface CourseDao {
-    int deleteByPrimaryKey(Integer courseid);
+    int deleteByPrimaryKey(int[] courseids);
 
     int insert(Course record);
 
@@ -28,4 +29,6 @@ public interface CourseDao {
     List<List<Object>> selectChapter(ChapterDTO chapterDTO);
 
     List<Object> selectQuestion(Integer courseid);
+
+    int importCourse(CourseVO courseVO);
 }

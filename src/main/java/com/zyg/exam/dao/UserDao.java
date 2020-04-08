@@ -1,6 +1,8 @@
 package com.zyg.exam.dao;
 
+import com.zyg.exam.common.DTO.MultiUserDTO;
 import com.zyg.exam.common.DTO.UserDTO;
+import com.zyg.exam.common.VO.UserVO;
 import com.zyg.exam.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +22,6 @@ public interface UserDao {
     List<List<Object>> selectUser(UserDTO userDTO);
 
     List<String> selectCourse(int id);
+
+    int importUser(UserVO userVO);
 }

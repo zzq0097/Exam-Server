@@ -10,7 +10,7 @@ public interface QuestionService {
 
     JsonBean insertQuestion(Question question);
 
-    JsonBean deleteQuestion(int subjectId);
+    JsonBean deleteQuestion(int[] subjectids);
 
     JsonBean updateQuestion(Question question);
 

@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ClassDao {
-    int deleteByPrimaryKey(Integer classid);
+    int deleteByPrimaryKey(int[] classids);
 
     int insert(Class record);
 

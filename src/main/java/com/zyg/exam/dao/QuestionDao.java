@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface QuestionDao {
-    int deleteByPrimaryKey(Integer subjectid);
+    int deleteByPrimaryKey(int[] subjectids);
 
     int insert(Question record);
 

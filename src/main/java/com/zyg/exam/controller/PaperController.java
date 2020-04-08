@@ -23,8 +23,8 @@ public class PaperController {
     }
 
     @PostMapping("/deletePaper")
-    public JsonBean deletePaper(Integer paperId){
-        return paperService.deletePaper(paperId);
+    public JsonBean deletePaper(int[] paperids){
+        return paperService.deletePaper(paperids);
     }
 
     @GetMapping("/listQuestion")
