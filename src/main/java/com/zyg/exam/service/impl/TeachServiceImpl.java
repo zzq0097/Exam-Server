@@ -26,13 +26,8 @@ public class TeachServiceImpl implements TeachService {
     }
 
     @Override
-    public JsonBean deleteTeach(int teachId) {
-        int num = teachDao.deleteTeach(teachId);
-        if (num>0){
-            return new JsonBean(HttpStatus.OK.value(),"删除成功",null);
-        }else {
-            return new JsonBean(500,"删除失败",null);
-        }
+    public JsonBean deleteTeach(int[] teachids) {
+        return new JsonBean(200,"删除了"+teachDao.deleteTeach(teachids)+"条数据",null);
     }
 
     @Override
