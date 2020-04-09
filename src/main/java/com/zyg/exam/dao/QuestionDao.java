@@ -25,13 +25,13 @@ public interface QuestionDao {
 
     List<List<Object>> selectQuestion(QuestionDTO questionDTO);
 
-    List<Object> selectByDifficulty(String difficulty);
+    List<List<Object>> selectByDifficulty(QuestionDTO questionDTO);
 
-    List<Object> selectByContent(String content);
+    List<List<Object>> selectByContent(QuestionDTO questionDTO);
 
-    List<Object> selectByCourseAndDifficulty(String difficulty,Integer courseid);
+    List<List<Object>> selectByCourseAndDifficulty(QuestionDTO questionDTO);
 
-    List<Object> selectByCHapterAndDifficulty(String difficulty,Integer chapterid);
+    List<List<Object>> selectByCHapterAndDifficulty(QuestionDTO questionDTO);
 
     int insertQuestionDTO(QuestionVO questionVO);
 
@@ -39,5 +39,5 @@ public interface QuestionDao {
 
     List<Integer> selectByChapter(String difficulty,Integer chapterid,String type);
 
-    List<Object>  listQuestion();
+    List<List<Object>>  listQuestion(QuestionDTO questionDTO);
 }

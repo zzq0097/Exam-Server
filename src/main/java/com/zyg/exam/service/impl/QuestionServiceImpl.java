@@ -63,6 +63,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public ResVO selectQuestion(QuestionDTO questionDTO) {
         List<Object> questions = new ArrayList<>();
+        long count;
+        int total=0;
         String difficulty = questionDTO.getDifficulty();
         Integer chapterid = questionDTO.getChapterid();
         Integer courseid = questionDTO.getCourseid();
@@ -70,7 +72,9 @@ public class QuestionServiceImpl implements QuestionService {
 
         if(!difficulty.isEmpty()&&difficulty!=null){
             System.out.println("只执行难度");
-            questions = questionDao.selectByDifficulty(difficulty);
+            questions = questionDao.selectByDifficulty(questionDTO).get(0);
+            count = (long)questionDao.selectByDifficulty(questionDTO).get(1).get(0);
+            total=(int)count;
         }else if(chapterid!=null){
             System.out.println("执行chapterid");
             questions = chapterDao.selectQuestion(chapterid);
@@ -78,16 +82,24 @@ public class QuestionServiceImpl implements QuestionService {
             System.out.println("只执行courseid");
             questions = courseDao.selectQuestion(courseid);
         }else if(!key.isEmpty()&&key!=null){
-            questions = questionDao.selectByContent(key);
+            questions = questionDao.selectByContent(questionDTO).get(0);
+            count = (long)questionDao.selectByContent(questionDTO).get(1).get(0);
+            total=(int)count;
         }else if(difficulty!=null&&chapterid!=null&&!difficulty.isEmpty()){
-            questions = questionDao.selectByCHapterAndDifficulty(difficulty,chapterid);
+            questions = questionDao.selectByCHapterAndDifficulty(questionDTO).get(0);
+            count = (long)questionDao.selectByCHapterAndDifficulty(questionDTO).get(1).get(0);
+            total=(int)count;
         }else if(difficulty!=null&&courseid!=null&&!difficulty.isEmpty()){
-            questions = questionDao.selectByCourseAndDifficulty(difficulty,courseid);
+            questions = questionDao.selectByCourseAndDifficulty(questionDTO).get(0);
+            count = (long)questionDao.selectByCourseAndDifficulty(questionDTO).get(1).get(0);
+            total=(int)count;
         }
         else {
-            questions = questionDao.listQuestion();
+            questions = questionDao.listQuestion(questionDTO).get(0);
+             count=(long)questionDao.listQuestion(questionDTO).get(1).get(0);
+             total=(int)count;
         }
-        return new ResVO(questions,questions.size());
+        return new ResVO(questions,total);
 
     }
 
