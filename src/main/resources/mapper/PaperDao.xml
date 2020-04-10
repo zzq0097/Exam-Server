@@ -14,8 +14,10 @@
     <result column="starttime" jdbcType="TIMESTAMP" property="startTime" />
     <result column="pattern" jdbcType="INTEGER" property="pattern" />
     <result column="ismonitor" jdbcType="VARCHAR" property="isMonitor" />
-    <result column="coursename" jdbcType="INTEGER" property="courseName" />
+    <result column="coursename" jdbcType="VARCHAR" property="courseName" />
     <result column="finishtime" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="classid" jdbcType="INTEGER" property="classid"/>
+    <result column="courseid" jdbcType="INTEGER" property="courseid"/>
   </resultMap>
   <resultMap id="Question1" type="com.zyg.exam.model.Question">
     <id column="subjectid" jdbcType="INTEGER" property="subjectid" />
@@ -121,21 +123,26 @@
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,course.coursename from
     paper join course on paper.courseid=course.courseid
-    <if test="courseName!=null and courseName!=''">
-      where course.coursename=#{courseName,jdbcType=VARCHAR}
+    <if test="courseid!=null and courseid!=''">
+      where course.courseid=#{courseid,jdbcType=INTEGER}
     </if>
-    <if test="startTime!=null and startTime!=''">
-      where paper.starttime=#{startTime,jdbcType=DATE}
-    </if>)a limit #{key_offset},#{pageSize};select found_rows() count;
+    )a limit #{key_offset},#{pageSize};select found_rows() count;
 
   </select>
   <select id="selectByClass" resultMap="PaperDTO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor from paper
-        join(select coursename,a.courseid from course join(select courseid from teach
-            join(select teachid from getclass join class on getclass.classid=class.classid
-            where class.classname=#{className,jdbcType=VARCHAR})a on a.teachid=teach.teachid)a on course.courseid=a.courseid)a
-            on a.courseid=paper.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
+    select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,a.courseid,a.classid from paper
+        join(select coursename,a.courseid,a.classid from course join(select courseid,a.classid from teach
+            join(select teachid,class.classid from getclass join class on getclass.classid=class.classid
+    <if test="classid!=null and classid!=''">
+      where class.classid=#{classid,jdbcType=INTEGER}
+    </if>
+     )a on a.teachid=teach.teachid)a on course.courseid=a.courseid
+    <if test="courseid!=null and courseid!=''">
+            where course.courseid=#{courseid,jdbcType=INTEGER}
+    </if>
+      )a
+     on a.courseid=paper.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
   <select id="selectQuestion" resultMap="Question1,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>

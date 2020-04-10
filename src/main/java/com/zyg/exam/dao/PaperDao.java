@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.zyg.exam.common.DTO.PaperDTO;
 import com.zyg.exam.model.Paper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,9 +23,9 @@ public interface PaperDao {
 
     int updateByPrimaryKey(Paper record);
 
-    List<List<Object>> selectPaper(Map<String,Object> params);
+    List<List<Object>> selectPaper(PaperDTO paperDTO);
 
-    List<List<Object>> selectByClass(Map<String,Object> params);
+    List<List<Object>> selectByClass(PaperDTO paperDTO);
 
     List<List<Object>> selectQuestion(Map<String,Object> params);
 

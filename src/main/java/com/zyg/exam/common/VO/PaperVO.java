@@ -37,4 +37,8 @@ public class PaperVO {
      * 结束时间
      */
     private Date finishTime;
+
+    private Integer courseid;
+
+    private Integer classid;
 }

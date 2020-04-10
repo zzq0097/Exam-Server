@@ -1,5 +1,6 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.PaperDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Paper;
@@ -18,8 +19,8 @@ public class PaperController {
     private PaperService paperService;
 
     @GetMapping("/getPaperList")
-    public ResVO getPaperList(String className, String courseName, String startTime, Integer pageSize, Integer pageIndex){
-        return paperService.selectPaper(courseName,startTime,className,pageIndex,pageSize);
+    public ResVO getPaperList(PaperDTO paperDTO){
+        return paperService.selectPaper(paperDTO);
     }
 
     @PostMapping("/deletePaper")
