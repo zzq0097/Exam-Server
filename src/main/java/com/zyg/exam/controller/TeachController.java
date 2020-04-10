@@ -4,9 +4,7 @@ import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.model.Teach;
 import com.zyg.exam.service.TeachService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,22 +12,22 @@ public class TeachController {
     @Autowired
     private TeachService teachService;
 
-    @GetMapping("/listTeachInfo")
+    @RequestMapping("/selectTeachInfo")
     public JsonBean listTeach(){
         return teachService.listTeachInfo();
     }
 
-    @PostMapping("/deleteTeach")
+    @RequestMapping("/deleteTeachInfo")
     public JsonBean deleteTeach(int[] ids){
         return teachService.deleteTeach(ids);
     }
 
-    @PostMapping("/insertTeach")
+    @RequestMapping("/insertTeachInfo")
     public JsonBean insertTeach(Teach teach){
         return teachService.insertTeach(teach);
     }
 
-    @PostMapping("/updateTeach")
+    @RequestMapping("/updateTeachInfo")
     public JsonBean updateTeach(Teach teach){
         return teachService.updateTeach(teach);
     }
