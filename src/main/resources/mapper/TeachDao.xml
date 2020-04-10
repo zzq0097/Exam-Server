@@ -5,7 +5,16 @@
     <result column="teacherid" jdbcType="INTEGER" property="teacherid" />
     <result column="courseid" jdbcType="INTEGER" property="courseid" />
     <result column="teachid" jdbcType="INTEGER" property="teachid" />
-    <result column="time" jdbcType="VARCHAR" property="time" />
+  </resultMap>
+  <resultMap id="TeachInfoVO" type="com.zyg.exam.common.VO.TeachInfoVO">
+    <result column="teachid" jdbcType="INTEGER" property="id" />
+    <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="teachid" jdbcType="INTEGER" property="id" />
+    <result column="id" jdbcType="INTEGER" property="teacherid"/>
+    <result column="classid" jdbcType="INTEGER" property="classid"/>
+    <result column="coursename" jdbcType="VARCHAR" property="coursename"/>
+    <result column="classname" jdbcType="VARCHAR" property="classname"/>
+    <result column="name" jdbcType="VARCHAR" property="teachername"/>
   </resultMap>
   <insert id="insert" keyColumn="teachid" keyProperty="teachid" parameterType="com.zyg.exam.model.Teach" useGeneratedKeys="true">
     insert into teach (teacherid, courseid, `time`
@@ -38,14 +47,27 @@
       </if>
     </trim>
   </insert>
-  <select id="listTeachInfo" resultType="com.zyg.exam.model.TeachInfo">
-    select * from(select name from teach join user on teach.teacherid = user.userid)a
-            ,
-                 (select coursename from teach join course on teach.courseid = course.courseid)b
-            ,
-                 (select teachid,time from teach)c
-            ,
-                 (select classname from(select classid from teach join getclass on teach.teachid = getclass.teachid)a join class on a.classid = class.classid)d
+  <select id="listTeachInfo" resultMap="TeachInfoVO,count">
+    <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
+    select SQL_CALC_FOUND_ROWS * from
+    (select * from(select name,user.id from teach join user on teach.teacherid = user.id
+    <if test="name!=null and name!= ''">
+    where user.name=#{name,jdbcType=VARCHAR}
+    </if>)a
+    ,
+    (select coursename,course.courseid from teach join course on teach.courseid = course.courseid
+    <if test="courseid!=null and courseid!= ''">
+        where course.courseid=#{courseid,jdbcType=INTEGER}
+        </if>)b
+    ,
+    (select teachid from teach)c
+    ,
+    (select classname,a.classid from(select classid from teach join getclass on teach.teachid = getclass.teachid)a join
+    class on a.classid = class.classid
+    <if test="classid!=null and classid!= ''">
+    where class.classid=#{classid,jdbcType=INTEGER}
+        </if>)d
+    )a limit #{beginIndex}, #{pageSize};select found_rows() count;
   </select>
   <delete id="deleteTeach">
     delete from teach where teachid in

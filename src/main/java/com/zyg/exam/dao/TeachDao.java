@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.model.Teach;
 import com.zyg.exam.model.TeachInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ public interface TeachDao {
 
     int insertSelective(Teach record);
 
-    List<TeachInfo> listTeachInfo();
+    List<List<Object>> listTeachInfo(TeachInfoDTO teachInfoDTO);
 
     int deleteTeach(int[] teachids);
 

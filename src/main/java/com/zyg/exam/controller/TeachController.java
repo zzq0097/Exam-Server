@@ -1,9 +1,12 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Teach;
 import com.zyg.exam.service.TeachService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,9 +15,9 @@ public class TeachController {
     @Autowired
     private TeachService teachService;
 
-    @RequestMapping("/selectTeachInfo")
-    public JsonBean listTeach(){
-        return teachService.listTeachInfo();
+    @GetMapping("/selectTeachInfo")
+    public ResVO listTeach(TeachInfoDTO teachInfoDTO){
+        return teachService.listTeachInfo(teachInfoDTO);
     }
 
     @RequestMapping("/deleteTeachInfo")

@@ -20,10 +20,10 @@ public class ClassController {
         return classService.selectStudentInClass(classId);
     }
 
-    @GetMapping("/selectTeachInfo")
-    public JsonBean selectTeachInfo(int classId){
-        return classService.selectTeachInfo(classId);
-    }
+    //@GetMapping("/selectTeachInfo")
+    //public JsonBean selectTeachInfo(int classId){
+    //    return classService.selectTeachInfo(classId);
+    //}
 
     @GetMapping("/getClassList")
     public List<Class> listClass(){

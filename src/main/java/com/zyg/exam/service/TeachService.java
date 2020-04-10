@@ -1,12 +1,14 @@
 package com.zyg.exam.service;
 
+import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Teach;
 import org.springframework.stereotype.Service;
 
 
 public interface TeachService {
-    JsonBean listTeachInfo();
+    ResVO listTeachInfo(TeachInfoDTO teachInfoDTO);
 
     JsonBean deleteTeach(int[] teachids);
 

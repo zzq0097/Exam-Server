@@ -1,6 +1,8 @@
 package com.zyg.exam.service.impl;
 
+import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.TeachDao;
 import com.zyg.exam.model.Teach;
 import com.zyg.exam.model.TeachInfo;
@@ -16,13 +18,12 @@ public class TeachServiceImpl implements TeachService {
     private TeachDao teachDao;
 
     @Override
-    public JsonBean listTeachInfo() {
-        List<TeachInfo> teachInfos = teachDao.listTeachInfo();
-        if (teachInfos.size()>0){
-            return new JsonBean(HttpStatus.OK.value(),"",teachInfos);
-        }else {
-            return new JsonBean(500,"所查结果为空",null);
-        }
+    public ResVO listTeachInfo(TeachInfoDTO teachInfoDTO) {
+        List<Object> teachInfos = teachDao.listTeachInfo(teachInfoDTO).get(0);
+        long count = (long)teachDao.listTeachInfo(teachInfoDTO).get(1).get(0);
+        int total = (int)count;
+        return new ResVO(teachInfos,total);
+
     }
 
     @Override
