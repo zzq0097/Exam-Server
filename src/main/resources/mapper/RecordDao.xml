@@ -15,6 +15,7 @@
     <result column="starttime" jdbcType="DATE" property="startTime" />
     <result column="coursename" jdbcType="VARCHAR" property="courseName" />
     <result column="classname" jdbcType="VARCHAR" property="className" />
+    <result column="status" jdbcType="VARCHAR" property="status"/>
   </resultMap>
   <sql id="Base_Column_List">
     recordid, studentid, grade, monitor, paperid
@@ -95,7 +96,7 @@
 
   <select id="selectByUserId"  resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select * from(select recordid,grade,user.name from record join user on record.studentid=user.id where record.studentid=(select id from user where name=#{name,jdbcType=VARCHAR}))a
+    select SQL_CALC_FOUND_ROWS * from(select * from(select recordid,grade,user.name,record.status from record join user on record.studentid=user.id where record.studentid=(select id from user where name=#{name,jdbcType=VARCHAR}))a
     ,
    (select DISTINCT course.coursename,a.starttime from course join  (select b.courseid,b.starttime from record c join paper b on c.paperid=b.paperid where c.studentid=(select id from user where name=#{name,jdbcType=VARCHAR}))a
        on a.courseid=course.courseid)b group by a.recordid)a limit #{key_offset},#{pageSize};select found_rows() count;
@@ -103,19 +104,19 @@
 
   <select id="selectByCourse" resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade from class join (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade from user join(select recordid,studentid,a.starttime,a.coursename,grade  from record join (select  paper.courseid,course.coursename,paperid,starttime from paper join course on paper.courseid=course.courseid where course.courseid=#{courseid,jdbcType=INTEGER})a
+    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade,a.status from class join (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade,a.status from user join(select recordid,studentid,a.starttime,a.coursename,grade,record.status  from record join (select  paper.courseid,course.coursename,paperid,starttime from paper join course on paper.courseid=course.courseid where course.courseid=#{courseid,jdbcType=INTEGER})a
      on a.paperid=record.paperid)a on user.id=a.studentid)a on class.classid=a.class)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
 
   <select id="selectByClass" resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.grade,a.recordid,a.name,a.classname,a.starttime,course.coursename from course join (select a.grade,a.recordid,a.name,a.classname,paper.starttime,paper.courseid from paper join (select grade,recordid,paperid,a.name,a.classname from record join (select user.id,user.name,class.classname from user join class on class.classid=user.class where class.classid=#{classid,jdbcType=INTEGER})a on  record.studentid=a.id)a on paper.paperid=a.paperid)a on course.courseid=a.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
+    select SQL_CALC_FOUND_ROWS * from(select a.grade,a.recordid,a.name,a.classname,a.starttime,course.coursename,a.status from course join (select a.grade,a.recordid,a.name,a.classname,paper.starttime,paper.courseid,a.status from paper join (select grade,recordid,paperid,a.name,a.classname,record.status from record join (select user.id,user.name,class.classname from user join class on class.classid=user.class where class.classid=#{classid,jdbcType=INTEGER})a on  record.studentid=a.id)a on paper.paperid=a.paperid)a on course.courseid=a.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
 
   <select id="listRecord" resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade from class join
-        (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade from user join(select recordid,studentid,a.starttime,a.coursename,grade
+    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade,a.status from class join
+        (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade,a.status from user join(select recordid,studentid,a.starttime,a.coursename,grade,record.status
         from record join (select  paper.courseid,course.coursename,paperid,starttime from paper join course on paper.courseid=course.courseid )a
          on a.paperid=record.paperid)a on user.id=a.studentid)a on class.classid=a.class)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>

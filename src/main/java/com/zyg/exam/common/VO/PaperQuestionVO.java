@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 
 // 返回一个集合
 public class PaperQuestionVO {
-    private int type;
+    private String type;
     private String title;
-    private String options;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
     private int score;
     private int stuScore;
     private String answer;

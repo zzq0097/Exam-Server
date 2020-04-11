@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
+import com.zyg.exam.common.DTO.PaperQuestionDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
@@ -27,5 +28,11 @@ public class RecordController {
     public JsonBean correctObjective(@RequestBody CorrectPaperDTO correctPaperDTO){
         System.out.println(correctPaperDTO);
         return recordService.correctPaper(correctPaperDTO);
+    }
+
+    @GetMapping("selectQuestionByRecord")
+    public ResVO selectQuestionByRecord(PaperQuestionDTO paperQuestionDTO){
+        System.out.println(paperQuestionDTO);
+        return recordService.selectQuestionByRecord(paperQuestionDTO);
     }
 }

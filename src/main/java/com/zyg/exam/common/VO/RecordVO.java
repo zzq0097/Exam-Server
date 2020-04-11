@@ -34,4 +34,6 @@ public class RecordVO {
      * 班级
      */
     private String className;
+
+    private String status;
 }

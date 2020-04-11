@@ -2,10 +2,12 @@ package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
 import com.zyg.exam.common.DTO.CreditDTO;
+import com.zyg.exam.common.DTO.PaperQuestionDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.AnswerDao;
+import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class RecordServiceImpl implements RecordService {
     private RecordDao recordDao;
     @Autowired
     private AnswerDao answerDao;
+    @Autowired
+    private QuestionDao questionDao;
     @Override
     public ResVO selectRecordByUserName(RecordDTO recordDTO) {
         System.out.println(recordDTO);
@@ -71,5 +75,13 @@ public class RecordServiceImpl implements RecordService {
         }else {
             return new JsonBean(500,"批改失败",null);
         }
+    }
+
+    @Override
+    public ResVO selectQuestionByRecord(PaperQuestionDTO paperQuestionDTO) {
+        List<Object> questions = questionDao.selectByRecord(paperQuestionDTO).get(0);
+        long count =(long) questionDao.selectByRecord(paperQuestionDTO).get(1).get(0);
+        int total = (int)count;
+        return new ResVO(questions,total);
     }
 }
