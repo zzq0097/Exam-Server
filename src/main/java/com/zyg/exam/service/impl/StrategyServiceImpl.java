@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class StrategyServiceImpl implements StrategyService {
+public class StrategyServiceImpl extends  AllRandom implements StrategyService {
     @Autowired
     private StrategyDao strategyDao;
     @Autowired
@@ -43,7 +43,7 @@ public class StrategyServiceImpl implements StrategyService {
     @Override
     public JsonBean formPaper(AddPaperDTO addPaperDTO) {
         System.out.println(addPaperDTO);
-        AllRandom allRandom = new AllRandom();
+//        AllRandom allRandom = new AllRandom();
         Paper paper = new Paper();
         paper.setCourseid(addPaperDTO.getCourseid());
         paper.setFinishtime(addPaperDTO.getFinishtime());
@@ -66,23 +66,18 @@ public class StrategyServiceImpl implements StrategyService {
 
             //随机后的结果
 
-            List<Integer> selects1= allRandom.randomQuestion(selects,selectNum);
-            List<Integer> fill1 = allRandom.randomQuestion(fills,fillNum);
-            List<Integer> judge1 = allRandom.randomQuestion(judges,judgeNum);
-            List<Integer> ques1 = allRandom.randomQuestion(ques,quesNum);
+            List<Integer> selects1= this.randomQuestion(selects,selectNum);
+            List<Integer> fill1 = this.randomQuestion(fills,fillNum);
+            List<Integer> judge1 = this.randomQuestion(judges,judgeNum);
+            List<Integer> ques1 = this.randomQuestion(ques,quesNum);
 
             List<List<Integer>> lists = new ArrayList<>();
             lists.add(selects1);
             lists.add(fill1);
             lists.add(judge1);
             lists.add(ques1);
-            //allRandom.insertPaperQuestion(lists,paper.getPaperid());
-            for (int i=0;i<lists.size();i++){
-                for (int n=0;n<lists.get(i).size();n++){
-                    System.out.println(lists.get(i).get(n)+"  "+paper.getPaperid());
-                    paperDao.insertPaperQuestion(lists.get(i).get(n),paper.getPaperid());
-                }
-            }
+            this.insertPaperQuestion(lists,paper.getPaperid());
+
         }else if (addPaperDTO.getMode()==2){//部分随机
             List<List<Integer>> lists = new ArrayList<>();
             for (StrategyDTO strategy:addPaperDTO.getStrategyDTOS()) {
@@ -109,18 +104,13 @@ public class StrategyServiceImpl implements StrategyService {
 
 
 
-                List<Integer> question = allRandom.randomQuestion(questionid,strategy.getCount());
+                List<Integer> question = this.randomQuestion(questionid,strategy.getCount());
 
                 lists.add(question);
 
             }
-            //allRandom.insertPaperQuestion(lists,paper.getPaperid());
-            for (int i=0;i<lists.size();i++){
-                for (int n=0;n<lists.get(i).size();n++){
-                    System.out.println(lists.get(i).get(n)+"  "+paper.getPaperid());
-                    paperDao.insertPaperQuestion(lists.get(i).get(n),paper.getPaperid());
-                }
-            }
+            this.insertPaperQuestion(lists,paper.getPaperid());
+
 
         }else if (addPaperDTO.getMode()==3){//手动组卷
             int[] questionids = addPaperDTO.getQuestionids();
