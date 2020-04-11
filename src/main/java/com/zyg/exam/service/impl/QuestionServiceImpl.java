@@ -62,9 +62,27 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public ResVO selectQuestion(QuestionDTO questionDTO) {
-        List<Object> questions = questionDao.selectQuestion(questionDTO).get(0);
-        long count = (long)questionDao.selectQuestion(questionDTO).get(1).get(0);
-        int total = (int)count;
+        Integer courseid=questionDTO.getCourseid();
+        Integer chapterid=questionDTO.getChapterid();
+        String difficulty=questionDTO.getDifficulty();
+        String key=questionDTO.getKey();
+        List<Object> questions = new ArrayList<>();
+        long count;
+        int total=0;
+        if (courseid==null&&chapterid==null&&difficulty==null&&key==null){
+            if (key.isEmpty()) {
+                System.out.println("全查询");
+                questions = questionDao.listQuestion(questionDTO).get(0);
+                count = (long) questionDao.listQuestion(questionDTO).get(1).get(0);
+                total = (int) count;
+            }
+        }else {
+            System.out.println("条件查询");
+            questions = questionDao.selectQuestion(questionDTO).get(0);
+            count = (long)questionDao.selectQuestion(questionDTO).get(1).get(0);
+            total = (int)count;
+        }
+
 
 
 

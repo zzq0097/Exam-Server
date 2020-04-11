@@ -24,7 +24,7 @@
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="difficulty" jdbcType="VARCHAR" property="difficulty" />
     <result column="chaptername" jdbcType="INTEGER" property="chapterName" />
-    <result column="coursename" jdbcType="INTEGER" property="chapterName" />
+    <result column="coursename" jdbcType="INTEGER" property="courseName" />
   </resultMap>
   <sql id="Base_Column_List">
     subjectid, `type`, content, option1, option2, option3, option4, answer, difficulty, 
@@ -173,19 +173,26 @@
     select SQL_CALC_FOUND_ROWS * from(select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename,a.chapterid,a.courseid from
       (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid,chapter.chapterid from question
          left join chapter  on question.chapterid=chapter.chapterid
+
       <if test="chapterid==null or chapterid==''">
-      where
+
+        <if test="courseid==null or courseid==''">
+          where
+        </if>
       </if>
 
       <if test="chapterid!=null and chapterid!=''">
-      where chapter.chapterid=#{chapterid,jdbcType=INTEGER} and
+      where chapter.chapterid=#{chapterid,jdbcType=INTEGER}
+        <if test="difficulty!=null and difficulty!=''">
+          and
+        </if>
       </if>
 
         <if test="difficulty!=null and difficulty!=''">
         question.difficulty=#{difficulty,jdbcType=VARCHAR}
             <if test="key!=null and key!=''">
-                and
-                </if>
+          and
+        </if>
         </if>
 
           <if test="key!=null and key!=''">
@@ -196,6 +203,13 @@
     <if test="courseid!=null and courseid!=''">
     where course.courseid=#{courseid,jdbcType=INTEGER}
     </if>)a limit #{beginIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};select found_rows() count;
+  </select>
+  <select id="listQuestion" resultMap="Question1,count">
+    <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
+    select SQL_CALC_FOUND_ROWS * from(select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename,a.chapterid,a.courseid from
+    (select subjectid,type,content,option1,option2,option3,option4,answer,difficulty,chaptername,courseid,chapter.chapterid from question
+    left join chapter  on question.chapterid=chapter.chapterid )a
+    left join course on course.courseid=a.courseid )a limit #{beginIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};select found_rows() count;
   </select>
 
   <insert id="insertQuestionDTO"  parameterType="com.zyg.exam.common.VO.QuestionVO">

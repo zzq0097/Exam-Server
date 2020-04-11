@@ -25,6 +25,8 @@ public interface QuestionDao {
 
     List<List<Object>> selectQuestion(QuestionDTO questionDTO);
 
+    List<List<Object>> listQuestion(QuestionDTO questionDTO);
+
     int insertQuestionDTO(QuestionVO questionVO);
 
     List<Integer> selectByType(String type);
