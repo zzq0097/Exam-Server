@@ -69,7 +69,7 @@ public class QuestionServiceImpl implements QuestionService {
         List<Object> questions = new ArrayList<>();
         long count;
         int total=0;
-        if (courseid==null&&chapterid==null&&difficulty==null&&key==null){
+        if ((courseid==null&&chapterid==null&&difficulty==null&&key==null)||difficulty.isEmpty()){
             if (key.isEmpty()) {
                 System.out.println("全查询");
                 questions = questionDao.listQuestion(questionDTO).get(0);
