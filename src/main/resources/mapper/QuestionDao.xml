@@ -180,21 +180,18 @@
           where
         </if>
       </if>
-
       <if test="chapterid!=null and chapterid!=''">
       where chapter.chapterid=#{chapterid,jdbcType=INTEGER}
         <if test="difficulty!=null and difficulty!=''">
           and
         </if>
       </if>
-
         <if test="difficulty!=null and difficulty!=''">
         question.difficulty=#{difficulty,jdbcType=VARCHAR}
             <if test="key!=null and key!=''">
           and
         </if>
         </if>
-
           <if test="key!=null and key!=''">
              question.content like CONCAT('%',#{key,jdbcType=VARCHAR},'%')
           </if>
