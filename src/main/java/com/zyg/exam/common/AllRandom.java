@@ -18,13 +18,7 @@ public class AllRandom  {
 @Autowired
 private PaperDao paperDao;
 
-private AllRandom allRandom;
 
-@PostConstruct
-public void init(){
-    allRandom=this;
-    allRandom.paperDao=this.paperDao;
-}
 
 
     public List<Integer> randomQuestion(List<Integer> list,int n){
