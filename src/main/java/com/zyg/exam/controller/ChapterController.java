@@ -33,6 +33,7 @@ public class ChapterController {
 
     @GetMapping("/getChapterList")
     public List<Chapter> getChapterName(Integer courseid){
+        System.out.println("courseid  "+courseid);
         return chapterService.getChapterName(courseid);
     }
 }
