@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class ClassController {
     @GetMapping("/getClassList")
     public List<Class> listClass(){
         return classService.listClass();
+    }
+
+    @GetMapping("/selectClass")
+    public ResVO selectClass(){
+        return classService.selectClass();
     }
 
     @PostMapping("/deleteClass")

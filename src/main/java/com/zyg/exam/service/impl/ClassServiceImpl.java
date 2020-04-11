@@ -1,6 +1,7 @@
 package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.ClassDao;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.model.TeachInfo;
@@ -41,6 +42,12 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Class> listClass() {
         return classDao.listClass();
+    }
+
+    @Override
+    public ResVO selectClass(){
+        List<?> classList = classDao.selectList(null);
+        return new ResVO(classList,classList.size());
     }
 
     @Override

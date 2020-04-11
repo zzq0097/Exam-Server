@@ -20,23 +20,6 @@
       #{classid}
     </foreach>
   </delete>
-  <insert id="insert" keyColumn="classid" keyProperty="classid" parameterType="com.zyg.exam.model.Class" useGeneratedKeys="true">
-    insert into class (classname)
-    values (#{classname,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="classid" keyProperty="classid" parameterType="com.zyg.exam.model.Class" useGeneratedKeys="true">
-    insert into class
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="classname != null">
-        classname,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="classname != null">
-        #{classname,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Class">
     update class
     <set>

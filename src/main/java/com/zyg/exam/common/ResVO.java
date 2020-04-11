@@ -7,6 +7,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResVO {
-    List<Object>  list;
+    List<?> list;
     long pageTotal;
 }

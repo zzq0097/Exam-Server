@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.model.TeachInfo;
 import com.zyg.exam.model.User;
@@ -10,12 +11,8 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface ClassDao {
+public interface ClassDao extends BaseMapper<Class> {
     int deleteByPrimaryKey(int[] classids);
-
-    int insert(Class record);
-
-    int insertSelective(Class record);
 
     Class selectByPrimaryKey(Integer classid);
 
