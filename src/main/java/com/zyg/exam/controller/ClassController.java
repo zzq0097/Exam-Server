@@ -1,5 +1,6 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.PagingQueryDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Class;
@@ -32,8 +33,8 @@ public class ClassController {
     }
 
     @GetMapping("/selectClass")
-    public ResVO selectClass(){
-        return classService.selectClass();
+    public ResVO selectClass(PagingQueryDTO pagingQueryDTO){
+        return classService.selectClass(pagingQueryDTO);
     }
 
     @PostMapping("/deleteClass")

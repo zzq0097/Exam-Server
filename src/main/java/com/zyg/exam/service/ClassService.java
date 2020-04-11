@@ -1,5 +1,6 @@
 package com.zyg.exam.service;
 
+import com.zyg.exam.common.DTO.PagingQueryDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Class;
@@ -16,5 +17,5 @@ public interface ClassService {
 
     JsonBean deleteClass(int[] ids);
 
-    ResVO selectClass();
+    ResVO selectClass(PagingQueryDTO pagingQueryDTO);
 }
