@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
+import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.service.RecordService;
@@ -13,8 +14,8 @@ public class RecordController {
     private RecordService recordService;
 
     @GetMapping("/getRecordList")
-    public ResVO selectRecord(String name, Integer pageIndex, Integer pageSize, String courseName, String className){
-        return recordService.selectRecordByUserName(name, pageIndex, pageSize,courseName,className);
+    public ResVO selectRecord(RecordDTO recordDTO){
+        return recordService.selectRecordByUserName(recordDTO);
     }
 
     @GetMapping("/getMonitor")

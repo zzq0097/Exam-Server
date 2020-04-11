@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.model.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,13 @@ public interface RecordDao {
 
     int updateByPrimaryKey(Record record);
 
-    List<List<Object>> selectByUserId(Map<String,Object> params);
+    List<List<Object>> selectByUserId(RecordDTO recordDTO);
 
-    List<List<Object>> selectByCourse(Map<String,Object> params);
+    List<List<Object>> selectByCourse(RecordDTO recordDTO);
 
-    List<List<Object>> selectByClass(Map<String,Object> params);
+    List<List<Object>> selectByClass(RecordDTO recordDTO);
+
+    List<List<Object>> listRecord(RecordDTO recordDTO);
 
     String selectMonitor(int recordId);
 

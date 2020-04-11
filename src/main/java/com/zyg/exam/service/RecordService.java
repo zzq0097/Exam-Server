@@ -1,6 +1,7 @@
 package com.zyg.exam.service;
 
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
+import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 
 public interface  RecordService {
-    ResVO selectRecordByUserName(String name, Integer pageIndex, Integer pageSize, String courseName, String className);
+    ResVO selectRecordByUserName(RecordDTO recordDTO);
 
     String selectMonitor(Integer recordId);
 
