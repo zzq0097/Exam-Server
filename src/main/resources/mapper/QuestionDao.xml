@@ -306,4 +306,9 @@
             ,
                   (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where a.recordid=b.recordid1
   </select>
+  <select id="selectByPaperid" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.Question">
+    select <include refid="Base_Column_List" />
+        from question join (select questionid from paper_question where paperid=#{paperid})a
+    on question.subjectid=a.questionid
+  </select>
 </mapper>

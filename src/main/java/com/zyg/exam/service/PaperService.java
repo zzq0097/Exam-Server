@@ -14,5 +14,7 @@ public interface PaperService {
 
     JsonBean updatePaper(Paper paper);
 
+    JsonBean selectQuestions(Integer paperid);
+
 
 }

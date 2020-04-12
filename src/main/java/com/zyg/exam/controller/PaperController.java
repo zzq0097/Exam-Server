@@ -37,4 +37,9 @@ public class PaperController {
     public JsonBean updatePaper(Paper paper){
         return paperService.updatePaper(paper);
     }
+
+    @GetMapping("selectQuestionByPaper")
+    public JsonBean listQuestions(Integer paperid){
+        return paperService.selectQuestions(paperid);
+    }
 }

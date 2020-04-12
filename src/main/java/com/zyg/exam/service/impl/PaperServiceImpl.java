@@ -4,6 +4,7 @@ import com.zyg.exam.common.DTO.PaperDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.dao.PaperDao;
+import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperDao paperDao;
+    @Autowired
+    private QuestionDao questionDao;
     @Override
     public ResVO selectPaper(PaperDTO paperDTO) {
         List<Object> papers=paperDao.selectByClass(paperDTO).get(0);
@@ -53,5 +56,11 @@ public class PaperServiceImpl implements PaperService {
         }else {
             return new JsonBean(500,"修改失败",null);
         }
+    }
+
+    @Override
+    public JsonBean selectQuestions(Integer paperid) {
+        List<Object> questions = questionDao.selectByPaperid(paperid);
+        return new JsonBean(200,"",questions);
     }
 }

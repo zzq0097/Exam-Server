@@ -36,5 +36,7 @@ public interface QuestionDao {
 
     List<Object> selectByRecord(int recordid);
 
+    List<Object> selectByPaperid(int paperid);
+
 
 }
