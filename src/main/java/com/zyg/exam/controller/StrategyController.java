@@ -12,7 +12,7 @@ public class StrategyController {
     @Autowired
     private StrategyService strategyService;
 
-    @PostMapping("/insertStrategy")
+    @RequestMapping("/insertStrategy")
     public JsonBean insertStrategy(Strategy strategy){
         return strategyService.insertStrategy(strategy);
     }

@@ -19,17 +19,17 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @RequestMapping("/login")
     public JsonBean login(String username,String password){
         return userService.isLogin(username,password);
     }
 
-    @PutMapping("/updateUser")
+    @RequestMapping("/updateUser")
     public JsonBean updateUser(User user){
         return userService.updateUser(user);
     }
 
-    @PostMapping("/deleteUser")
+    @RequestMapping("/deleteUser")
     public JsonBean deleteUser(int[] ids){
         if (ids.length>0){
             return userService.deleteUser(ids);
@@ -38,22 +38,22 @@ public class TestController {
         }
     }
 
-    @PostMapping("/insertUser")
+    @RequestMapping("/insertUser")
     public JsonBean insertUser(User user){
         return userService.insertUser(user);
     }
 
-    @GetMapping("/selectUser")
+    @RequestMapping("/selectUser")
     public ResVO selectByRole(UserDTO userDTO){
         return userService.selectUser(userDTO);
     }
 
-    @GetMapping("/getCourse")
+    @RequestMapping("/getCourse")
     public List<String> selectCourse(int id){
         return userService.selectCourse(id);
     }
 
-    @PostMapping("/importUser")
+    @RequestMapping("/importUser")
     public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
         JsonBean jsonBean=new JsonBean();
         String fileName = file.getOriginalFilename();

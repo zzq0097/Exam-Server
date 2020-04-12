@@ -17,28 +17,28 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @PostMapping("/insertQuestion")
+    @RequestMapping("/insertQuestion")
     public JsonBean insertQuestion(Question question){
         return questionService.insertQuestion(question);
     }
 
-    @PostMapping("/deleteQuestion")
+    @RequestMapping("/deleteQuestion")
     public JsonBean deleteQuestion(int[] ids){
         return questionService.deleteQuestion(ids);
     }
 
-    @GetMapping("/selectQuestion")
+    @RequestMapping("/selectQuestion")
     public ResVO selectByDifficulty(QuestionDTO questionDTO){
         System.out.println(questionDTO);
         return questionService.selectQuestion(questionDTO);
     }
 
-    @PostMapping("/updateQuestion")
+    @RequestMapping("/updateQuestion")
     public JsonBean updateQuestion(Question question){
         return questionService.updateQuestion(question);
     }
 
-    @PostMapping("/importQuestion")
+    @RequestMapping("/importQuestion")
     public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
         JsonBean jsonBean=new JsonBean();
         String fileName = file.getOriginalFilename();

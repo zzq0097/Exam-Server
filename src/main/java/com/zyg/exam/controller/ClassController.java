@@ -25,7 +25,7 @@ public class ClassController {
     @Autowired
     private ClassDao classDao;
 
-    @GetMapping("/selectStudentInClass")
+    @RequestMapping("/selectStudentInClass")
     public JsonBean selectStudent(int classId){
         return classService.selectStudentInClass(classId);
     }
@@ -35,7 +35,7 @@ public class ClassController {
     //    return classService.selectTeachInfo(classId);
     //}
 
-    @GetMapping("/getClassList")
+    @RequestMapping("/getClassList")
     public List<Class> listClass(){
         return classService.listClass();
     }

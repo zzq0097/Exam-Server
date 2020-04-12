@@ -31,5 +31,9 @@ public class QuestionVO {
 
     private String courseName;
 
+    private Integer chapterid;
+
+    private Integer courseid;
+
 
 }

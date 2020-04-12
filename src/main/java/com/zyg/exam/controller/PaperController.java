@@ -6,11 +6,7 @@ import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -18,27 +14,27 @@ public class PaperController {
     @Autowired
     private PaperService paperService;
 
-    @GetMapping("/getPaperList")
+    @RequestMapping("/getPaperList")
     public ResVO getPaperList(PaperDTO paperDTO){
         return paperService.selectPaper(paperDTO);
     }
 
-    @PostMapping("/deletePaper")
+    @RequestMapping("/deletePaper")
     public JsonBean deletePaper(int[] ids){
         return paperService.deletePaper(ids);
     }
 
-    @GetMapping("/listQuestion")
+    @RequestMapping("/listQuestion")
     public ResVO selectQuestion(Integer paperId, Integer pageIndex, Integer pageSize){
         return paperService.selectQuestion(paperId,pageIndex,pageSize);
     }
 
-    @PutMapping("/updatePaper")
+    @RequestMapping("/updatePaper")
     public JsonBean updatePaper(Paper paper){
         return paperService.updatePaper(paper);
     }
 
-    @GetMapping("selectQuestionByPaper")
+    @RequestMapping("selectQuestionByPaper")
     public JsonBean listQuestions(Integer paperid){
         return paperService.selectQuestions(paperid);
     }

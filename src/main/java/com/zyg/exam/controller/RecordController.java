@@ -14,12 +14,12 @@ public class RecordController {
     @Autowired
     private RecordService recordService;
 
-    @GetMapping("/getRecordList")
+    @RequestMapping("/getRecordList")
     public ResVO selectRecord(RecordDTO recordDTO){
         return recordService.selectRecordByUserName(recordDTO);
     }
 
-    @GetMapping("/getMonitor")
+    @RequestMapping("/getMonitor")
     public String selectMonitor(Integer recordId){
         return recordService.selectMonitor(recordId);
     }
@@ -30,7 +30,7 @@ public class RecordController {
         return recordService.correctPaper(correctPaperDTO);
     }
 
-    @GetMapping("selectQuestionByRecord")
+    @RequestMapping("selectQuestionByRecord")
     public JsonBean selectQuestionByRecord(Integer recordid){
 
         return recordService.selectQuestionByRecord(recordid);

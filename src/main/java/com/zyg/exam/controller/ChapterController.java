@@ -4,10 +4,7 @@ import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,22 +13,22 @@ public class ChapterController {
     @Autowired
     private ChapterService chapterService;
 
-    @DeleteMapping("/deleteChapter")
+    @RequestMapping("/deleteChapter")
     public JsonBean deleteChapter(int chapterId){
         return chapterService.deleteChapter(chapterId);
     }
 
-    @PostMapping("/updateChapter")
+    @RequestMapping("/updateChapter")
     public JsonBean updateChapter(Chapter chapter){
         return chapterService.updateChapter(chapter);
     }
 
-    @PostMapping("/insertChapter")
+    @RequestMapping("/insertChapter")
     public JsonBean insertChapter(Chapter chapter){
         return chapterService.insertChapter(chapter);
     }
 
-    @GetMapping("/getChapterList")
+    @RequestMapping("/getChapterList")
     public List<Chapter> getChapterName(Integer courseid){
         System.out.println("courseid  "+courseid);
         return chapterService.getChapterName(courseid);

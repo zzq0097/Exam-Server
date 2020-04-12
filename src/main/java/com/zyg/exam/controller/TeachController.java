@@ -15,7 +15,7 @@ public class TeachController {
     @Autowired
     private TeachService teachService;
 
-    @GetMapping("/selectTeachInfo")
+    @RequestMapping("/selectTeachInfo")
     public ResVO listTeach(TeachInfoDTO teachInfoDTO){
         return teachService.listTeachInfo(teachInfoDTO);
     }

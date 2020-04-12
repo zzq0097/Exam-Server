@@ -17,33 +17,33 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/getCourseList")
+    @RequestMapping("/getCourseList")
     public List<Course> listCourse(){
         return courseService.listCourse();
     }
 
-    @PostMapping("/insertCourse")
+    @RequestMapping("/insertCourse")
     public JsonBean insertCourse(Course course){
         return courseService.insertCourse(course);
     }
 
-    @PostMapping("/updateCourse")
+    @RequestMapping("/updateCourse")
     public JsonBean updateCourse(Course course){
         return courseService.updateCourse(course);
     }
 
-    @PostMapping("/deleteCourse")
+    @RequestMapping("/deleteCourse")
     public JsonBean deleteCourse(int[] courseids){
         System.out.println(courseids);
         return courseService.deleteCourse(courseids);
     }
 
-    @GetMapping("/listChapter")
+    @RequestMapping("/listChapter")
     public ResVO getChapter(ChapterDTO chapterDTO){
         return courseService.selectChapter(chapterDTO);
     }
 
-    @PostMapping("/importCourse")
+    @RequestMapping("/importCourse")
     public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
         JsonBean jsonBean=new JsonBean();
         String fileName = file.getOriginalFilename();
