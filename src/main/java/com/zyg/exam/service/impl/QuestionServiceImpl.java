@@ -137,13 +137,31 @@ public class QuestionServiceImpl implements QuestionService {
             if(content==null || content.isEmpty()){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,题目内容未填写)");
             }
-            String option1 = row.getCell(2).getStringCellValue();
+            String option1="";
+            String option2="";
+            String option3="";
+            String option4="";
 
-            String option2 = row.getCell(3).getStringCellValue();
 
-            String option3 = row.getCell(4).getStringCellValue();
+                 /*if (row.getCell(2).getStringCellValue()!=null){
+                     option1 = row.getCell(2).getStringCellValue();
+                 }else if (row.getCell(3).getStringCellValue()!=null){
+                     option2 = row.getCell(3).getStringCellValue();
+                 }else if (row.getCell(4).getStringCellValue()!=null){
+                     option3 = row.getCell(4).getStringCellValue();
+                 }else if (row.getCell(5).getStringCellValue()!=null){
+                     option4 = row.getCell(5).getStringCellValue();
+                 }*/
+                 try {
+                   option1=  row.getCell(2).getStringCellValue();
+                   option2=row.getCell(3).getStringCellValue();
+                   option3=row.getCell(4).getStringCellValue();
+                   option4=row.getCell(5).getStringCellValue();
+                 }catch (NullPointerException exception){
+                     exception.printStackTrace();
+                 }
 
-            String option4 = row.getCell(5).getStringCellValue();
+
 
             String answer = row.getCell(6).getStringCellValue();
 
