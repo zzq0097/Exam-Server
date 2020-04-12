@@ -78,10 +78,10 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public ResVO selectQuestionByRecord(PaperQuestionDTO paperQuestionDTO) {
-        List<Object> questions = questionDao.selectByRecord(paperQuestionDTO).get(0);
-        long count =(long) questionDao.selectByRecord(paperQuestionDTO).get(1).get(0);
-        int total = (int)count;
-        return new ResVO(questions,total);
+    public JsonBean selectQuestionByRecord(Integer recordid) {
+        List<Object> questions = questionDao.selectByRecord(recordid);
+
+
+        return new JsonBean(200,"",questions);
     }
 }

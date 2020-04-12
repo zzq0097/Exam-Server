@@ -34,7 +34,7 @@ public interface QuestionDao {
 
     List<Integer> selectByChapter(String difficulty,Integer chapterid,String type);
 
-    List<List<Object>> selectByRecord(PaperQuestionDTO paperQuestionDTO);
+    List<Object> selectByRecord(int recordid);
 
 
 }

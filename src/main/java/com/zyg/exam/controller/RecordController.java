@@ -31,8 +31,8 @@ public class RecordController {
     }
 
     @GetMapping("selectQuestionByRecord")
-    public ResVO selectQuestionByRecord(PaperQuestionDTO paperQuestionDTO){
-        System.out.println(paperQuestionDTO);
-        return recordService.selectQuestionByRecord(paperQuestionDTO);
+    public JsonBean selectQuestionByRecord(Integer recordid){
+
+        return recordService.selectQuestionByRecord(recordid);
     }
 }

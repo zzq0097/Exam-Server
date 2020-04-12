@@ -16,5 +16,5 @@ public interface  RecordService {
 
     JsonBean correctPaper(CorrectPaperDTO correctPaperDTO);
 
-    ResVO selectQuestionByRecord(PaperQuestionDTO paperQuestionDTO);
+    JsonBean selectQuestionByRecord(Integer recordid);
 }

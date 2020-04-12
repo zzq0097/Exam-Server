@@ -300,10 +300,10 @@
     from question
     where difficulty=#{difficulty,jdbcType=VARCHAR} and chapterid=#{chapterid,jdbcType=INTEGER} and type=#{type,jdbcType=VARCHAR}
   </select>
-  <select id="selectByRecord" resultMap="PaperQuestionVO,count">
-    <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select * from (select type,content,option1,option2,option3,option4,question.answer,a.* from question join (select questionid,credit,answer.answer stuanswer,recordid from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)a
+  <select id="selectByRecord" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.VO.PaperQuestionVO">
+
+    select * from (select type,content,option1,option2,option3,option4,question.answer,a.* from question join (select questionid,credit,answer.answer stuanswer,recordid from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)a
             ,
-                  (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where a.recordid=b.recordid1)a limit #{beginIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};select found_rows() count;
+                  (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where a.recordid=b.recordid1
   </select>
 </mapper>
