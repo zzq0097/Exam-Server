@@ -5,7 +5,7 @@
     <result column="recordid" jdbcType="INTEGER" property="recordid" />
     <result column="questionid" jdbcType="INTEGER" property="questionid" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />
-    <result column="credit" jdbcType="VARCHAR" property="credit" />
+    <result column="credit" jdbcType="INTEGER" property="credit" />
   </resultMap>
   <resultMap id="StuAnswer" type="java.lang.String">
     <result column="stuanswer" jdbcType="VARCHAR"/>
