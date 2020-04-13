@@ -24,13 +24,11 @@ public class Paper implements Serializable {
     /**
      * 开始时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date starttime;
 
     /**
      * 结束时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finishtime;
 
     /**

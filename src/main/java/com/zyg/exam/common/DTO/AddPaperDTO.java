@@ -3,6 +3,7 @@ package com.zyg.exam.common.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,9 @@ public class AddPaperDTO {
     private Integer courseid;
     private Integer pattern;
     private String ismonitor;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date starttime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finishtime;
 
     private int[] questionids; // 手动组卷用

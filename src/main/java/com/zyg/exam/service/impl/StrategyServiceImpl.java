@@ -55,10 +55,10 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
 
         //全随机
         if (addPaperDTO.getMode()==1){
-            int selectNum=15;
-            int fillNum=10;
-            int judgeNum=10;
-            int quesNum=4;
+            int selectNum=2;
+            int fillNum=2;
+            int judgeNum=2;
+            int quesNum=2;
             List<Integer> selects = questionDao.selectByType("选择");
             List<Integer> fills = questionDao.selectByType("填空");
             List<Integer> judges = questionDao.selectByType("判断");

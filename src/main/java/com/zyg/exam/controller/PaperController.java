@@ -5,10 +5,11 @@ import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @RestController
 public class PaperController {
     @Autowired
@@ -31,6 +32,7 @@ public class PaperController {
 
     @RequestMapping("/updatePaper")
     public JsonBean updatePaper(Paper paper){
+        log.info("{}",paper);
         return paperService.updatePaper(paper);
     }
 
