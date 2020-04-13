@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zyg.exam.model.Course">
     <id column="courseid" jdbcType="INTEGER" property="courseid" />
     <result column="coursename" jdbcType="VARCHAR" property="coursename" />
-    <result column="programleader" jdbcType="VARCHAR" property="programleader" />
+    <result column="programleader" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <resultMap id="ChapterMap" type="com.zyg.exam.common.VO.ChapterVO">
     <id column="chapterid" jdbcType="INTEGER" property="chapterid" />

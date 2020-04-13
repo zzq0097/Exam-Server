@@ -13,4 +13,6 @@ public class RecordDTO {
     private String name;
     private Integer pageIndex;
     private Integer pageSize;
+    private String status;
+
 }

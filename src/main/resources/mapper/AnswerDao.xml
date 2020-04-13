@@ -7,6 +7,12 @@
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="credit" jdbcType="VARCHAR" property="credit" />
   </resultMap>
+  <resultMap id="StuAnswer" type="java.lang.String">
+    <result column="stuanswer" jdbcType="VARCHAR"/>
+  </resultMap>
+  <resultMap id="Answer" type="java.lang.String">
+    <result column="answer" jdbcType="VARCHAR"/>
+  </resultMap>
   <insert id="insert" parameterType="com.zyg.exam.model.Answer">
     insert into answer (recordid, questionid, answer, 
       credit)
@@ -52,4 +58,11 @@
     update answer set credit=#{credit,jdbcType=INTEGER} where questionid=#{questionid,jdbcType=INTEGER}
     and recordid=#{recordid,jdbcType=INTEGER}
   </update>
+  <select id="correctSubject" resultMap="StuAnswer,Answer" resultType="java.util.List">
+    select answer.answer stuanswer from answer where recordid=#{recordid,jdbcType=INTEGER};
+    select answer from question join (select questionid from answer where recordid=#{recordid,jdbcType=INTEGER})a on question.subjectid=a.questionid;
+  </select>
+  <select id="selectValue" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select value from strategy join (select paperid from record where recordid=#{recordid,jdbcType=INTEGER})a on a.paperid=strategy.paperid where strategy.type='选择'
+  </select>
 </mapper>
