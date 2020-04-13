@@ -20,4 +20,5 @@ public class PaperQuestionVO {
     private int stuScore;
     private String answer;
     private String stuAnswer;
+    private Integer questionid;
 }

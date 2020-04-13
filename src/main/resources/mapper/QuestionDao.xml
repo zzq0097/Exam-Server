@@ -39,6 +39,7 @@
     <result column="credit" jdbcType="INTEGER" property="stuScore"/>
     <result column="value" jdbcType="INTEGER" property="score"/>
     <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="questionid" jdbcType="INTEGER" property="questionid"/>
   </resultMap>
   <sql id="Base_Column_List">
     subjectid, `type`, content, option1, option2, option3, option4, answer, difficulty, 
@@ -304,9 +305,9 @@
   </select>
   <select id="selectByRecord" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.VO.PaperQuestionVO">
 
-    select * from (select type,content,option1,option2,option3,option4,question.answer,a.* from question join (select questionid,credit,answer.answer stuanswer,recordid from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)a
+    select * from (select type,content,option1,option2,option3,option4,question.answer,a.questionid,a.credit,a.stuanswer,a.recordid from question join (select questionid,credit,answer.answer stuanswer,recordid from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)c
             ,
-                  (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where a.recordid=b.recordid1
+                  (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where c.recordid=b.recordid1 GROUP BY c.questionid
   </select>
   <select id="selectByPaperid" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.Question">
     select <include refid="Base_Column_List" />
