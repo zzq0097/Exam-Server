@@ -1,7 +1,9 @@
 package com.zyg.exam.model;
 
 import ch.qos.logback.core.joran.spi.NoAutoStart;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.io.Serializable;
  * record
  * @author 
  */
+@Builder
 @Data
 @AllArgsConstructor
 @NoAutoStart
@@ -17,6 +20,7 @@ public class Record implements Serializable {
     /**
      * 考试记录id
      */
+    @TableId
     private Integer recordid;
 
     /**

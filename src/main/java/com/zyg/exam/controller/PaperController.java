@@ -3,6 +3,7 @@ package com.zyg.exam.controller;
 import com.zyg.exam.common.DTO.PaperDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.dao.PaperDao;
 import com.zyg.exam.model.Paper;
 import com.zyg.exam.service.PaperService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class PaperController {
     @Autowired
     private PaperService paperService;
+    @Autowired
+    private PaperDao paperDao;
+
+    @RequestMapping("/paperCount")
+    public int count(){
+        return paperDao.selectCount(null);
+    }
 
     @RequestMapping("/getPaperList")
     public ResVO getPaperList(PaperDTO paperDTO){

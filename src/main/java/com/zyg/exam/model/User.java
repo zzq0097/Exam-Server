@@ -1,5 +1,6 @@
 package com.zyg.exam.model;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class User implements Serializable {
     /**
      * 教师id
      */
+    @TableId
     private Integer id;
 
     /**

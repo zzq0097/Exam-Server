@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.PaperDTO;
 import com.zyg.exam.model.Paper;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface PaperDao {
+public interface PaperDao extends BaseMapper<Paper> {
     int deleteByPrimaryKey(int[] paperids);
 
     int insert(Paper record);

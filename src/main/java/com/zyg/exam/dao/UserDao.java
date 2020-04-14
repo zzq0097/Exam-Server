@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.MultiUserDTO;
 import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.VO.UserVO;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserDao {
+public interface UserDao extends BaseMapper<User> {
 
     int deleteByPrimaryKey(int[] ids);
 

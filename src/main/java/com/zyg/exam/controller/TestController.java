@@ -3,6 +3,7 @@ package com.zyg.exam.controller;
 import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.dao.UserDao;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,13 @@ public class TestController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserDao userDao;
+
+    @RequestMapping("/userCount")
+    public int count(){
+        return userDao.selectCount(null);
+    }
 
     @RequestMapping("/login")
     public JsonBean login(String username,String password){

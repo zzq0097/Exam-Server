@@ -5,6 +5,7 @@ import com.zyg.exam.common.DTO.PaperQuestionDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class RecordController {
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private RecordDao recordDao;
+
+    @RequestMapping("/recordCount")
+    public int count(){
+        return recordDao.selectCount(null);
+    }
 
     @RequestMapping("/getRecordList")
     public ResVO selectRecord(RecordDTO recordDTO){

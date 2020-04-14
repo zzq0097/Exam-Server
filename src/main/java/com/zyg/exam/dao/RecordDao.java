@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.model.Record;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface RecordDao {
+public interface RecordDao extends BaseMapper<Record> {
     int deleteByPrimaryKey(Integer recordid);
 
     int insert(Record record);
