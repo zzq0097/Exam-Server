@@ -36,4 +36,6 @@ public class RecordVO {
     private String className;
 
     private String status;
+
+    private String monitor;
 }
