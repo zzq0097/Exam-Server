@@ -20,7 +20,7 @@ public class FileController {
 
     String path = "D:/";
 
-    @RequestMapping()
+    @RequestMapping("/uploadVideo")
     public int VideoFile(MultipartFile file,Integer recordid){
         try {
             String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
@@ -51,7 +51,7 @@ public class FileController {
         return 0;
     }
 
-    @RequestMapping()
+    @RequestMapping("/uploadFiles")
     public int AnswerFile(MultipartFile file,Integer recordid,Integer questionid) {
 
 
