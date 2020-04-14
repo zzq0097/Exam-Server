@@ -46,49 +46,6 @@
       #{paperid}
     </foreach>
   </delete>
-  <insert id="insert" keyColumn="paperid" keyProperty="paperid" parameterType="com.zyg.exam.model.Paper" useGeneratedKeys="true">
-    insert into paper (starttime, finishtime, pattern, 
-      ismonitor, courseid)
-    values (#{starttime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=TIMESTAMP}, #{pattern,jdbcType=INTEGER}, 
-      #{ismonitor,jdbcType=VARCHAR}, #{courseid,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" keyColumn="paperid" keyProperty="paperid" parameterType="com.zyg.exam.model.Paper" useGeneratedKeys="true">
-    insert into paper
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="starttime != null">
-        starttime,
-      </if>
-      <if test="finishtime != null">
-        finishtime,
-      </if>
-      <if test="pattern != null">
-        pattern,
-      </if>
-      <if test="ismonitor != null">
-        ismonitor,
-      </if>
-      <if test="courseid != null">
-        courseid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="starttime != null">
-        #{starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="finishtime != null">
-        #{finishtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="pattern != null">
-        #{pattern,jdbcType=INTEGER},
-      </if>
-      <if test="ismonitor != null">
-        #{ismonitor,jdbcType=VARCHAR},
-      </if>
-      <if test="courseid != null">
-        #{courseid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Paper">
     update paper
     <set>

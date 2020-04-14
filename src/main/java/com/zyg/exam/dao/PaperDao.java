@@ -14,10 +14,6 @@ import java.util.Map;
 public interface PaperDao extends BaseMapper<Paper> {
     int deleteByPrimaryKey(int[] paperids);
 
-    int insert(Paper record);
-
-    int insertSelective(Paper record);
-
     Paper selectByPrimaryKey(Integer paperid);
 
     int updateByPrimaryKeySelective(Paper record);

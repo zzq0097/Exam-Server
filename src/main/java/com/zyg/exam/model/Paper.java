@@ -1,7 +1,9 @@
 package com.zyg.exam.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +15,7 @@ import java.util.Date;
  * paper
  * @author 
  */
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +23,7 @@ public class Paper implements Serializable {
     /**
      * 试卷id
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer paperid;
 
     /**

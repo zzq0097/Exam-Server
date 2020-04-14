@@ -44,14 +44,14 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
     public JsonBean formPaper(AddPaperDTO addPaperDTO) {
         System.out.println(addPaperDTO);
 //        AllRandom allRandom = new AllRandom();
-        Paper paper = new Paper();
-        paper.setCourseid(addPaperDTO.getCourseid());
-        paper.setFinishtime(addPaperDTO.getFinishtime());
-        paper.setIsmonitor(addPaperDTO.getIsmonitor());
-        paper.setPattern(addPaperDTO.getPattern());
-        paper.setStarttime(addPaperDTO.getStarttime());
-
-        int num = paperDao.insertSelective(paper);
+        Paper paper = Paper.builder().
+                courseid(addPaperDTO.getCourseid()).
+                finishtime(addPaperDTO.getFinishtime()).
+                starttime(addPaperDTO.getStarttime()).
+                pattern(addPaperDTO.getPattern()).
+                ismonitor(addPaperDTO.getIsmonitor()).
+                build();
+        int num = paperDao.insert(paper);
 
         //全随机
         if (addPaperDTO.getMode()==1){

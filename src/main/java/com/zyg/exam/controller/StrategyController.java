@@ -19,8 +19,9 @@ public class StrategyController {
         return strategyService.insertStrategy(strategy);
     }
 
-    @RequestMapping(value = "/formPaper", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public JsonBean formPaper(@RequestBody AddPaperDTO addPaperDTO){
+//    @RequestMapping(value = "/formPaper", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/formPaper", method = RequestMethod.POST)
+    public JsonBean formPaper(AddPaperDTO addPaperDTO){
         log.info("{}",addPaperDTO);
         return strategyService.formPaper(addPaperDTO);
     }
