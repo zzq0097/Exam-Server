@@ -32,13 +32,14 @@ public class StudentController {
     @RequestMapping("/selectStudent")
     public ResVO selectStudent(StudentDTO studentDTO){
         Page<Student> page = new Page<>(studentDTO.getPageIndex(),studentDTO.getPageSize());
+        QueryWrapper<Student> queryWrapper = null;
         if (studentDTO.getClassid() != null){
-            QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
+            queryWrapper = new QueryWrapper<>();
             Map<String, Integer> map = new HashMap<>();
             map.put("classid",studentDTO.getClassid());
             queryWrapper.allEq(map);
         }
-        IPage<Student> list = studentService.page(page,null);
+        IPage<Student> list = studentService.page(page,queryWrapper);
         return new ResVO(list.getRecords(),list.getTotal());
     }
 }
