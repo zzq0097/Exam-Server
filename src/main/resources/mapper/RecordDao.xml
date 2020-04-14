@@ -114,7 +114,7 @@
 
   <select id="selectByClass" resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.grade,a.recordid,a.name,a.classname,a.starttime,course.coursename,a.status,record.monitor from course join (select a.grade,a.recordid,a.name,a.classname,paper.starttime,paper.courseid,a.status,record.monitor from paper join (select grade,recordid,paperid,a.name,a.classname,record.status,record.monitor from record join (select user.id,user.name,class.classname from user join class on class.classid=user.class where class.classid=#{classid,jdbcType=INTEGER})a on
+    select SQL_CALC_FOUND_ROWS * from(select a.grade,a.recordid,a.name,a.classname,a.starttime,course.coursename,a.status,a.monitor from course join (select a.grade,a.recordid,a.name,a.classname,paper.starttime,paper.courseid,a.status,a.monitor from paper join (select grade,recordid,paperid,a.name,a.classname,record.status,record.monitor from record join (select user.id,user.name,class.classname from user join class on class.classid=user.class where class.classid=#{classid,jdbcType=INTEGER})a on
         record.studentid=a.id<if test="status!=null and status!=''">
     where record.status=#{status,jdbcType=VARCHAR}
   </if>)a on paper.paperid=a.paperid)a on course.courseid=a.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
@@ -122,8 +122,8 @@
 
   <select id="listRecord" resultMap="RecordVO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade,a.status,record.monitor from class join
-        (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade,a.status,record.monitor from user join(select recordid,studentid,a.starttime,a.coursename,grade,record.status,record.monitor
+    select SQL_CALC_FOUND_ROWS * from(select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade,a.status,a.monitor from class join
+        (select a.recordid,a.starttime,a.coursename,user.name,user.class,a.grade,a.status,a.monitor from user join(select recordid,studentid,a.starttime,a.coursename,grade,record.status,record.monitor
         from record join (select  paper.courseid,course.coursename,paperid,starttime from paper join course on paper.courseid=course.courseid )a
          on a.paperid=record.paperid
         <if test="status!=null and status!=''">
