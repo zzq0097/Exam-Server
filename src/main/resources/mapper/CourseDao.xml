@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zyg.exam.model.Course">
     <id column="courseid" jdbcType="INTEGER" property="courseid" />
     <result column="coursename" jdbcType="VARCHAR" property="coursename" />
-    <result column="programleader" jdbcType="VARCHAR" property="name" />
+    <result column="teacherid" jdbcType="VARCHAR" property="teacherid" />
   </resultMap>
   <resultMap id="ChapterMap" type="com.zyg.exam.common.VO.ChapterVO">
     <id column="chapterid" jdbcType="INTEGER" property="chapterid" />
@@ -15,7 +15,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    courseid, coursename, programleader
+    courseid, coursename, teacherid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,8 +30,8 @@
     </foreach>
   </delete>
   <insert id="insert" keyColumn="courseid" keyProperty="courseid" parameterType="com.zyg.exam.model.Course" useGeneratedKeys="true">
-    insert into course (coursename, programleader)
-    values (#{coursename,jdbcType=VARCHAR}, #{programleader,jdbcType=VARCHAR})
+    insert into course (coursename, teacherid)
+    values (#{coursename,jdbcType=VARCHAR}, #{teacherid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="courseid" keyProperty="courseid" parameterType="com.zyg.exam.model.Course" useGeneratedKeys="true">
     insert into course
@@ -39,16 +39,16 @@
       <if test="coursename != null">
         coursename,
       </if>
-      <if test="programleader != null">
-        programleader,
+      <if test="teacherid != null">
+       teacherid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="coursename != null">
         #{coursename,jdbcType=VARCHAR},
       </if>
-      <if test="programleader != null">
-        #{programleader,jdbcType=VARCHAR},
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -58,8 +58,8 @@
       <if test="coursename != null">
         coursename = #{coursename,jdbcType=VARCHAR},
       </if>
-      <if test="programleader != null">
-        programleader = #{programleader,jdbcType=VARCHAR},
+      <if test="teacherid != null">
+        teacherid = #{teacherid,jdbcType=VARCHAR},
       </if>
     </set>
     where courseid = #{courseid,jdbcType=INTEGER}
@@ -67,7 +67,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zyg.exam.model.Course">
     update course
     set coursename = #{coursename,jdbcType=VARCHAR},
-      programleader = #{programleader,jdbcType=VARCHAR}
+      teacherid = #{teacherid,jdbcType=VARCHAR}
     where courseid = #{courseid,jdbcType=INTEGER}
   </update>
   <select id="listCourse" resultType="com.zyg.exam.model.Course">
@@ -98,7 +98,7 @@
         coursename,
       </if>
       <if test="name != null">
-        programleader,
+        (select teacherid from teacher where name=#{name,jdbcType=VARCHAR}),
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">

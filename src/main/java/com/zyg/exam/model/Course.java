@@ -29,7 +29,7 @@ public class Course implements Serializable {
     /**
      * 课程负责人
      */
-    private String name;
+    private String teacherid;
 
 
 }
