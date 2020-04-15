@@ -27,11 +27,12 @@
         select SQL_CALC_FOUND_ROWS * from(
         select id,username,password,name,tel,role,class.classid,class.classname
         from user join class on user.classid=class.classid
+        where user.role = 3
         <if test="classid!=null and classid!=''">
-        where class.classid=#{classid,jdbcType=INTEGER}
+        and class.classid=#{classid,jdbcType=INTEGER}
         </if>
         <if test="name!=null and name!=''">
-        where user.name=#{name,jdbcType=VARCHAR}
+        and user.name=#{name,jdbcType=VARCHAR}
         </if>
         )a limit #{beginIndex},#{pageSize};select found_rows() count;
     </select>

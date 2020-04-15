@@ -76,6 +76,9 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         map.put("role",1);
+        if (StringUtils.isNotBlank(adminDTO.getName())){
+            map.put("name",adminDTO.getName());
+        }
         queryWrapper.allEq(map);
         IPage<User> list = userService.page(page,queryWrapper);
         return new ResVO(list.getRecords(),list.getTotal());
