@@ -14,9 +14,9 @@
     <result column="name" jdbcType="VARCHAR" property="teachername"/>
   </resultMap>
   <insert id="insert" keyColumn="teachid" keyProperty="teachid" parameterType="com.zyg.exam.model.Teach" useGeneratedKeys="true">
-    insert into teach (teacherid, courseid, `time`
+    insert into teach (teacherid, courseid
       )
-    values (#{teacherid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}
+    values (#{teacherid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" keyColumn="teachid" keyProperty="teachid" parameterType="com.zyg.exam.model.Teach" useGeneratedKeys="true">
@@ -28,9 +28,6 @@
       <if test="courseid != null">
         courseid,
       </if>
-      <if test="time != null">
-        `time`,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="teacherid != null">
@@ -38,9 +35,6 @@
       </if>
       <if test="courseid != null">
         #{courseid,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -59,9 +53,6 @@
       </if>
       <if test="courseid != null">
         `courseid` = #{courseid},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=VARCHAR},
       </if>
     </set>
     where teachid = #{teachid,jdbcType=INTEGER}

@@ -6,7 +6,6 @@ import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Teach;
 import com.zyg.exam.service.TeachService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

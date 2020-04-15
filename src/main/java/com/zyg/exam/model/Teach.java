@@ -31,11 +31,6 @@ public class Teach implements Serializable {
      */
     private Integer teachid;
 
-    /**
-     * 授课时间
-     */
-    private String time;
-
     private static final long serialVersionUID = 1L;
 
 

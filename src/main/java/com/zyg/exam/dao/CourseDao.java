@@ -1,5 +1,6 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.VO.CourseVO;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface CourseDao {
+public interface CourseDao extends BaseMapper<Course> {
     int deleteByPrimaryKey(int[] courseids);
 
     int insert(Course record);

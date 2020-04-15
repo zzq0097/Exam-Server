@@ -21,8 +21,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
-@Autowired
-private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
     @Override
     public ResVO selectStudent(StudentDTO studentDTO) {
         List<Object> students = userDao.selectStudent(studentDTO).get(0);
