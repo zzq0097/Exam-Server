@@ -9,7 +9,6 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="class" jdbcType="INTEGER" property="classid" />
-    <result column="insert_date" jdbcType="DATE" property="insert_date"/>
   </resultMap>
   <resultMap id="UserVO" type="com.zyg.exam.common.VO.UserVO">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -19,13 +18,12 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="classname" jdbcType="VARCHAR" property="classname" />
-    <result column="insert_date" jdbcType="DATE" property="insert_date"/>
   </resultMap>
   <resultMap id="count" type="java.lang.Long">
     <result column="count" jdbcType="BIGINT"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `password`, tel, `username`, `role`, class,`insert_date`
+    id, `name`, `password`, tel, `username`, `role`, class
   </sql>
   <delete id="deleteByPrimaryKey">
     delete from user where id in
@@ -54,9 +52,6 @@
       <if test="classid != null">
         class,
       </if>
-      <if test="insert_date != null">
-        insert_date,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -76,9 +71,6 @@
       </if>
       <if test="classid != null">
         #{classid,jdbcType=VARCHAR},
-      </if>
-      <if test="insert_date != null">
-        #{insert_date,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -112,7 +104,7 @@
   <select id="selectUser" resultMap="UserVO,count">
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from
-    (select id,name,password,username,tel,role,class,insert_date,classname from user left join class on class.classid=user.class)a
+    (select id,name,password,username,tel,role,class,classname from user left join class on class.classid=user.class)a
     <if test="name!=null and name!= ''">
       where name = #{name}
     </if>
@@ -151,8 +143,6 @@
       <if test="classname != null">
         class,
       </if>
-
-        insert_date,
 
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
