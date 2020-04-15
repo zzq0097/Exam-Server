@@ -68,18 +68,15 @@
   </update>
   <select id="selectTeachInfo" resultMap="TeachInfoVO,count">
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select class.classname,class.classid,a.teachid,a.id,a.name from class join
-        (select classid,a.teachid,a.id,a.name from getclass join (select teachid,user.id,user.name from teach join user on teach.teacherid=user.id
-            <if test="name!=null and name!=''">
-              where user.name=#{name,jdbcType=INTEGER}
-            </if>
-            <if test="courseid!=null and courseid!=''">
-              where teachid in (select teachid from teach where courseid =#{courseid,jdbcType=INTEGER})
-            </if>)a
-            on getclass.teachid=a.teachid)a
-             on class.classid=a.classid
-            <if test="classid!=null and classid!=''">
-              where class.classid=#{classid,jdbcType=INTEGER}
-            </if>)a limit #{beginIndex},#{pageSize};select found_rows() count;
+    select SQL_CALC_FOUND_ROWS * from(select a.teachid,a.id,a.name,a.courseid,course.coursename from course join
+    (select teachid,user.id,user.name,courseid from teach join user
+        on teach.teacherid=user.id
+        <if test="name!=null and name!=''">
+            where user.name=#{name,jdbcType=VARCHAR}
+        </if>)a on course.courseid=a.courseid
+        <if test="courseid!=null and courseid!=''">
+            where course.courseid=#{courseid,jdbcType=INTEGER}
+        </if>
+        )a limit #{beginIndex},#{pageSize};select found_rows() count;
   </select>
 </mapper>

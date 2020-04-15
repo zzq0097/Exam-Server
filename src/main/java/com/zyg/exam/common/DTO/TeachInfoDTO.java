@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TeachInfoDTO {
     private Integer courseid;
-    private Integer classid;
+
     private String name;
     private Integer pageIndex;
     private Integer pageSize;
