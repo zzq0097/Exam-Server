@@ -1,6 +1,7 @@
 package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.DTO.ChapterDTO;
+import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.CourseVO;
@@ -31,8 +32,10 @@ public class CourseServiceImpl implements CourseService {
     private CourseDao courseDao;
 
     @Override
-    public List<Course> listCourse() {
-        return courseDao.listCourse();
+    public ResVO listCourse(CourseDTO courseDTO) {
+        List<Object> courses = courseDao.listCourse(courseDTO).get(0);
+        int total = (int)courseDao.listCourse(courseDTO).get(1).get(0);
+        return new ResVO(courses,total);
     }
 
     @Override

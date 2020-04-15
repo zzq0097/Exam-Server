@@ -1,6 +1,7 @@
 package com.zyg.exam.dao;
 
 import com.zyg.exam.common.DTO.ChapterDTO;
+import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.VO.CourseVO;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.model.Course;
@@ -24,7 +25,7 @@ public interface CourseDao {
 
     int updateByPrimaryKey(Course record);
 
-    List<Course> listCourse();
+    List<List<Object>> listCourse(CourseDTO courseDTO);
 
     List<List<Object>> selectChapter(ChapterDTO chapterDTO);
 

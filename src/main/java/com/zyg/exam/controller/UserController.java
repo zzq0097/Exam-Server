@@ -35,6 +35,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @RequestMapping("/login")
     public JsonBean login(String username, String password){
         Map<String, Object> map = new HashMap<>();
@@ -53,17 +54,8 @@ public class UserController {
 
     @RequestMapping("/selectStudent")
     public ResVO selectStudent(StudentDTO studentDTO){
-//        Page<User> page = new Page<>(studentDTO.getPageIndex(),studentDTO.getPageSize());
-//        Map<String, Object> map = new HashMap<>();
-//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-//        map.put("role",3);
-//        if (studentDTO.getClassid() != null){
-//            map.put("classid",studentDTO.getClassid());
-//        }
-//        queryWrapper.allEq(map);
-//        IPage<User> list = userService.page(page,queryWrapper);
-//        return new ResVO(list.getRecords(),list.getTotal());
-        return new ResVO();
+
+        return userService.selectStudent(studentDTO);
     }
     @RequestMapping("/selectTeacher")
     public ResVO selectTeacher(TeacherDTO teacherDTO){

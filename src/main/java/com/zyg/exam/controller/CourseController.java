@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.DTO.ChapterDTO;
+import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Course;
@@ -18,8 +19,8 @@ public class CourseController {
     private CourseService courseService;
 
     @RequestMapping("/getCourseList")
-    public List<Course> listCourse(){
-        return courseService.listCourse();
+    public ResVO listCourse(CourseDTO courseDTO){
+        return courseService.listCourse(courseDTO);
     }
 
     @RequestMapping("/insertCourse")

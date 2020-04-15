@@ -2,6 +2,7 @@ package com.zyg.exam.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.MultiUserDTO;
+import com.zyg.exam.common.DTO.StudentDTO;
 import com.zyg.exam.common.DTO.UserDTO;
 import com.zyg.exam.common.VO.UserVO;
 import com.zyg.exam.model.User;
@@ -25,4 +26,8 @@ public interface UserDao extends BaseMapper<User> {
     List<String> selectCourse(int id);
 
     int importUser(UserVO userVO);
+
+    List<List<Object>> selectStudent(StudentDTO studentDTO);
+
+
 }

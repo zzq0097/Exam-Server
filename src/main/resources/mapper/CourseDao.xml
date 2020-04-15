@@ -13,6 +13,12 @@
     <result column="index" jdbcType="VARCHAR" property="index" />
     <result column="coursename" jdbcType="VARCHAR" property="coursename"/>
   </resultMap>
+  <resultMap id="CourseVO" type="com.zyg.exam.common.VO.CourseVO">
+    <id column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="coursename" jdbcType="VARCHAR" property="coursename" />
+    <result column="name" jdbcType="VARCHAR" property="teachername" />
+    <result column="id" jdbcType="INTEGER" property="teacherid"/>
+  </resultMap>
 
   <sql id="Base_Column_List">
     courseid, coursename, teacherid
@@ -70,10 +76,12 @@
       teacherid = #{teacherid,jdbcType=VARCHAR}
     where courseid = #{courseid,jdbcType=INTEGER}
   </update>
-  <select id="listCourse" resultType="com.zyg.exam.model.Course">
-    select
-    <include refid="Base_Column_List" />
-    from course
+  <select id="listCourse" resultMap="CourseVO,count">
+    <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
+    select SQL_CALC_FOUND_ROWS * from(select
+    courseid,coursename,user.name,user.id
+    from course join user on course.teacherid=user.id)a limit #{beginIndex},#{pageSize};select found_rows() count;
+
   </select>
   <select id="selectChapter"  resultMap="ChapterMap,count">
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>

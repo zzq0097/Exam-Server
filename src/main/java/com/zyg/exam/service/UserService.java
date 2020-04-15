@@ -1,5 +1,7 @@
 package com.zyg.exam.service;
 
+import com.zyg.exam.common.DTO.StudentDTO;
+import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-04-15
  */
 public interface UserService extends IService<User> {
+    ResVO selectStudent(StudentDTO studentDTO);
 
 }

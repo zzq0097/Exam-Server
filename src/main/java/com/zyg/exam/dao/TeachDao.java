@@ -15,7 +15,7 @@ public interface TeachDao {
 
     int insertSelective(Teach record);
 
-    List<List<Object>> listTeachInfo(TeachInfoDTO teachInfoDTO);
+    List<List<Object>> selectTeachInfo(TeachInfoDTO teachInfoDTO);
 
     int deleteTeach(int[] teachids);
 

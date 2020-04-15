@@ -1,6 +1,7 @@
 package com.zyg.exam.service;
 
 import com.zyg.exam.common.DTO.ChapterDTO;
+import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Course;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface CourseService {
 
-    List<Course> listCourse();
+    ResVO listCourse(CourseDTO courseDTO);
 
     JsonBean insertCourse(Course course);
 

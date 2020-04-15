@@ -19,9 +19,9 @@ public class TeachServiceImpl implements TeachService {
 
     @Override
     public ResVO listTeachInfo(TeachInfoDTO teachInfoDTO) {
-        List<Object> teachInfos = teachDao.listTeachInfo(teachInfoDTO).get(0);
-        long count = (long)teachDao.listTeachInfo(teachInfoDTO).get(1).get(0);
-        int total = (int)count;
+        List<Object> teachInfos = teachDao.selectTeachInfo(teachInfoDTO).get(0);
+        int total = (int)teachDao.selectTeachInfo(teachInfoDTO).get(1).get(0);
+
         return new ResVO(teachInfos,total);
 
     }
