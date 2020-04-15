@@ -11,8 +11,10 @@ import com.zyg.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +55,7 @@ public class StudentController {
         return new JsonBean(200,"success",studentService.save(student));
     }
     @RequestMapping("/deleteStudent")
-    public JsonBean deleteStudent(List<Integer> ids){
+    public JsonBean deleteStudent(@RequestParam(value = "ids")List<Integer> ids){
         return new JsonBean(200,"success",studentService.removeByIds(ids));
     }
 }

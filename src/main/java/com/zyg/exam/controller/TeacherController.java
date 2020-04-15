@@ -12,13 +12,14 @@ import com.zyg.exam.model.Teacher;
 import com.zyg.exam.model.Teacher;
 import com.zyg.exam.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * <p>
@@ -55,7 +56,7 @@ public class TeacherController {
         return new JsonBean(200,"success",teacherService.save(teacher));
     }
     @RequestMapping("/deleteTeacher")
-    public JsonBean deleteTeacher(List<Integer> ids){
+    public JsonBean deleteTeacher(@RequestParam(value = "ids")List<Integer> ids){
         return new JsonBean(200,"success",teacherService.removeByIds(ids));
     }
 }

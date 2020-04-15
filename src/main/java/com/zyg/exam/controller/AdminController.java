@@ -13,8 +13,10 @@ import com.zyg.exam.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +56,7 @@ public class AdminController {
         return new JsonBean(200,"success",adminService.save(admin));
     }
     @RequestMapping("/deleteAdmin")
-    public JsonBean deleteAdmin(List<Integer> ids){
+    public JsonBean deleteAdmin(@RequestParam(value = "ids")List<Integer> ids){
         return new JsonBean(200,"success",adminService.removeByIds(ids));
     }
 }

@@ -1,6 +1,9 @@
 package com.zyg.exam.model;
 
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,7 +26,8 @@ public class Student implements Serializable {
     /**
      * 学生id
      */
-      private Integer studentid;
+    @TableId(type = IdType.AUTO)
+    private Integer studentid;
 
     /**
      * 学号
