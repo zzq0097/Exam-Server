@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyg.exam.common.DTO.StudentDTO;
+import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Student;
 import com.zyg.exam.service.StudentService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +43,18 @@ public class StudentController {
         }
         IPage<Student> list = studentService.page(page,queryWrapper);
         return new ResVO(list.getRecords(),list.getTotal());
+    }
+    @RequestMapping("/updateStudent")
+    public JsonBean updateStudent(Student student){
+        return new JsonBean(200,"success",studentService.updateById(student));
+    }
+    @RequestMapping("/insertStudent")
+    public JsonBean insertStudent(Student student){
+        return new JsonBean(200,"success",studentService.save(student));
+    }
+    @RequestMapping("/deleteStudent")
+    public JsonBean deleteStudent(List<Integer> ids){
+        return new JsonBean(200,"success",studentService.removeByIds(ids));
     }
 }
 
