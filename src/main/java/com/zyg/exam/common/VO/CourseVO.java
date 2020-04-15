@@ -9,14 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CourseVO {
     private Integer courseid;
-
-    /**
-     * 课程名称
-     */
     private String coursename;
-
-    /**
-     * 课程负责人
-     */
-    private String name;
+    private Integer teacherid;
+    private String teachername;
 }

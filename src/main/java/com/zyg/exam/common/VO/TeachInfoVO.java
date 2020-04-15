@@ -13,6 +13,4 @@ public class TeachInfoVO {
     private String teachername;
     private int classid;
     private String classname;
-    private int courseid;
-    private String coursename;
 }

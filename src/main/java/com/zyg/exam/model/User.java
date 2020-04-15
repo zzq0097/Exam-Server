@@ -1,43 +1,32 @@
 package com.zyg.exam.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.io.Serializable;
-import java.util.Date;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * user
- * @author 
+ * <p>
+ * 
+ * </p>
+ *
+ * @author ZZQ
+ * @since 2020-04-15
  */
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class User implements Serializable {
+
+    private static final long serialVersionUID=1L;
+
     /**
      * 教师id
      */
-    @TableId
+      @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
-    /**
-     * 教师名称
-     */
-    private String name;
-
-    /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 电话
-     */
-    private String tel;
 
     /**
      * 工号
@@ -45,20 +34,29 @@ public class User implements Serializable {
     private String username;
 
     /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 教师名称
+     */
+    private String name;
+
+    /**
+     * 电话
+     */
+    private String tel;
+
+    /**
      * 角色
      */
     private String role;
 
     /**
-     * 学生所属班级
+     * 班级id
      */
     private Integer classid;
-
-
-
-    private Date insert_date;
-
-    private static final long serialVersionUID = 1L;
 
 
 }

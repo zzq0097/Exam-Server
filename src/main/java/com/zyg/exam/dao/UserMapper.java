@@ -1,6 +1,6 @@
 package com.zyg.exam.dao;
 
-import com.zyg.exam.model.Admin;
+import com.zyg.exam.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author ZZQ
  * @since 2020-04-15
  */
-public interface AdminMapper extends BaseMapper<Admin> {
+public interface UserMapper extends BaseMapper<User> {
 
 }
