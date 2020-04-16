@@ -9,7 +9,7 @@
         <result column="type" property="type" />
         <result column="process" property="process" />
     </resultMap>
-    <resultMap id="count" type="java.lang.Integer" />
+    <resultMap id="count" type="java.lang.Long" />
 
     <select id="getBlackListTypes" resultType="java.lang.String">
         select distinct type from black_list

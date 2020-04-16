@@ -26,10 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public ResVO selectStudent(StudentDTO studentDTO) {
         List<Object> students = userDao.selectStudent(studentDTO).get(0);
-        int total  = (int)userDao.selectStudent(studentDTO).get(1).get(0);
-
+        long total  = (long)userDao.selectStudent(studentDTO).get(1).get(0);
         return new ResVO(students,total);
     }
-
-
 }

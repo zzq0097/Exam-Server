@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public ResVO listCourse(CourseDTO courseDTO) {
         List<Object> courses = courseDao.listCourse(courseDTO).get(0);
-        int total = (int)courseDao.listCourse(courseDTO).get(1).get(0);
+        long total = (long)courseDao.listCourse(courseDTO).get(1).get(0);
         return new ResVO(courses,total);
     }
 
@@ -66,8 +66,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public ResVO selectChapter(ChapterDTO chapterDTO) {
         List<Object> chapters=courseDao.selectChapter(chapterDTO).get(0);
-        long count = (long)courseDao.selectChapter(chapterDTO).get(1).get(0);
-        return new ResVO(chapters,count);
+        long total = (long)courseDao.selectChapter(chapterDTO).get(1).get(0);
+        return new ResVO(chapters,total);
     }
 
     @Override

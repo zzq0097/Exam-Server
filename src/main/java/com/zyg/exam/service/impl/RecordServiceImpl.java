@@ -31,25 +31,24 @@ public class RecordServiceImpl implements RecordService {
       Integer classid=recordDTO.getClassid();
       String name=recordDTO.getName();
         List<Object> records = new ArrayList<>();
-        long count = 0;
-        int total=0;
+        long total;
         if (courseid!=null){
             System.out.println("courseName");
             records=recordDao.selectByCourse(recordDTO).get(0);
             System.out.println(records);
-            total=(int)recordDao.selectByCourse(recordDTO).get(1).get(0);
+            total=(long)recordDao.selectByCourse(recordDTO).get(1).get(0);
 
         }else if (name!=null&&!name.isEmpty()){
             records=recordDao.selectByUserId(recordDTO).get(0);
-            total=(int)recordDao.selectByUserId(recordDTO).get(1).get(0);
+            total=(long)recordDao.selectByUserId(recordDTO).get(1).get(0);
 
         }else if (classid!=null){
             records=recordDao.selectByClass(recordDTO).get(0);
-            total=(int)recordDao.selectByClass(recordDTO).get(1).get(0);
+            total=(long)recordDao.selectByClass(recordDTO).get(1).get(0);
 
         }else {
             records=recordDao.listRecord(recordDTO).get(0);
-            total=(int)recordDao.listRecord(recordDTO).get(1).get(0);
+            total=(long)recordDao.listRecord(recordDTO).get(1).get(0);
 
         }
         return new ResVO(records,total);
