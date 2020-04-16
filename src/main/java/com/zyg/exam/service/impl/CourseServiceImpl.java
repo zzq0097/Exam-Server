@@ -10,6 +10,7 @@ import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.exception.MyException;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.service.CourseService;
+import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,12 +20,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -40,7 +42,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public JsonBean insertCourse(Course course) {
-        int num = courseDao.insertSelective(course);
+        int num =0;
+        try {
+            num=courseDao.insertSelective(course);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {
@@ -50,7 +59,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public JsonBean updateCourse(Course course) {
-        int num = courseDao.updateByPrimaryKeySelective(course);
+        int num =0;
+
+         try {
+             num= courseDao.updateByPrimaryKeySelective(course);
+         }catch (Exception e){
+             e.printStackTrace();
+             throw new RuntimeException(e);
+         }
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {
@@ -60,7 +76,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public JsonBean deleteCourse(int[] courseids) {
-        return new JsonBean(200,"删除了"+courseDao.deleteByPrimaryKey(courseids)+"条数据",null);
+        int num=0;
+        try {
+           num= courseDao.deleteByPrimaryKey(courseids);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JsonBean(200,"删除了"+num+"条数据",null);
     }
 
     @Override
@@ -142,7 +165,13 @@ public class CourseServiceImpl implements CourseService {
 
         for (CourseVO courseVO1 : courseVOS) {
             System.out.println(courseVO1);
-            num=courseDao.importCourse(courseVO1);
+            try {
+                num=courseDao.importCourse(courseVO1);
+            }catch (Exception e){
+                e.printStackTrace();
+                throw  new RuntimeException(e);
+            }
+
         }
         JsonBean jsonBean=new JsonBean();
         if (num>0){

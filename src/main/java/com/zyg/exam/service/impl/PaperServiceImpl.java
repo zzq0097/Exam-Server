@@ -11,11 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+@Transactional(rollbackFor = Exception.class)
 @Slf4j
 @Service
 public class PaperServiceImpl implements PaperService {
@@ -42,7 +44,14 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public JsonBean deletePaper(int[] paperids) {
-        return new JsonBean(200,"删除了"+paperDao.deleteByPrimaryKey(paperids)+"条数据",null);
+        int num=0;
+        try {
+            num=paperDao.deleteByPrimaryKey(paperids);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JsonBean(200,"删除了"+num+"条数据",null);
     }
 
     @Override
@@ -59,7 +68,13 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public JsonBean updatePaper(Paper paper) {
         System.out.println(paper);
-        int num = paperDao.updateByPrimaryKeySelective(paper);
+        int num =0;
+         try {
+             num=paperDao.updateByPrimaryKeySelective(paper);
+         }catch (Exception e){
+             e.printStackTrace();
+             throw new RuntimeException(e);
+         }
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {

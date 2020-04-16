@@ -19,7 +19,14 @@ public class ChapterServiceImpl implements ChapterService {
 
     @Override
     public JsonBean deleteChapter(int chapterId) {
-        int num = chapterDao.deleteByPrimaryKey(chapterId);
+        int num=0;
+        try {
+             num = chapterDao.deleteByPrimaryKey(chapterId);
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"删除成功",null);
         }else {
@@ -29,7 +36,14 @@ public class ChapterServiceImpl implements ChapterService {
 
     @Override
     public JsonBean updateChapter(Chapter chapter) {
-        int num = chapterDao.updateByPrimaryKeySelective(chapter);
+        int num =0;
+        try {
+           num= chapterDao.updateByPrimaryKeySelective(chapter);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {
@@ -39,7 +53,14 @@ public class ChapterServiceImpl implements ChapterService {
 
     @Override
     public JsonBean insertChapter(Chapter chapter) {
-        int num = chapterDao.insertSelective(chapter);
+        int num =0;
+        try {
+            num=chapterDao.insertSelective(chapter);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw  new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {

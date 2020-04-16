@@ -10,8 +10,10 @@ import com.zyg.exam.service.TeachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+@Transactional(rollbackFor =Exception.class)
 @Service
 public class TeachServiceImpl implements TeachService {
     @Autowired
@@ -26,12 +28,26 @@ public class TeachServiceImpl implements TeachService {
 
     @Override
     public JsonBean deleteTeach(int[] teachids) {
-        return new JsonBean(200,"删除了"+teachDao.deleteTeach(teachids)+"条数据",null);
+        int num=0;
+        try {
+            num=teachDao.deleteTeach(teachids);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JsonBean(200,"删除了"+num+"条数据",null);
     }
 
     @Override
     public JsonBean insertTeach(Teach teach) {
-        int num = teachDao.insertSelective(teach);
+        int num =0;
+        try {
+            num= teachDao.insertSelective(teach);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {
@@ -41,7 +57,14 @@ public class TeachServiceImpl implements TeachService {
 
     @Override
     public JsonBean updateTeach(Teach teach) {
-        int num = teachDao.updateByPrimaryKeySelective(teach);
+        int num =0;
+        try {
+            num=teachDao.updateByPrimaryKeySelective(teach);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"修改成功",null);
         }else {

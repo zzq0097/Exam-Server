@@ -19,12 +19,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
@@ -37,7 +38,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public JsonBean insertQuestion(Question question) {
-        int num = questionDao.insertSelective(question);
+        int num =0;
+        try {
+            num= questionDao.insertSelective(question);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),"添加成功",null);
         }else {
@@ -47,12 +54,25 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public JsonBean deleteQuestion(int[] subjectids) {
-        return new JsonBean(200,"删除了"+questionDao.deleteByPrimaryKey(subjectids)+"条数据",null);
+        int num=0;
+        try {
+            num=questionDao.deleteByPrimaryKey(subjectids);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JsonBean(200,"删除了"+num+"条数据",null);
     }
 
     @Override
     public JsonBean updateQuestion(Question question) {
-        int num = questionDao.updateByPrimaryKeySelective(question);
+        int num =0;
+        try {
+            num= questionDao.updateByPrimaryKeySelective(question);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         if (num>0){
             return new JsonBean(HttpStatus.OK.value(),null,"修改成功");
         }else {
@@ -138,8 +158,9 @@ public class QuestionServiceImpl implements QuestionService {
                    option2=row.getCell(3).getStringCellValue();
                    option3=row.getCell(4).getStringCellValue();
                    option4=row.getCell(5).getStringCellValue();
-                 }catch (NullPointerException exception){
-                     exception.printStackTrace();
+                 }catch (Exception e){
+                     e.printStackTrace();
+                     throw new RuntimeException(e);
                  }
 
 
@@ -179,7 +200,12 @@ public class QuestionServiceImpl implements QuestionService {
 
         for (QuestionVO questionDTO1 : questionDTOS) {
             System.out.println(questionDTO1);
-             num=questionDao.insertQuestionDTO(questionDTO1);
+             try {
+                 num=questionDao.insertQuestionDTO(questionDTO1);
+             }catch (Exception e){
+                 e.printStackTrace();
+                 throw new RuntimeException(e);
+             }
         }
         JsonBean jsonBean=new JsonBean();
       if (num>0){

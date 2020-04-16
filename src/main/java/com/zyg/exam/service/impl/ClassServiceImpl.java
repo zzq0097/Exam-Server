@@ -13,9 +13,10 @@ import com.zyg.exam.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class ClassServiceImpl implements ClassService {
 
@@ -56,6 +57,13 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public JsonBean deleteClass(int[] ids) {
-        return new JsonBean(200,"删除了"+classDao.deleteByPrimaryKey(ids)+"条数据",null);
+        int num=0;
+        try {
+            num=classDao.deleteByPrimaryKey(ids);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new JsonBean(200,"删除了"+num+"条数据",null);
     }
 }

@@ -12,10 +12,11 @@ import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class RecordServiceImpl implements RecordService {
     @Autowired
@@ -77,7 +78,13 @@ public class RecordServiceImpl implements RecordService {
         //总分
         int grade=subjectiveCredit+objectiveCredit;
         //插入数据库
-        int num = recordDao.setGrade(correctPaperDTO.getRecordid(),grade);
+        int num =0;
+        try {
+           recordDao.setGrade(correctPaperDTO.getRecordid(),grade);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         if (num>0){
             return new JsonBean(200,"批改",null);
         }else {

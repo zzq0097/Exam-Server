@@ -39,6 +39,7 @@ public class Strategy  {
      * 试卷id
      */
     private Integer paperid;
+    private Integer mode;
 
     private static final long serialVersionUID = 1L;
 
