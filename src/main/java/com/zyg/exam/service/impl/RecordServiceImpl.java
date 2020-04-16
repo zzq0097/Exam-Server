@@ -37,20 +37,20 @@ public class RecordServiceImpl implements RecordService {
             System.out.println("courseName");
             records=recordDao.selectByCourse(recordDTO).get(0);
             System.out.println(records);
-            count=(long)recordDao.selectByCourse(recordDTO).get(1).get(0);
-            total=(int)count;
+            total=(int)recordDao.selectByCourse(recordDTO).get(1).get(0);
+
         }else if (name!=null&&!name.isEmpty()){
             records=recordDao.selectByUserId(recordDTO).get(0);
-            count=(long)recordDao.selectByUserId(recordDTO).get(1).get(0);
-            total=(int)count;
+            total=(int)recordDao.selectByUserId(recordDTO).get(1).get(0);
+
         }else if (classid!=null){
             records=recordDao.selectByClass(recordDTO).get(0);
-            count=(long)recordDao.selectByClass(recordDTO).get(1).get(0);
-            total=(int)count;
+            total=(int)recordDao.selectByClass(recordDTO).get(1).get(0);
+
         }else {
             records=recordDao.listRecord(recordDTO).get(0);
-            count=(long)recordDao.listRecord(recordDTO).get(1).get(0);
-            total=(int)count;
+            total=(int)recordDao.listRecord(recordDTO).get(1).get(0);
+
         }
         return new ResVO(records,total);
     }

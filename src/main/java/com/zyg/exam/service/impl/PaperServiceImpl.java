@@ -25,8 +25,8 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public ResVO selectPaper(PaperDTO paperDTO) {
         List<Object> papers=paperDao.selectByClass(paperDTO).get(0);
-        long count=(long)paperDao.selectByClass(paperDTO).get(1).get(0);
-        int total=(int)count;
+        int total=(int)paperDao.selectByClass(paperDTO).get(1).get(0);
+
         return new ResVO(papers,total);
     }
 
@@ -42,8 +42,8 @@ public class PaperServiceImpl implements PaperService {
         params.put("pageIndex",pageIndex);
         params.put("pageSize",pageSize);
         List<Object> questions = paperDao.selectQuestion(params).get(0);
-        long count = (long)paperDao.selectQuestion(params).get(1).get(0);
-        int total=(int)count;
+        int total=(int)paperDao.selectQuestion(params).get(1).get(0);
+
         return new ResVO(questions,total);
     }
 

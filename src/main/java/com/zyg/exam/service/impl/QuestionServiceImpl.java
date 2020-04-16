@@ -73,8 +73,8 @@ public class QuestionServiceImpl implements QuestionService {
 
                 System.out.println("全查询");
                 questions = questionDao.listQuestion(questionDTO).get(0);
-                count = (long) questionDao.listQuestion(questionDTO).get(1).get(0);
-                total = (int) count;
+               total= (int)questionDao.listQuestion(questionDTO).get(1).get(0);
+
 
         }else {
             System.out.println("条件查询");
@@ -143,15 +143,7 @@ public class QuestionServiceImpl implements QuestionService {
             String option4="";
 
 
-                 /*if (row.getCell(2).getStringCellValue()!=null){
-                     option1 = row.getCell(2).getStringCellValue();
-                 }else if (row.getCell(3).getStringCellValue()!=null){
-                     option2 = row.getCell(3).getStringCellValue();
-                 }else if (row.getCell(4).getStringCellValue()!=null){
-                     option3 = row.getCell(4).getStringCellValue();
-                 }else if (row.getCell(5).getStringCellValue()!=null){
-                     option4 = row.getCell(5).getStringCellValue();
-                 }*/
+
                  try {
                    option1=  row.getCell(2).getStringCellValue();
                    option2=row.getCell(3).getStringCellValue();
