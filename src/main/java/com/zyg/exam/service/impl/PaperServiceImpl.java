@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,18 @@ public class PaperServiceImpl implements PaperService {
     private QuestionDao questionDao;
     @Override
     public ResVO selectPaper(PaperDTO paperDTO) {
-        List<Object> papers=paperDao.selectByClass(paperDTO).get(0);
-        long total = (long)paperDao.selectByClass(paperDTO).get(1).get(0);
+        Integer courseid=paperDTO.getCourseid();
+        Integer classid=paperDTO.getClassid();
+        List<Object> papers=new ArrayList<>();
+        long total=0;
+        if (classid!=null){
+            papers=paperDao.selectByClass(paperDTO).get(0);
+            total = (long)paperDao.selectByClass(paperDTO).get(1).get(0);
+        }else {
+            papers=paperDao.selectPaper(paperDTO).get(0);
+            total=(long)paperDao.selectPaper(paperDTO).get(1).get(0);
+        }
+
         return new ResVO(papers,total);
     }
 

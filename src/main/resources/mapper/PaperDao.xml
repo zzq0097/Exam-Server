@@ -88,19 +88,17 @@
   </select>
   <select id="selectByClass" resultMap="PaperDTO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,a.courseid,a.classid from paper
-        join(select coursename,a.courseid,a.classid from course join(select courseid,a.classid from teach
-            join(select teachid,class.classid from getclass join class on getclass.classid=class.classid
+    select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,a.courseid from paper
+        join(select coursename,a.courseid from course join(select courseid from teach
+            join(select teachid from getclass join class on getclass.classid=class.classid
     <if test="classid!=null and classid!=''">
       where class.classid=#{classid,jdbcType=INTEGER}
     </if>
      )a on a.teachid=teach.teachid)a on course.courseid=a.courseid
-    <if test="courseid!=null and courseid!=''">
-            where course.courseid=#{courseid,jdbcType=INTEGER}
-    </if>
       )a
      on a.courseid=paper.courseid)a limit #{key_offset},#{pageSize};select found_rows() count;
   </select>
+
   <select id="selectQuestion" resultMap="Question1,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select question.* from question join (select questionid from paper_question

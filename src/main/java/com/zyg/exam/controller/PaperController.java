@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.Soundbank;
+
 @Slf4j
 @RestController
 public class PaperController {
@@ -25,6 +27,7 @@ public class PaperController {
 
     @RequestMapping("/getPaperList")
     public ResVO getPaperList(PaperDTO paperDTO){
+        System.out.println(paperDTO);
         return paperService.selectPaper(paperDTO);
     }
 
