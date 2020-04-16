@@ -1,6 +1,8 @@
 package com.zyg.exam.model;
 
 import ch.qos.logback.core.joran.spi.NoAutoStart;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ public class Chapter implements Serializable {
     /**
      * 章节id
      */
+    @TableId(type = IdType.AUTO)
     private Integer chapterid;
 
     /**

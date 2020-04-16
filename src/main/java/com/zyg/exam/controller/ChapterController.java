@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.JsonBean;
+import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,11 @@ import java.util.List;
 public class ChapterController {
     @Autowired
     private ChapterService chapterService;
-
+    @Autowired
+    private ChapterDao chapterDao;
     @RequestMapping("/deleteChapter")
-    public JsonBean deleteChapter(int chapterId){
-        return chapterService.deleteChapter(chapterId);
+    public JsonBean deleteChapter(@RequestParam("ids")List<Integer> ids){
+        return new JsonBean(200,"success",chapterDao.deleteBatchIds(ids));
     }
 
     @RequestMapping("/updateChapter")

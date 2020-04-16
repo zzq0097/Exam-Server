@@ -42,83 +42,83 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
 
     @Override
     public JsonBean formPaper(AddPaperDTO addPaperDTO) {
-        System.out.println(addPaperDTO);
-//        AllRandom allRandom = new AllRandom();
-        Paper paper = Paper.builder().
-                courseid(addPaperDTO.getCourseid()).
-                finishtime(addPaperDTO.getFinishtime()).
-                starttime(addPaperDTO.getStarttime()).
-                pattern(addPaperDTO.getPattern()).
-                ismonitor(addPaperDTO.getIsmonitor()).
-                build();
-        int num = paperDao.insert(paper);
-
-        //全随机
-        if (addPaperDTO.getMode()==1){
-            int selectNum=2;
-            int fillNum=2;
-            int judgeNum=2;
-            int quesNum=2;
-            List<Integer> selects = questionDao.selectByType("选择");
-            List<Integer> fills = questionDao.selectByType("填空");
-            List<Integer> judges = questionDao.selectByType("判断");
-            List<Integer> ques = questionDao.selectByType("简答");
-
-            //随机后的结果
-
-            List<Integer> selects1= this.randomQuestion(selects,selectNum);
-            List<Integer> fill1 = this.randomQuestion(fills,fillNum);
-            List<Integer> judge1 = this.randomQuestion(judges,judgeNum);
-            List<Integer> ques1 = this.randomQuestion(ques,quesNum);
-
-            List<List<Integer>> lists = new ArrayList<>();
-            lists.add(selects1);
-            lists.add(fill1);
-            lists.add(judge1);
-            lists.add(ques1);
-            this.insertPaperQuestion(lists,paper.getPaperid());
-
-        }else if (addPaperDTO.getMode()==2){//部分随机
-            List<List<Integer>> lists = new ArrayList<>();
-            for (StrategyDTO strategy:addPaperDTO.getStrategyDTOS()) {
-                Strategy strategy1=new Strategy();
-                strategy1.setCount(strategy.getCount());
-                strategy1.setPaperid(paper.getPaperid());
-                strategy1.setType(strategy.getType());
-                strategy1.setValue(strategy.getScore());
-
-                strategyDao.insertSelective(strategy1);
-
-                int strategyid=strategy1.getStrategyid();
-
-                Condition condition =new Condition();
-                condition.setChapterid(strategy.getChapterid());
-                condition.setCount(strategy.getCount());
-                condition.setDifficulty(strategy.getDifficulty());
-                condition.setStrategyid(strategyid);
-
-                conditionDao.insertSelective(condition);
-                System.out.println(strategy.getType());
-                System.out.println(strategy.getCount());
-                List<Integer> questionid = questionDao.selectByChapter(strategy.getDifficulty(),strategy.getChapterid(),strategy.getType());
-
-
-
-                List<Integer> question = this.randomQuestion(questionid,strategy.getCount());
-
-                lists.add(question);
-
-            }
-            this.insertPaperQuestion(lists,paper.getPaperid());
-
-
-        }else if (addPaperDTO.getMode()==3){//手动组卷
-            int[] questionids = addPaperDTO.getQuestionids();
-            for (int i=0;i<questionids.length;i++){
-                paperDao.insertPaperQuestion(questionids[i],paper.getPaperid());
-            }
-
-        }
+//        System.out.println(addPaperDTO);
+////        AllRandom allRandom = new AllRandom();
+//        Paper paper = Paper.builder().
+//                courseid(addPaperDTO.getCourseid()).
+//                finishtime(addPaperDTO.getFinishtime()).
+//                starttime(addPaperDTO.getStarttime()).
+//                pattern(addPaperDTO.getPattern()).
+//                ismonitor(addPaperDTO.getIsmonitor()).
+//                build();
+//        int num = paperDao.insert(paper);
+//
+//        //全随机
+//        if (addPaperDTO.getMode()==1){
+//            int selectNum=2;
+//            int fillNum=2;
+//            int judgeNum=2;
+//            int quesNum=2;
+//            List<Integer> selects = questionDao.selectByType("选择");
+//            List<Integer> fills = questionDao.selectByType("填空");
+//            List<Integer> judges = questionDao.selectByType("判断");
+//            List<Integer> ques = questionDao.selectByType("简答");
+//
+//            //随机后的结果
+//
+//            List<Integer> selects1= this.randomQuestion(selects,selectNum);
+//            List<Integer> fill1 = this.randomQuestion(fills,fillNum);
+//            List<Integer> judge1 = this.randomQuestion(judges,judgeNum);
+//            List<Integer> ques1 = this.randomQuestion(ques,quesNum);
+//
+//            List<List<Integer>> lists = new ArrayList<>();
+//            lists.add(selects1);
+//            lists.add(fill1);
+//            lists.add(judge1);
+//            lists.add(ques1);
+//            this.insertPaperQuestion(lists,paper.getPaperid());
+//
+//        }else if (addPaperDTO.getMode()==2){//部分随机
+//            List<List<Integer>> lists = new ArrayList<>();
+//            for (StrategyDTO strategy:addPaperDTO.getStrategyDTOS()) {
+//                Strategy strategy1=new Strategy();
+//                strategy1.setCount(strategy.getCount());
+//                strategy1.setPaperid(paper.getPaperid());
+//                strategy1.setType(strategy.getType());
+//                strategy1.setValue(strategy.getScore());
+//
+//                strategyDao.insertSelective(strategy1);
+//
+//                int strategyid=strategy1.getStrategyid();
+//
+//                Condition condition =new Condition();
+//                condition.setChapterid(strategy.getChapterid());
+//                condition.setCount(strategy.getCount());
+//                condition.setDifficulty(strategy.getDifficulty());
+//                condition.setStrategyid(strategyid);
+//
+//                conditionDao.insertSelective(condition);
+//                System.out.println(strategy.getType());
+//                System.out.println(strategy.getCount());
+//                List<Integer> questionid = questionDao.selectByChapter(strategy.getDifficulty(),strategy.getChapterid(),strategy.getType());
+//
+//
+//
+//                List<Integer> question = this.randomQuestion(questionid,strategy.getCount());
+//
+//                lists.add(question);
+//
+//            }
+//            this.insertPaperQuestion(lists,paper.getPaperid());
+//
+//
+//        }else if (addPaperDTO.getMode()==3){//手动组卷
+//            int[] questionids = addPaperDTO.getQuestionids();
+//            for (int i=0;i<questionids.length;i++){
+//                paperDao.insertPaperQuestion(questionids[i],paper.getPaperid());
+//            }
+//
+//        }
         return null;
     }
 }

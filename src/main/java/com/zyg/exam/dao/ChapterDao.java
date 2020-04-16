@@ -1,14 +1,14 @@
 package com.zyg.exam.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.model.Chapter;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Mapper
 @Repository
-public interface ChapterDao {
+public interface ChapterDao extends BaseMapper<Chapter> {
     int deleteByPrimaryKey(Integer chapterid);
 
     int insert(Chapter record);
