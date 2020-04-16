@@ -79,7 +79,7 @@
   <select id="selectPaper" resultMap="PaperDTO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,course.coursename from
-    paper join course on paper.courseid=course.courseid
+    paper left join course on paper.courseid=course.courseid
     <if test="courseid!=null and courseid!=''">
       where course.courseid=#{courseid,jdbcType=INTEGER}
     </if>
@@ -89,8 +89,8 @@
   <select id="selectByClass" resultMap="PaperDTO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,a.courseid from paper
-        join(select coursename,a.courseid from course join(select courseid from teach
-            join(select teachid from getclass join class on getclass.classid=class.classid
+       left join(select coursename,a.courseid from course left join(select courseid from teach
+            join(select teachid from getclass left join class on getclass.classid=class.classid
     <if test="classid!=null and classid!=''">
       where class.classid=#{classid,jdbcType=INTEGER}
     </if>
