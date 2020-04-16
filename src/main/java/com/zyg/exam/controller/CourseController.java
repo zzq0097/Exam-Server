@@ -18,7 +18,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @RequestMapping("/getCourseList")
+    @RequestMapping("/selectCourse")
     public ResVO listCourse(CourseDTO courseDTO){
         return courseService.listCourse(courseDTO);
     }
@@ -34,9 +34,9 @@ public class CourseController {
     }
 
     @RequestMapping("/deleteCourse")
-    public JsonBean deleteCourse(int[] courseids){
-        System.out.println(courseids);
-        return courseService.deleteCourse(courseids);
+    public JsonBean deleteCourse(int[] ids){
+        System.out.println(ids);
+        return courseService.deleteCourse(ids);
     }
 
     @RequestMapping("/listChapter")
