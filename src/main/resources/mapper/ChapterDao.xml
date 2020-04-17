@@ -75,7 +75,7 @@
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select
     chapterid,chaptername,course.coursename,chapter.index,course.courseid
-    from chapter join course on chapter.courseid=course.courseid order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
+    from chapter left join course on chapter.courseid=course.courseid order by chapter.courseid,chapter.index limit #{key_offset},#{pageSize};
   </select>
   <select id="selectQuestion" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.VO.QuestionVO">
     select a.subjectid,a.type,a.content,a.option1,a.option2,a.option3,a.option4,a.answer,a.difficulty,a.chaptername,course.coursename from

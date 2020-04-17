@@ -80,13 +80,13 @@
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select
     courseid,coursename,user.name,user.id
-    from course join user on course.teacherid=user.id)a limit #{beginIndex},#{pageSize};select found_rows() count;
+    from course left join user on course.teacherid=user.id)a limit #{beginIndex},#{pageSize};select found_rows() count;
 
   </select>
   <select id="selectChapter"  resultMap="ChapterMap,count">
     <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select chapterid,chaptername,chapter.index,course.coursename,course.courseid
-      from chapter  join course on chapter.courseid=course.courseid
+      from chapter left join course on chapter.courseid=course.courseid
         <if test="courseid!=null">
           where course.courseid=#{courseid}
         </if>

@@ -51,7 +51,7 @@
     </trim>
   </insert>
   <select id="selectObjectiveCredit" parameterType="java.lang.Integer" resultType="integer">
-    select sum(credit) from answer join record on answer.recordid=record.recordid
+    select sum(credit) from answer left join record on answer.recordid=record.recordid
     where record.recordid=#{recordid}
   </select>
   <update id="correctObject">
@@ -60,9 +60,9 @@
   </update>
   <select id="correctSubject" resultMap="StuAnswer,Answer" resultType="java.util.List">
     select answer.answer stuanswer from answer where recordid=#{recordid,jdbcType=INTEGER};
-    select answer from question join (select questionid from answer where recordid=#{recordid,jdbcType=INTEGER})a on question.subjectid=a.questionid;
+    select answer from question  join (select questionid from answer where recordid=#{recordid,jdbcType=INTEGER})a on question.subjectid=a.questionid;
   </select>
   <select id="selectValue" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select value from strategy join (select paperid from record where recordid=#{recordid,jdbcType=INTEGER})a on a.paperid=strategy.paperid where strategy.type='选择'
+    select value from strategy  join (select paperid from record where recordid=#{recordid,jdbcType=INTEGER})a on a.paperid=strategy.paperid where strategy.type='选择'
   </select>
 </mapper>

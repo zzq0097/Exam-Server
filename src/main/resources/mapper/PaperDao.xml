@@ -90,7 +90,7 @@
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select a.coursename,paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,a.courseid from paper
        left join(select coursename,a.courseid from course left join(select courseid from teach
-            join(select teachid from getclass left join class on getclass.classid=class.classid
+         left   join(select teachid from getclass left join class on getclass.classid=class.classid
     <if test="classid!=null and classid!=''">
       where class.classid=#{classid,jdbcType=INTEGER}
     </if>
