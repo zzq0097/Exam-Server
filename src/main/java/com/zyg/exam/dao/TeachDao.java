@@ -25,5 +25,5 @@ public interface TeachDao {
 
     List<OptionVO> selectTeacher(Integer courseid);
 
-    List<TeachOptionVO> optionTeachInfo();
+    List<OptionVO> optionTeachInfo();
 }
