@@ -2,9 +2,7 @@ package com.zyg.exam.dao;
 
 import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.common.VO.OptionVO;
-import com.zyg.exam.common.VO.TeachOptionVO;
 import com.zyg.exam.model.Teach;
-import com.zyg.exam.model.TeachInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

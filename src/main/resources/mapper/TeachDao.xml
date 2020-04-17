@@ -75,7 +75,7 @@
     where course.courseid=#{courseid,jdbcType=INTEGER})a left join user on user.id=a.teacherid
   </select>
   <select id="optionTeachInfo" resultType="com.zyg.exam.common.VO.OptionVO">
-    select a.teachid id,CONCAT_WS(' - - ',coursename,a.name) name from (select teachid,courseid,user.name from teach left join user on teach.teacherid=user.id)a left join
+    select a.teachid id,CONCAT_WS(' | | ',coursename,a.name) name from (select teachid,courseid,user.name from teach left join user on teach.teacherid=user.id)a left join
                                                                        course on a.courseid=course.courseid
   </select>
 </mapper>

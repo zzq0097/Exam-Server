@@ -18,7 +18,7 @@
     <select id="selectGetClass" resultMap="GetClassVO,count">
         <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
         select SQL_CALC_FOUND_ROWS * from(
-        select CONCAT_WS(' - - ',coursename,user.name) teachinfo,a.getclassid,a.classid,a.classname,a.teachid from
+        select CONCAT_WS(' | | ',coursename,user.name) teachinfo,a.getclassid,a.classid,a.classname,a.teachid from
           (select coursename,a.* from (select a.getclassid,a.classid,a.classname,a.teachid,teacherid,courseid from
             (select getclassid,getclass.classid,teachid,classname from getclass left join class on getclass.classid=class.classid
                 <if test="classid!=null and classid!=''">
