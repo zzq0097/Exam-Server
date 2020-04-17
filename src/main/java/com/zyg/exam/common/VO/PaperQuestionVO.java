@@ -21,4 +21,5 @@ public class PaperQuestionVO {
     private String answer;
     private String stuAnswer;
     private Integer questionid;
+    private Integer answerid;
 }

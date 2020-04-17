@@ -26,4 +26,5 @@
                 </if>)a left join teach
         on teach.teachid=a.teachid)a left join course on a.courseid=course.courseid)a left join user on a.teacherid=user.id)a limit #{beginIndex},#{pageSize};select found_rows() count;
     </select>
+
 </mapper>
