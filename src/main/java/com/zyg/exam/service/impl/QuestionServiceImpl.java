@@ -150,6 +150,7 @@ public class QuestionServiceImpl implements QuestionService {
             String option2="";
             String option3="";
             String option4="";
+            String answer="";
 
 
 
@@ -158,14 +159,15 @@ public class QuestionServiceImpl implements QuestionService {
                    option2=row.getCell(3).getStringCellValue();
                    option3=row.getCell(4).getStringCellValue();
                    option4=row.getCell(5).getStringCellValue();
+                      answer = row.getCell(6).getStringCellValue();
                  }catch (Exception e){
                      e.printStackTrace();
-                     throw new RuntimeException(e);
+
                  }
 
 
 
-            String answer = row.getCell(6).getStringCellValue();
+
 
             if(answer==null || content.isEmpty()){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,答案未填写)");
