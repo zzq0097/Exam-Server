@@ -2,7 +2,6 @@ package com.zyg.exam.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zyg.exam.common.VO.OptionVO;
-import com.zyg.exam.common.VO.TeachOptionVO;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.dao.ClassDao;
 import com.zyg.exam.dao.CourseDao;
@@ -84,8 +83,8 @@ public class OptionController {
         return list;
     }
     @RequestMapping("/teachOption")
-    public List<TeachOptionVO> teachOption(){
-        List<TeachOptionVO> list = null;
+    public List<OptionVO> teachOption(){
+        List<OptionVO> list = null;
         return list;
     }
 }
