@@ -86,6 +86,7 @@ public class OptionController {
     @RequestMapping("/teachOption")
     public List<TeachOptionVO> teachOption(){
         List<TeachOptionVO> list = null;
+        list=teachDao.optionTeachInfo();
         return list;
     }
 }
