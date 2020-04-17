@@ -1,25 +1,21 @@
 package com.zyg.exam.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zyg.exam.common.VO.OptionVO;
+import com.zyg.exam.common.VO.TeachOptionVO;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.dao.ClassDao;
 import com.zyg.exam.dao.CourseDao;
 import com.zyg.exam.dao.TeachDao;
-import com.zyg.exam.model.Chapter;
+import com.zyg.exam.model.*;
 import com.zyg.exam.model.Class;
-import com.zyg.exam.model.Course;
-import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class OptionController {
@@ -83,6 +79,11 @@ public class OptionController {
             OptionVO optionVO = new OptionVO(entity.getClassid(),entity.getClassname());
             list.add(optionVO);
         }
+        return list;
+    }
+    @RequestMapping("/teachOption")
+    public List<TeachOptionVO> teachOption(){
+        List<TeachOptionVO> list = null;
         return list;
     }
 }
