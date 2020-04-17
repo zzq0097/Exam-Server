@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.GetclassDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zyg.exam.model.Getclass">
+        <id column="getclassid" property="getclassid" />
+        <result column="teachid" property="teachid" />
+        <result column="classid" property="classid" />
+    </resultMap>
+    <resultMap id="GetClassVO" type="com.zyg.exam.common.VO.GetClassVO">
+        <result column="getclassid" jdbcType="INTEGER" property="getclassid" />
+        <result column="classid" jdbcType="INTEGER" property="classid"/>
+        <result column="classname" jdbcType="VARCHAR" property="classname"/>
+        <result column="teachinfo" jdbcType="VARCHAR" property="teachInfo"/>
+        <result column="teachid" jdbcType="INTEGER" property="teachid"/>
+    </resultMap>
+    <select id="selectGetClass" resultMap="GetClassVO,count">
+        <bind name="beginIndex" value="(pageIndex-1)*pageSize"></bind>
+        select SQL_CALC_FOUND_ROWS * from(
+        select CONCAT_WS('-',coursename,user.name) teachinfo,a.getclassid,a.classid,a.classname,a.teachid from
+          (select coursename,a.* from (select a.getclassid,a.classid,a.classname,a.teachid,teacherid,courseid from
+            (select getclassid,getclass.classid,teachid,classname from getclass left join class on getclass.classid=class.classid
+                <if test="classid!=null and classid!=''">
+                    where class.classid=#{classid,jdbcType=INTEGER}
+                </if>)a left join teach
+        on teach.teachid=a.teachid)a left join course on a.courseid=course.courseid)a left join user on a.teacherid=user.id)a limit #{beginIndex},#{pageSize};select found_rows() count;
+    </select>
+</mapper>

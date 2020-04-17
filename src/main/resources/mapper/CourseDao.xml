@@ -118,7 +118,10 @@
       </if>
     </trim>
   </insert>
-
+  <select id="selectCourse" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.VO.OptionVO">
+   select a.courseid id,course.coursename name from  (select teach.courseid from teach left join user on teach.teacherid=user.id where
+    user.id=#{id,jdbcType=INTEGER})a left join course on a.courseid=course.courseid
+  </select>
 
 
 

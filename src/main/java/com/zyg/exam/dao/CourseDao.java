@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.ChapterDTO;
 import com.zyg.exam.common.DTO.CourseDTO;
 import com.zyg.exam.common.VO.CourseVO;
+import com.zyg.exam.common.VO.OptionVO;
 import com.zyg.exam.model.Chapter;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.model.Question;
@@ -33,4 +34,6 @@ public interface CourseDao extends BaseMapper<Course> {
     List<Object> selectQuestion(Integer courseid);
 
     int importCourse(CourseVO courseVO);
+
+    List<OptionVO> selectCourse(Integer id);
 }

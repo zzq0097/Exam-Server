@@ -36,6 +36,7 @@ public class OptionController {
 
         if (id != null) {
             // TODO 根据courseid 查找teacher 的 OptionVO
+            list=teachDao.selectTeacher(id);
             return list;
         }
 
@@ -52,6 +53,7 @@ public class OptionController {
         List<OptionVO> list = new ArrayList<>();
         if (id != null){
             // TODO 根据 teacherid 查询 所教课程 的 OptionVO
+            list=courseDao.selectCourse(id);
             return list;
         }
 

@@ -70,4 +70,8 @@
         </if>
         )a limit #{beginIndex},#{pageSize};select found_rows() count;
   </select>
+  <select id="selectTeacher" parameterType="java.lang.Integer" resultType="com.zyg.exam.common.VO.OptionVO">
+    select name,a.teacherid id from (select teach.teacherid from teach left join course on teach.courseid=course.courseid
+    where course.courseid=#{courseid,jdbcType=INTEGER})a left join user on user.id=a.teacherid
+  </select>
 </mapper>
