@@ -14,6 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Answer implements Serializable {
+    private Integer answerid;
     /**
      * 考试记录id
      */
