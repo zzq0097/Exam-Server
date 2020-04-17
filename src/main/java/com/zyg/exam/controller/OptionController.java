@@ -6,6 +6,9 @@ import com.zyg.exam.common.VO.OptionVO;
 import com.zyg.exam.dao.ChapterDao;
 import com.zyg.exam.dao.ClassDao;
 import com.zyg.exam.dao.CourseDao;
+import com.zyg.exam.dao.TeachDao;
+import com.zyg.exam.model.Chapter;
+import com.zyg.exam.model.Class;
 import com.zyg.exam.model.Course;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class OptionController {
@@ -26,10 +31,18 @@ public class OptionController {
     private ClassDao classDao;
     @Autowired
     private ChapterDao chapterDao;
+    @Autowired
+    private TeachDao teachDao;
 
     @RequestMapping("/teacherOption")
-    public List<OptionVO> teacherOption(){
+    public List<OptionVO> teacherOption(Integer id){
         List<OptionVO> list = new ArrayList<>();
+
+        if (id != null) {
+            // TODO 根据courseid 查找teacher 的 OptionVO
+            return list;
+        }
+
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("role",2);
         for (User user: userService.list(queryWrapper)) {
@@ -41,33 +54,34 @@ public class OptionController {
     @RequestMapping("/courseOption")
     public List<OptionVO> courseOption(Integer id){
         List<OptionVO> list = new ArrayList<>();
-        if (id == null){
-            for (Course course: courseDao.selectList(null)) {
-                OptionVO optionVO = new OptionVO(course.getCourseid(),course.getCoursename());
-                list.add(optionVO);
-            }
+        if (id != null){
+            // TODO 根据 teacherid 查询 所教课程 的 OptionVO
+            return list;
+        }
+
+        for (Course course: courseDao.selectList(null)) {
+            OptionVO optionVO = new OptionVO(course.getCourseid(),course.getCoursename());
+            list.add(optionVO);
         }
         return list;
     }
     @RequestMapping("/chapterOption")
     public List<OptionVO> chapterOption(Integer id){
         List<OptionVO> list = new ArrayList<>();
-        if (id == null){
-            for (Course course: courseDao.selectList(null)) {
-                OptionVO optionVO = new OptionVO(course.getCourseid(),course.getCoursename());
-                list.add(optionVO);
-            }
+        QueryWrapper<Chapter> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("courseid",id);
+        for (Chapter chapter: chapterDao.selectList(null)) {
+            OptionVO optionVO = new OptionVO(chapter.getChapterid(),chapter.getChaptername());
+            list.add(optionVO);
         }
         return list;
     }
     @RequestMapping("/classOption")
     public List<OptionVO> classOption(Integer id){
         List<OptionVO> list = new ArrayList<>();
-        if (id == null){
-            for (Course course: courseDao.selectList(null)) {
-                OptionVO optionVO = new OptionVO(course.getCourseid(),course.getCoursename());
-                list.add(optionVO);
-            }
+        for (Class entity: classDao.selectList(null)) {
+            OptionVO optionVO = new OptionVO(entity.getClassid(),entity.getClassname());
+            list.add(optionVO);
         }
         return list;
     }
