@@ -2,10 +2,7 @@ package com.zyg.exam.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zyg.exam.common.VO.OptionVO;
-import com.zyg.exam.dao.ChapterDao;
-import com.zyg.exam.dao.ClassDao;
-import com.zyg.exam.dao.CourseDao;
-import com.zyg.exam.dao.TeachDao;
+import com.zyg.exam.dao.*;
 import com.zyg.exam.model.*;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.service.UserService;
@@ -28,6 +25,8 @@ public class OptionController {
     private ChapterDao chapterDao;
     @Autowired
     private TeachDao teachDao;
+    @Autowired
+    private QuestionDao questionDao;
 
     @RequestMapping("/teacherOption")
     public List<OptionVO> teacherOption(Integer id){
@@ -65,9 +64,12 @@ public class OptionController {
     @RequestMapping("/chapterOption")
     public List<OptionVO> chapterOption(Integer id){
         List<OptionVO> list = new ArrayList<>();
-        QueryWrapper<Chapter> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("courseid",id);
-        for (Chapter chapter: chapterDao.selectList(null)) {
+        QueryWrapper<Chapter> queryWrapper = null;
+        if (id != null){
+            queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("courseid",id);
+        }
+        for (Chapter chapter: chapterDao.selectList(queryWrapper.select("chapterid","chaptername"))) {
             OptionVO optionVO = new OptionVO(chapter.getChapterid(),chapter.getChaptername());
             list.add(optionVO);
         }
@@ -85,6 +87,21 @@ public class OptionController {
     @RequestMapping("/teachOption")
     public List<OptionVO> teachOption(){
         List<OptionVO> list = teachDao.optionTeachInfo();
+        return list;
+    }
+
+    @RequestMapping("/questionOption")
+    public List<OptionVO> questionOption(Integer id){
+        List<OptionVO> list = new ArrayList<>();
+        QueryWrapper<Question> queryWrapper = null;
+        if (id != null){
+            queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("chapterid",id);
+        }
+        for (Question question: questionDao.selectList(queryWrapper.select("subjectid","content"))) {
+            OptionVO optionVO = new OptionVO(question.getSubjectid(),question.getContent());
+            list.add(optionVO);
+        }
         return list;
     }
 }

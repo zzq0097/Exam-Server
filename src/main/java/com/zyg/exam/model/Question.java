@@ -1,5 +1,8 @@
 package com.zyg.exam.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +13,7 @@ public class Question implements Serializable {
     /**
      * 试题id
      */
+    @TableId(type = IdType.AUTO)
     private Integer subjectid;
 
     /**
