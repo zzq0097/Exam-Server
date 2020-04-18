@@ -143,7 +143,7 @@
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
     select SQL_CALC_FOUND_ROWS * from(select *  from (select a.recordid,a.starttime,a.coursename,a.name,class.classname,a.grade,a.status,a.monitor from class join
     (select a.recordid,a.starttime,a.coursename,user.name,user.classid,a.grade,a.status,a.monitor from user join(select recordid,studentid,a.starttime,a.coursename,grade,record.status,record.monitor
-    from record join
+    from record join (select  paper.courseid,course.coursename,paperid,starttime from paper join course on paper.courseid=course.courseid )a
     on a.paperid=record.paperid
     <if test="status!=null and status!=''">
       where record.status=#{status,jdbcType=VARCHAR}
