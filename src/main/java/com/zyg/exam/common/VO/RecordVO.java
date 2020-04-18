@@ -38,6 +38,4 @@ public class RecordVO {
     private String status;
 
     private String monitor;
-
-    private Integer value;
 }
