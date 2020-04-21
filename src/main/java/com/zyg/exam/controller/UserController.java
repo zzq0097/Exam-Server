@@ -35,6 +35,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/userCount")
+    public int UserCount(){
+        return userService.count();
+    }
 
     @RequestMapping("/login")
     public JsonBean login(String username, String password){
@@ -54,7 +58,6 @@ public class UserController {
 
     @RequestMapping("/selectStudent")
     public ResVO selectStudent(StudentDTO studentDTO){
-
         return userService.selectStudent(studentDTO);
     }
     @RequestMapping("/selectTeacher")
