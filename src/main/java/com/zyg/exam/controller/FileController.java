@@ -4,27 +4,31 @@ import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.model.Record;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.UUID;
+import java.util.*;
 
-@Controller
+@RestController
 public class FileController {
     @Autowired
     private RecordDao recordDao;
     @Autowired
     private AnswerDao answerDao;
 
-    String path = "D:/";
+    String oPath = System.getProperty("user.dir");
+    String serverPath = "http://localhost:8088/";
+    String localPath = "D:\\uploadImg\\";
 
     @RequestMapping("/uploadVideo")
     public int VideoFile(MultipartFile file,Integer recordid){
         try {
             String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            String filePath = path + UUID.randomUUID().toString() + "." + type;
+            String imgName = UUID.randomUUID().toString() + type;
+            String filePath = localPath + imgName;
             InputStream is = file.getInputStream();
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath));
@@ -56,5 +60,44 @@ public class FileController {
 
 
         return 0;
+    }
+
+    // wangEditor
+    @PostMapping("uploadImg")
+    public Map<String,Object> uploadImg(List<MultipartFile> files){
+        File file = new File(localPath);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        String imgServerURL = null;
+        List<String> urls = new ArrayList<>();
+        for (MultipartFile imgFile: files) {
+            String type = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf("."));
+            String imgName = UUID.randomUUID().toString() + type;
+            String filePath = localPath + imgName;
+            try {
+                InputStream is = imgFile.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    output.write(buffer, 0, length);
+                }
+                fileOutputStream.write(output.toByteArray());
+                is.close();
+                fileOutputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("[图片上传失败--]");
+            }
+            imgServerURL = serverPath + imgName;
+            urls.add(imgServerURL);
+            System.out.println("[图片上传成功--：]" + imgServerURL);
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("errno",0);
+        map.put("data",urls);
+        return map;
     }
 }
