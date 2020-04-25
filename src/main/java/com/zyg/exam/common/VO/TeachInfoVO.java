@@ -1,6 +1,9 @@
 package com.zyg.exam.common.VO;
 
+import com.zyg.exam.model.Class;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class TeachInfoVO {
@@ -9,4 +12,6 @@ public class TeachInfoVO {
     private String teachername;
     private int courseid;
     private String coursename;
+
+    private List<Class> classes;
 }
