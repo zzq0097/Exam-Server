@@ -70,7 +70,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
         //循环判断考试策略
         try {
             for (StrategyDTO strategyDTO : strategyDTOS) {
-                if (strategyDTO.getMode() == 1) {
+                if (strategyDTO.getMode() == 1) {//全随机
                     Strategy strategy = new Strategy();
                     //过去题目类型
                     String type = strategyDTO.getType();
@@ -92,12 +92,11 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     //获取随机后的题目id列表
                     questionids = this.randomQuestion(question1, count);
                     questions.add(questionids);
-
                     strategyDao.insertSelective(strategy);
                     this.insertPaperQuestion(questions, paper.getPaperid());
 
 
-                } else if (strategyDTO.getMode() == 2) {
+                } else if (strategyDTO.getMode() == 2) {//按章节，难度组卷
                     int count = strategyDTO.getCount();
                     int chapterid = strategyDTO.getChapterid();
                     String difficulty = strategyDTO.getDifficulty();
@@ -119,11 +118,10 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     condition.setCount(count);
                     condition.setDifficulty(difficulty);
                     conditionDao.insertSelective(condition);
-
                     questionids = this.randomQuestion(question1, count);
                     questions.add(questionids);
                     this.insertPaperQuestion(questions, paper.getPaperid());
-                } else if (strategyDTO.getMode() == 3) {
+                } else if (strategyDTO.getMode() == 3) {//手动组卷
                     Strategy strategy = new Strategy();
                     strategy.setMode(strategyDTO.getMode());
                     strategy.setCount(strategyDTO.getCount());

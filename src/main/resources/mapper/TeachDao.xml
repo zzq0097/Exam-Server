@@ -78,4 +78,8 @@
     select a.teachid id,CONCAT_WS(' | | ',coursename,a.name) name from (select teachid,courseid,user.name from teach left join user on teach.teacherid=user.id)a left join
                                                                        course on a.courseid=course.courseid
   </select>
+  <select id="selectClass" parameterType="java.lang.Integer" resultType="com.zyg.exam.model.Class">
+    select a.classid,class.classname from (select classid from getclass left join teach on getclass.teachid=teach.teachid where teach.teachid=#{teachid,jdbcType=INTEGER})a
+        left join class on a.classid=class.classid
+  </select>
 </mapper>
