@@ -6,7 +6,7 @@ import lombok.Data;
 public class BarVO {
     private String classname;
     private int minScore;
-    private int average;
+    private double average;
     private int maxScore;
-    private int variance;
+    private double variance;
 }
