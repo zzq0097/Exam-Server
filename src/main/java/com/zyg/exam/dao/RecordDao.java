@@ -2,6 +2,7 @@ package com.zyg.exam.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.RecordDTO;
+import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.model.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,6 @@ public interface RecordDao extends BaseMapper<Record> {
     String selectMonitor(int recordId);
 
     int setGrade(int recordid,int grade);
+
+    List<BarVO> selectAverage(Integer paperid);
 }

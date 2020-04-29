@@ -6,6 +6,7 @@ import com.zyg.exam.common.DTO.CreditDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
+import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.dao.RecordDao;
@@ -98,5 +99,10 @@ public class RecordServiceImpl implements RecordService {
 
 
         return new JsonBean(200,"",questions);
+    }
+
+    @Override
+    public List<BarVO> selectAverage(Integer paperid) {
+        return recordDao.selectAverage(paperid);
     }
 }

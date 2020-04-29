@@ -19,6 +19,13 @@
     <result column="monitor" jdbcType="VARCHAR" property="monitor"/>
     <result column="value" jdbcType="INTEGER" property="value"/>
   </resultMap>
+  <resultMap id="Average" type="com.zyg.exam.common.VO.BarVO">
+    <result column="maxsource" property="maxScore"/>
+    <result column="minsource" property="minScore"/>
+    <result column="avearge" property="average"/>
+    <result column="variance" property="variance"/>
+    <result column="classname" property="classname"/>
+  </resultMap>
   <sql id="Base_Column_List">
     recordid, studentid, grade, monitor, paperid
   </sql>
@@ -163,4 +170,8 @@
     update record set grade=#{grade,jdbcType=INTEGER}
     where recordid=#{recordid,jdbcType=INTEGER}
   </update>
+  <select id="selectAverage" resultMap="Average">
+    select max(grade) maxsource,min(grade) minsource,AVG(grade) average,VAR_SAMP(grade) variance,a.classname from  (select id,a.classname from(select classname,classid from class where classid=(select classid from (select teachid from (select courseid from paper where paperid=#{paperid,jdbcTYpe=INTEGER})a left join teach on teach.courseid=a.courseid)a left join getclass
+      on getclass.teachid=a.teachid))a left join user on a.classid=user.classid)a left join record on record.studentid=a.id
+  </select>
 </mapper>
