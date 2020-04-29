@@ -1,18 +1,22 @@
 package com.zyg.exam.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zyg.exam.common.DTO.TeachInfoDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
-import com.zyg.exam.common.VO.OptionVO;
+import com.zyg.exam.common.VO.TeachInfoVO;
+import com.zyg.exam.dao.ClassDao;
+import com.zyg.exam.dao.GetclassDao;
 import com.zyg.exam.dao.TeachDao;
+import com.zyg.exam.model.Class;
 import com.zyg.exam.model.Teach;
-import com.zyg.exam.model.TeachInfo;
 import com.zyg.exam.service.TeachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 @Transactional(rollbackFor =Exception.class)
 @Service
@@ -23,8 +27,15 @@ public class TeachServiceImpl implements TeachService {
     @Override
     public ResVO listTeachInfo(TeachInfoDTO teachInfoDTO) {
         List<Object> teachInfos = teachDao.selectTeachInfo(teachInfoDTO).get(0);
+        List<TeachInfoVO> newTeachInfo = new ArrayList<>();
+        TeachInfoVO teachInfoVO;
+        for (Object obj: teachInfos) {
+            teachInfoVO = (TeachInfoVO)obj;
+            teachInfoVO.setClasses(teachDao.selectClass(teachInfoVO.getId()));
+            newTeachInfo.add(teachInfoVO);
+        }
         long total = (long)teachDao.selectTeachInfo(teachInfoDTO).get(1).get(0);
-        return new ResVO(teachInfos,total);
+        return new ResVO(newTeachInfo,total);
     }
 
     @Override
