@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +22,7 @@ private PaperDao paperDao;
 
 
 
-    public List<Integer> randomQuestion(List<Integer> list,int n){
+    public static List<Integer> randomQuestion(List<Integer> list,int n){
         System.out.println("listSize"+list.size());
         //把随机取得的数据存储在 listRandom 中
         List<Integer> listRandom = new ArrayList<Integer>();
@@ -49,4 +50,5 @@ private PaperDao paperDao;
             }
         }
     }
+
 }
