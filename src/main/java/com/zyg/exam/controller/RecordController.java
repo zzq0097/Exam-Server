@@ -6,7 +6,9 @@ import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.BarVO;
+import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.dao.RecordDao;
+import com.zyg.exam.model.Class;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,14 +44,24 @@ public class RecordController {
         return recordService.correctPaper(correctPaperDTO);
     }
 
-    @RequestMapping("selectQuestionByRecord")
+    @RequestMapping("/selectQuestionByRecord")
     public JsonBean selectQuestionByRecord(Integer recordid){
 
         return recordService.selectQuestionByRecord(recordid);
     }
 
-    @RequestMapping("selectAverage")
+    @RequestMapping("/selectAverage")
     public List<BarVO> selectAverage(Integer paperid){
         return recordService.selectAverage(paperid);
+    }
+
+    @RequestMapping("/selectSpread")
+    public List<SpreadVO> selectSpread(Integer paperid,Integer classid){
+        return recordService.selectSpread(paperid,classid);
+    }
+
+    @RequestMapping("/selectClassByPaperid")
+    public List<Class> selectClass(Integer paperid){
+        return recordService.selectClass(paperid);
     }
 }

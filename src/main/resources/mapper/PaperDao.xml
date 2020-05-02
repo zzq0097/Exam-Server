@@ -44,8 +44,13 @@
     delete from paper where paperid in
     <foreach collection="array" item="paperid" open="(" separator="," close=")">
       #{paperid}
+    </foreach>;
+    delete from paper_question where paperid in
+    <foreach collection="array" item="paperid" open="(" separator="," close=")">
+      #{paperid}
     </foreach>
   </delete>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Paper">
     update paper
     <set>

@@ -7,9 +7,11 @@ import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.BarVO;
+import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.QuestionDao;
 import com.zyg.exam.dao.RecordDao;
+import com.zyg.exam.model.Class;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,5 +106,15 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public List<BarVO> selectAverage(Integer paperid) {
         return recordDao.selectAverage(paperid);
+    }
+
+    @Override
+    public List<SpreadVO> selectSpread(Integer paperid, Integer classid) {
+        return recordDao.selectSpread(paperid,classid);
+    }
+
+    @Override
+    public List<Class> selectClass(Integer paperid) {
+        return recordDao.selectClass(paperid);
     }
 }

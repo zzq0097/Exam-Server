@@ -6,6 +6,8 @@ import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.BarVO;
+import com.zyg.exam.common.VO.SpreadVO;
+import com.zyg.exam.model.Class;
 
 import java.util.List;
 
@@ -20,4 +22,8 @@ public interface  RecordService {
     JsonBean selectQuestionByRecord(Integer recordid);
 
     List<BarVO> selectAverage(Integer paperid);
+
+    List<SpreadVO> selectSpread(Integer paperid,Integer classid);
+
+    List<Class> selectClass(Integer paperid);
 }

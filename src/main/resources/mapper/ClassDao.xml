@@ -19,6 +19,7 @@
     <foreach collection="array" item="classid" open="(" separator="," close=")">
       #{classid}
     </foreach>
+
   </delete>
   <update id="updateByPrimaryKeySelective" parameterType="com.zyg.exam.model.Class">
     update class
