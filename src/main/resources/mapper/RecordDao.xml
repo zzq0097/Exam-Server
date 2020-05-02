@@ -187,12 +187,12 @@
     select a.classid,sum(if(credit='优秀',count,0)) as num1,sum(if(credit='良好',count,0)) as num2,sum(if(credit='稳定',count,0)) as num3,sum(if(credit='及格',count,0)) as num4,sum(if(credit='不及格',count,0)) as num5 from(select count(a.studentid) count,a.credit,a.classid from  	(select classid,a.studentid,( case
 
     when a.grade >= 90 then '优秀'
-    when a.grade >= 80 and a.grade < 90 then '良好'
+    when a.grade >= 80 and a.grade &lt; 90 then '良好'
 
-    when a.grade >= 70 and a.grade < 80 then '稳定'
-    when a.grade >= 60 and a.grade < 70 then '及格'
+    when a.grade >= 70 and a.grade &lt; 80 then '稳定'
+    when a.grade >= 60 and a.grade &lt; 70 then '及格'
 
-    when a.grade < 60 then '不及格'
+    when a.grade &lt; 60 then '不及格'
 
 
     end ) as credit
