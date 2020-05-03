@@ -34,6 +34,14 @@
     <result column="num4" property="num4"/>
     <result column="num5" property="num5"/>
   </resultMap>
+  <resultMap id="EverQuestion" type="com.zyg.exam.common.VO.EverQuestion">
+    <result column="questionid" property="questionid"/>
+    <result column="content" property="content"/>
+    <result column="maxnum" property="maxnum"/>
+    <result column="minnum" property="minnum"/>
+    <result column="avgnum" property="avgnum"/>
+    <result column="percent" property="percent"/>
+  </resultMap>
   <sql id="Base_Column_List">
     recordid, studentid, grade, monitor, paperid
   </sql>
@@ -204,5 +212,10 @@
     select classname,a.classid from  	(select classid,a.studentid
      from	(select studentid,grade from record where paperid=#{paperid,jdbcType=INTEGER})a left join user
        on a.studentid=user.id)a left join class on a.classid=class.classid
+  </select>
+  <select id="selectEverQues" resultMap="EverQuestion">
+    select a.questionid,a.content,if(type='简答' or type='编程',max(credit),null) as maxnum,if(type='简答' or type='编程',min(credit),null) as minnum,if(type='简答' or type='编程',AVG(credit),null) as avgnum,if(type='简答' or type='编程',if(credit=0,count(credit),0)/count(credit),null) as percent
+
+    from(select type,a.questionid,a.credit,content from(select credit,questionid from (select recordid from record <if test="paperid!=null and paperid!=''">where paperid=#{paperid,jdbcType=INTEGER}</if>)a left join answer on answer.recordid=a.recordid)a left join question on question.subjectid=a.questionid)a GROUP BY questionid
   </select>
 </mapper>

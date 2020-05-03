@@ -7,6 +7,7 @@ import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.BarVO;
+import com.zyg.exam.common.VO.EverQuestion;
 import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.QuestionDao;
@@ -116,5 +117,10 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public List<Class> selectClass(Integer paperid) {
         return recordDao.selectClass(paperid);
+    }
+
+    @Override
+    public List<EverQuestion> selectEverQues(Integer paperid) {
+        return recordDao.selectEverQues(paperid);
     }
 }

@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 import com.zyg.exam.common.VO.BarVO;
+import com.zyg.exam.common.VO.EverQuestion;
 import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.service.RecordService;
@@ -48,6 +49,11 @@ public class ChartsController {
     @RequestMapping("/selectClassByPaperid")
     public List<Class> selectClass(Integer paperid){
         return recordService.selectClass(paperid);
+    }
+
+    @RequestMapping("/selectEverQues")
+    public List<EverQuestion> selectEverQues(Integer paperid){
+        return recordService.selectEverQues(paperid);
     }
 
 }
