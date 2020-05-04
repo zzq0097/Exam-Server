@@ -3,6 +3,7 @@ package com.zyg.exam.controller;
 import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.common.VO.EverQuestion;
 import com.zyg.exam.common.VO.SpreadVO;
+import com.zyg.exam.dao.PaperDao;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class ChartsController {
 
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private PaperDao paperDao;
 
     // 柱状图
     @RequestMapping("/barChart")
@@ -34,6 +37,10 @@ public class ChartsController {
     public List<?> lineChart(Integer id){
 
         return null;
+    }
+    @RequestMapping("/getAllPaper")
+    public List<?> getAllPaper(){
+        return paperDao.selectList(null);
     }
 
     @RequestMapping("/selectAverage")
