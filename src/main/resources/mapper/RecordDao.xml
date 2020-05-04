@@ -209,7 +209,7 @@
     on a.studentid=user.id)a GROUP BY a.classid,a.credit)a  <if test="classid!=null and classid!=''"> where a.classid=#{classid,jdbcType=INTEGER}</if> group by a.classid
   </select>
   <select id="selectClass" resultType="com.zyg.exam.model.Class">
-    select classname,a.classid from  	(select classid,a.studentid
+    select distinct classname,a.classid from  	(select classid,a.studentid
      from	(select studentid,grade from record where paperid=#{paperid,jdbcType=INTEGER})a left join user
        on a.studentid=user.id)a left join class on a.classid=class.classid
   </select>
