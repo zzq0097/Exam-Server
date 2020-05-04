@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class RecordServiceImpl implements RecordService {
@@ -110,8 +112,16 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<SpreadVO> selectSpread(Integer paperid, Integer classid) {
-        return recordDao.selectSpread(paperid,classid);
+    public int[] selectSpread(Integer paperid, Integer classid) {
+        List<SpreadVO> spreadVOS= recordDao.selectSpread(paperid,classid);
+        int[] nums=new int[5];
+
+         nums[0]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum1));
+         nums[1]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum2));
+         nums[2]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum3));
+         nums[3]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum4));
+         nums[4]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum5));
+         return nums;
     }
 
     @Override
@@ -121,6 +131,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public List<EverQuestion> selectEverQues(Integer paperid,Integer classid) {
-        return recordDao.selectEverQues(paperid,classid);
+       return recordDao.selectEverQues(paperid,classid);
+
     }
 }

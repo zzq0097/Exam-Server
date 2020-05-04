@@ -49,7 +49,7 @@ public class ChartsController {
     }
 
     @RequestMapping("/selectSpread")
-    public List<SpreadVO> selectSpread(Integer paperid, Integer classid){
+    public int[] selectSpread(Integer paperid, Integer classid){
         System.out.println("paperid"+paperid);
         System.out.println("classid"+classid);
         return recordService.selectSpread(paperid,classid);

@@ -24,7 +24,7 @@ public interface  RecordService {
 
     List<BarVO> selectAverage(Integer paperid);
 
-    List<SpreadVO> selectSpread(Integer paperid,Integer classid);
+    int[] selectSpread(Integer paperid,Integer classid);
 
     List<Class> selectClass(Integer paperid);
 
