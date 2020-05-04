@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BarVO {
+    private int classid;
     private String classname;
     private int minScore;
     private double average;
