@@ -120,7 +120,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<EverQuestion> selectEverQues(Integer paperid) {
-        return recordDao.selectEverQues(paperid);
+    public List<EverQuestion> selectEverQues(Integer paperid,Integer classid) {
+        return recordDao.selectEverQues(paperid,classid);
     }
 }

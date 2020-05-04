@@ -47,5 +47,5 @@ public interface RecordDao extends BaseMapper<Record> {
 
     List<Class> selectClass(Integer paperid);
 
-    List<EverQuestion> selectEverQues(Integer paperid);
+    List<EverQuestion> selectEverQues(Integer paperid,Integer classid);
 }

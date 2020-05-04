@@ -28,5 +28,5 @@ public interface  RecordService {
 
     List<Class> selectClass(Integer paperid);
 
-    List<EverQuestion> selectEverQues(Integer paperid);
+    List<EverQuestion> selectEverQues(Integer paperid,Integer classid);
 }

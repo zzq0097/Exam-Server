@@ -214,8 +214,11 @@
        on a.studentid=user.id)a left join class on a.classid=class.classid
   </select>
   <select id="selectEverQues" resultMap="EverQuestion">
-    select a.questionid,a.content,if(type='简答' or type='编程',max(credit),null) as maxnum,if(type='简答' or type='编程',min(credit),null) as minnum,if(type='简答' or type='编程',AVG(credit),null) as avgnum,if(type='简答' or type='编程',if(credit=0,count(credit),0)/count(credit),null) as percent
-
-    from(select type,a.questionid,a.credit,content from(select credit,questionid from (select recordid from record <if test="paperid!=null and paperid!=''">where paperid=#{paperid,jdbcType=INTEGER}</if>)a left join answer on answer.recordid=a.recordid)a left join question on question.subjectid=a.questionid)a GROUP BY questionid
+    select a.questionid,a.content,if(type='简答' or type='编程',max(credit),null) as maxnum,if(type='简答' or type='编程',min(credit),null) as minnum,if(type='简答' or type='编程',AVG(credit),null) as avgnum,if(type='简答' or type='编程',if(credit=0,count(credit),0)/count(credit),null) as percent,a.classid
+    from (select user.classid,a.type,a.questionid,a.credit,a.content,a.studentid
+    from	(select type,a.questionid,a.credit,content,a.studentid
+    from(select credit,questionid,a.studentid
+    from (select recordid,studentid
+    from record <if test="paperid!=null and paperid!=''">where paperid=#{paperid,jdbcType=INTEGER}</if> )a left join answer on answer.recordid=a.recordid)a left join question on question.subjectid=a.questionid)a left join user on a.studentid=user.id)a <if test="classid!=null and classid!=''">where classid=#{classid,jdbcType=INTEGER}</if> GROUP BY questionid,classid
   </select>
 </mapper>

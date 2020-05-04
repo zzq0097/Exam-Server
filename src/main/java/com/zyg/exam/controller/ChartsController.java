@@ -61,8 +61,8 @@ public class ChartsController {
     }
 
     @RequestMapping("/selectEverQues")
-    public List<EverQuestion> selectEverQues(Integer paperid){
-        return recordService.selectEverQues(paperid);
+    public List<EverQuestion> selectEverQues(Integer paperid,Integer classid){
+        return recordService.selectEverQues(paperid,classid);
     }
 
 }
