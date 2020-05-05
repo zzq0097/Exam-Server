@@ -69,7 +69,7 @@ public class ChartsController {
     @RequestMapping("/line_chart")
     public List<?> line_chart(LineChartDTO lineChartDTO){
         System.out.println(lineChartDTO);
-        return null;
+        return recordService.selectTendency(lineChartDTO);
     }
 
 }

@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.common.VO.EverQuestion;
+import com.zyg.exam.common.VO.LineVO;
 import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.model.Class;
 import com.zyg.exam.model.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,4 +51,6 @@ public interface RecordDao extends BaseMapper<Record> {
     List<Class> selectClass(Integer paperid);
 
     List<EverQuestion> selectEverQues(Integer paperid,Integer classid);
+
+    List<LineVO> selectTendency(Integer courseid, Timestamp firsttime, Timestamp lasttime);
 }

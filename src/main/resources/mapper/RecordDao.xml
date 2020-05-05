@@ -42,6 +42,12 @@
     <result column="avgnum" property="avgnum"/>
     <result column="percent" property="percent"/>
   </resultMap>
+  <resultMap id="LineVo" type="com.zyg.exam.common.VO.LineVO">
+    <result column="maxsource" property="maxScore"/>
+    <result column="minsource" property="minScore"/>
+    <result column="avgsource" property="avgScore"/>
+    <result column="time" property="time"/>
+  </resultMap>
   <sql id="Base_Column_List">
     recordid, studentid, grade, monitor, paperid
   </sql>
@@ -220,5 +226,14 @@
     from(select credit,questionid,a.studentid
     from (select recordid,studentid
     from record <if test="paperid!=null and paperid!=''">where paperid=#{paperid,jdbcType=INTEGER}</if> )a left join answer on answer.recordid=a.recordid)a left join question on question.subjectid=a.questionid)a left join user on a.studentid=user.id)a <if test="classid!=null and classid!=''">where classid=#{classid,jdbcType=INTEGER}</if> GROUP BY questionid,classid
+  </select>
+  <select id="selectTendency" resultMap="LineVo">
+    select max(grade) maxsource,min(grade) minsource,avg(grade) avgsource,a.paperid,starttime time from (select paperid,starttime from paper where courseid=#{courseid,jdbcType=INTEGER})a left join record on record.paperid=a.paperid <if test="firsttime!=null and firsttime!=''">where year(starttime)&lt;=year(#{firsttime,jdbcType=DATETIME})
+    and year(starttime)>year(#{lasttime,jdbcType=DATETIME})-3</if>
+    <if test="firsttime=='' and lasttime==''">
+      where year(starttime)&lt;=year(now())
+      and year(starttime)>year(now())-3
+    </if>
+    group by paperid
   </select>
 </mapper>

@@ -3,11 +3,13 @@ package com.zyg.exam.service.impl;
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
 import com.zyg.exam.common.DTO.CreditDTO;
 
+import com.zyg.exam.common.DTO.LineChartDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.common.VO.EverQuestion;
+import com.zyg.exam.common.VO.LineVO;
 import com.zyg.exam.common.VO.SpreadVO;
 import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.QuestionDao;
@@ -18,6 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -133,5 +138,21 @@ public class RecordServiceImpl implements RecordService {
     public List<EverQuestion> selectEverQues(Integer paperid,Integer classid) {
        return recordDao.selectEverQues(paperid,classid);
 
+    }
+
+    @Override
+    public List<LineVO> selectTendency(LineChartDTO lineChartDTO) {
+        Timestamp firsttime =null;
+        Timestamp lasttime=null;
+        try {
+            Timestamp.valueOf(lineChartDTO.getLine_time()[0]);
+            Timestamp.valueOf(lineChartDTO.getLine_time()[1]);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+
+        return recordDao.selectTendency(lineChartDTO.getCourseid(),firsttime,lasttime);
     }
 }
