@@ -1,5 +1,6 @@
 package com.zyg.exam.controller;
 
+import com.zyg.exam.common.DTO.LineChartDTO;
 import com.zyg.exam.common.VO.BarVO;
 import com.zyg.exam.common.VO.EverQuestion;
 import com.zyg.exam.common.VO.SpreadVO;
@@ -63,6 +64,12 @@ public class ChartsController {
     @RequestMapping("/selectEverQues")
     public List<EverQuestion> selectEverQues(Integer paperid,Integer classid){
         return recordService.selectEverQues(paperid,classid);
+    }
+
+    @RequestMapping("/line_chart")
+    public List<?> line_chart(LineChartDTO lineChartDTO){
+        System.out.println(lineChartDTO);
+        return null;
     }
 
 }
