@@ -22,7 +22,7 @@
   <resultMap id="Average" type="com.zyg.exam.common.VO.BarVO">
     <result column="maxsource" property="maxScore"/>
     <result column="minsource" property="minScore"/>
-    <result column="avearge" property="average"/>
+    <result column="average" property="average"/>
     <result column="variance" property="variance"/>
     <result column="classname" property="classname"/>
   </resultMap>
