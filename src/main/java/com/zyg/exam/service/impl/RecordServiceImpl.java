@@ -119,13 +119,15 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public int[] selectSpread(Integer paperid, Integer classid) {
         List<SpreadVO> spreadVOS= recordDao.selectSpread(paperid,classid);
+
         int[] nums=new int[5];
 
-         nums[0]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum1));
-         nums[1]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum2));
+         nums[4]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum1));
+         nums[3]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum2));
          nums[2]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum3));
-         nums[3]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum4));
-         nums[4]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum5));
+         nums[1]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum4));
+         nums[0]= spreadVOS.stream().collect(Collectors.summingInt(SpreadVO::getNum5));
+
          return nums;
     }
 
