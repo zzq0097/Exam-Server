@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zyg.exam.model.Record">
     <id column="recordid" jdbcType="INTEGER" property="recordid" />
     <result column="studentid" jdbcType="INTEGER" property="studentid" />
-    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="monitor" jdbcType="VARCHAR" property="monitor" />
     <result column="paperid" jdbcType="INTEGER" property="paperid" />
   </resultMap>
@@ -64,7 +64,7 @@
   <insert id="insert" keyColumn="recordid" keyProperty="recordid" parameterType="com.zyg.exam.model.Record" useGeneratedKeys="true">
     insert into record (studentid, grade, monitor, 
       paperid)
-    values (#{studentid,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{monitor,jdbcType=VARCHAR}, 
+    values (#{studentid,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{monitor,jdbcType=VARCHAR},
       #{paperid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="recordid" keyProperty="recordid" parameterType="com.zyg.exam.model.Record" useGeneratedKeys="true">
@@ -88,7 +88,7 @@
         #{studentid,jdbcType=INTEGER},
       </if>
       <if test="grade != null">
-        #{grade,jdbcType=VARCHAR},
+        #{grade,jdbcType=INTEGER},
       </if>
       <if test="monitor != null">
         #{monitor,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
         studentid = #{studentid,jdbcType=INTEGER},
       </if>
       <if test="grade != null">
-        grade = #{grade,jdbcType=VARCHAR},
+        grade = #{grade,jdbcType=INTEGER},
       </if>
       <if test="monitor != null">
         monitor = #{monitor,jdbcType=VARCHAR},
@@ -119,7 +119,7 @@
   <update id="updateByPrimaryKey" parameterType="com.zyg.exam.model.Record">
     update record
     set studentid = #{studentid,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
       monitor = #{monitor,jdbcType=VARCHAR},
       paperid = #{paperid,jdbcType=INTEGER}
     where recordid = #{recordid,jdbcType=INTEGER}
