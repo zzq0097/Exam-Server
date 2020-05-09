@@ -35,5 +35,8 @@ public class Getclass implements Serializable {
      */
     private Integer classid;
 
-
+    public Getclass(Integer teachid, Integer classid) {
+        this.teachid = teachid;
+        this.classid = classid;
+    }
 }

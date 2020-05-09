@@ -1,6 +1,7 @@
 package com.zyg.exam.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zyg.exam.common.DTO.GetClassDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -35,11 +38,26 @@ public class GetclassController {
 
     @RequestMapping("insertGetClass")
     public JsonBean insertGetClass(Getclass getclass){
+        System.out.println(getclass);
+        QueryWrapper<Getclass> queryWrapper = new QueryWrapper<>();
+        Map<String, Integer> map = new HashMap<>();
+        map.put("teachid",getclass.getTeachid());
+        map.put("classid",getclass.getClassid());
+        queryWrapper.allEq(map);
+        if (getclassService.list(queryWrapper).size()>0){
+            return new JsonBean(500,"error:班级已存在",null);
+        }
         return new JsonBean(200,"success",getclassService.save(getclass));
     }
     @RequestMapping("updateGetClass")
-    public JsonBean updateGetClass(Getclass getclass){
-        return new JsonBean(200,"success",getclassService.updateById(getclass));
+    public JsonBean updateGetClass(Integer teachid, int[] classes){
+        QueryWrapper<Getclass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("teachid",teachid);
+        getclassService.remove(queryWrapper);
+        for (Integer classid: classes) {
+            getclassService.save(new Getclass(teachid,classid));
+        }
+        return new JsonBean(200,"success",null);
     }
     @RequestMapping("deleteGetClass")
     public JsonBean deleteGetClass(@RequestParam(value = "ids") List<Integer> ids){
