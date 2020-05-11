@@ -243,7 +243,7 @@ public class RecordServiceImpl implements RecordService {
             map.put("minnum","最低分"+largePaper2.getMinnum());
             map.put("spread","小于60分的人数:"+largePaper2.getNum0()+"  大于60小于70的人数:"+largePaper2.getNum1()+"  大于70小于80的人数:"+largePaper2.getNum2()+"  大于80小于90的人数:"+largePaper2.getNum3()+"  大于90的人数:"+largePaper2.getNum4());
             String c=System.getProperty("user.dir");
-            String filename="p"+largePaper1.getPaperid()+"c"+largePaper1.getCourseid()+".docx";
+            String filename="p"+largePaper1.getPaperid()+".docx";
             File file1=new File(c+"\\src\\main\\resources\\cache");
             FileOutputStream outputStream = new FileOutputStream(file1+"\\"+filename);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
