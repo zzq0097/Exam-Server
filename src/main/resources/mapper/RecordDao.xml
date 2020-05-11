@@ -48,6 +48,42 @@
     <result column="avgsource" property="avgScore"/>
     <result column="time" property="time"/>
   </resultMap>
+  <resultMap id="LittlePaper" type="com.zyg.exam.common.VO.LittlePaper">
+    <result column="avgnum" property="avgnum"/>
+    <result column="classname" property="classname"/>
+    <result column="teachername" property="teachname"/>
+    <result column="coursename" property="coursename"/>
+    <result column="stunum" property="stunum"/>
+    <result column="num0" property="num0"/>
+    <result column="num1" property="num1"/>
+    <result column="num2" property="num2"/>
+    <result column="num3" property="num3"/>
+    <result column="num4" property="num4"/>
+    <result column="year" property="year"/>
+    <result column="no" property="no"/>
+    <result column="paperid" property="paperid"/>
+    <result column="classid" property="classid"/>
+  </resultMap>
+  <resultMap id="largePaper1" type="com.zyg.exam.common.VO.LargePaper1">
+    <result column="no" property="time"/>
+    <result column="courseid" property="courseid"/>
+    <result column="coursename" property="coursename"/>
+    <result column="courseid" property="courseid"/>
+  </resultMap>
+  <resultMap id="largePaper2" type="com.zyg.exam.common.VO.LargePaper2">
+    <result column="chapternum" property="chapternum"/>
+    <result column="type" property="type"/>
+    <result column="num" property="num"/>
+    <result column="maxnum" property="maxnum"/>
+    <result column="minnum" property="minnum"/>
+    <result column="avgnum" property="avgnum"/>
+    <result column="stunum" property="stunum"/>
+    <result column="num0" property="num0"/>
+    <result column="num1" property="num1"/>
+    <result column="num2" property="num2"/>
+    <result column="num3" property="num3"/>
+    <result column="num4" property="num4"/>
+  </resultMap>
   <sql id="Base_Column_List">
     recordid, studentid, grade, monitor, paperid
   </sql>
@@ -235,5 +271,28 @@
       and year(starttime)>year(now())-3
     </if>
     group by paperid
+  </select>
+  <select id="littlePaper" resultMap="LittlePaper">
+    select * from (select a.classid,sum(if(credit='优秀',count,0)) as num4,sum(if(credit='良好',count,0)) as num3,sum(if(credit='稳定',count,0)) as num2,sum(if(credit='及格',count,0)) as num1,sum(if(credit='不及格',count,0)) as num0 from(select count(a.studentid) count,a.credit,a.classid from (select classid,a.studentid,( case when a.grade >= 90 then '优秀' when a.grade >= 80 and a.grade &lt; 90 then '良好' when a.grade >= 70 and a.grade &lt; 80 then '稳定' when a.grade >= 60 and a.grade &lt; 70 then '及格' when a.grade &lt; 60 then '不及格' end ) as credit from (select studentid,grade from record where paperid=#{paperid,jdbcType=INTEGER} )a left join user on a.studentid=user.id)a GROUP BY a.classid,a.credit)a  group by a.classid)a
+    ,
+    (select avg(grade) avgnum,a.classname,a.coursename,a.teachername,a.stunum,a.classid,a.year,a.no,a.paperid from
+    (select a.coursename,a.teachername,classname,count(id) stunum,a.paperid,id,a.classid,a.year,a.no from
+    (select a.classid,a.coursename,a.teachername,classname,a.paperid,a.year,a.no
+    from  (select classid,a.coursename,a.teachername,a.paperid,a.year,a.no
+    from(select a.coursename,user.name teachername,a.teachid,a.paperid,a.year,a.no
+    from (select a.coursename,teacherid,teachid,a.paperid,a.year,a.no
+    from(select coursename,paper.courseid,paperid,year(starttime) year,if(month(starttime)>=2 and month(starttime)&lt;7,concat(year(starttime)-1,'-',year(starttime),'学年第二学期'),concat(year(starttime),'-',year(starttime)+1,'第一学期'))  no	from course left join paper on paper.courseid=course.courseid where paperid=#{paperid,jdbcType=INTEGER})a left join teach on teach.courseid=a.courseid)a left join user on user.id=a.teacherid)a left join getclass on a.teachid=getclass.teachid)a left join class on class.classid=a.classid)a left join user on a.classid=user.classid group by classname)a left join record on record.studentid=a.id where record.paperid=#{paperid,jdbcType=INTEGER} GROUP BY classname)b where a.classid=b.classid
+  </select>
+  <select id="largePaper1" resultMap="largePaper1">
+    select paperid,paper.courseid,coursename,if(month(starttime)>=2 and month(starttime)&lt;7,concat(year(starttime)-1,'-',year(starttime),'学年第二学期'),concat(year(starttime),'-',year(starttime)+1,'第一学期')) no from paper left join course on paper.courseid=course.courseid where paperid=#{paperid,jdbcType=INTEGER}
+  </select>
+  <select id="largePaper2" resultMap="largePaper2">
+    select * from(select count/count(chapter.chapterid)*100 chapternum,a.type from  (select count(distinct chapterid) count,a.paperid,a.courseid,group_concat(distinct type) type from(select questionid,paper.paperid,courseid from paper left join paper_question on paper.paperid=paper_question.paperid where paper.paperid=#{paperid,jdbcType=INTEGER})a left join question on question.subjectid=a.questionid)a left join chapter on a.courseid=chapter.courseid)a
+            ,
+                 (select a.object/b.subject num from (select sum(credit) object from(select type,strategyid,value*count credit from paper left join strategy on paper.paperid=strategy.paperid where paper.paperid=#{paperid,jdbcType=INTEGER})a where a.type='选择' or a.type='判断')a
+                         ,
+                                                     (select sum(credit) subject from(select type,strategyid,value*count credit from paper left join strategy on paper.paperid=strategy.paperid where paper.paperid=#{paperid,jdbcType=INTEGER})a where a.type='填空' or a.type='简答' or a.type='编程')b)b,
+                 (select max(grade) maxnum,min(grade) minnum,avg(grade) avgnum,count(studentid) stunum from record where paperid=#{paperid,jdbcType=INTEGER})c,
+    (select if(grade&lt;60,count(studentid),0) num0,if(grade>=60 and grade&lt;70,count(studentid),0) num1,if(grade>=70 and grade&lt;80,count(studentid),0) num2,if(grade>=80 and grade&lt;90,count(studentid),0) num3,if(grade>=90,count(studentid),0) num4 from record where paperid=#{paperid,jdbcType=INTEGER})d
   </select>
 </mapper>

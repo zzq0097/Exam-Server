@@ -40,4 +40,14 @@ public class RecordController {
     public JsonBean selectQuestionByRecord(Integer recordid){
         return recordService.selectQuestionByRecord(recordid);
     }
+
+    @RequestMapping("/insertWord")
+    public void insertWord(Integer paperid){
+        recordService.insertWord(paperid);
+    }
+
+    @RequestMapping("/largePaper")
+    public void largePaper(Integer paperid){
+        recordService.largePaper(paperid);
+    }
 }

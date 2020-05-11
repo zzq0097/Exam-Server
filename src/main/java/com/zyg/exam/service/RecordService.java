@@ -34,4 +34,8 @@ public interface  RecordService {
     List<EverQuestion> selectEverQues(Integer paperid,Integer classid);
 
     List<LineVO> selectTendency(LineChartDTO lineChartDTO);
+
+    void insertWord(Integer paperid);
+
+    void largePaper(Integer paperid);
 }
