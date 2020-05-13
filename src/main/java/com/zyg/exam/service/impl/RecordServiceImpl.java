@@ -168,19 +168,18 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public void insertWord(Integer paperid)  {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        InputStream in = null;
         try {
             Map<String,String> map = new HashMap<>();
             List<LittlePaper> littlePapers = recordDao.littlePaper(paperid);
 
             //String srcPath = "D:\\littlePaper.docx";//模板路径
-
             //InputStream inputStream = new FileInputStream(srcPath);
 
-
-
-
             for (LittlePaper littlePaper : littlePapers) {
-                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
+                inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
                 map.put("coursename",littlePaper.getCoursename()) ;
                 map.put("teachername",littlePaper.getTeachname()) ;
                 map.put("classname", littlePaper.getClassname()) ;
@@ -196,27 +195,33 @@ public class RecordServiceImpl implements RecordService {
                 String c=System.getProperty("user.dir");
                 String filename="p"+littlePaper.getPaperid()+"c"+littlePaper.getClassid()+".docx";
                 File file1=new File(c+"\\src\\main\\resources\\cache");
-                FileOutputStream outputStream = new FileOutputStream(file1+"\\"+filename);
+                outputStream = new FileOutputStream(file1+"\\"+filename);
                 replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
-                inputStream.close();
-                outputStream.close();
 
                 Long end=System.currentTimeMillis();
-
-
-
-                InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
+                Thread.sleep(1000);
+                in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
                 System.out.println("上传流"+in);
                 System.out.println("filename"+filename);
                 boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/small",filename,in);
                 System.out.println(flag);
-
             }
-
-
-
         }catch (Exception e){
-
+            e.printStackTrace();
+        }finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null){
+                    outputStream.close();
+                }
+                if (in != null){
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -225,10 +230,12 @@ public class RecordServiceImpl implements RecordService {
         Map<String,String> map=new HashMap<>();
         LargePaper1 largePaper1=recordDao.largePaper1(paperid);
         LargePaper2 largePaper2=recordDao.largePaper2(paperid);
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        InputStream in = null;
         try {
-
             //String srcPath = "D:\\largePaper.docx";//模板路径
-            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/largePaper.docx");
+            inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/largePaper.docx");
             //InputStream inputStream = new FileInputStream(srcPath);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -247,19 +254,32 @@ public class RecordServiceImpl implements RecordService {
             String c=System.getProperty("user.dir");
             String filename="p"+largePaper1.getPaperid()+".docx";
             File file1=new File(c+"\\src\\main\\resources\\cache");
-            FileOutputStream outputStream = new FileOutputStream(file1+"\\"+filename);
+            outputStream = new FileOutputStream(file1+"\\"+filename);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
-            inputStream.close();
-            outputStream.close();
 
             Long end=System.currentTimeMillis();
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
-
+            Thread.sleep(1000);
+            in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
+            System.out.println("大文件上传流："+in);
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
             System.out.println(flag);
 
         }catch (Exception e){
-
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (outputStream != null){
+                    outputStream.close();
+                }
+                if (in != null){
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
