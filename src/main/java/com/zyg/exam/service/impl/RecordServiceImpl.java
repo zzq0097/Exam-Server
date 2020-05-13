@@ -171,7 +171,7 @@ public class RecordServiceImpl implements RecordService {
         try {
             Map<String,String> map = new HashMap<>();
             List<LittlePaper> littlePapers = recordDao.littlePaper(paperid);
-            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
+
             //String srcPath = "D:\\littlePaper.docx";//模板路径
 
             //InputStream inputStream = new FileInputStream(srcPath);
@@ -180,6 +180,7 @@ public class RecordServiceImpl implements RecordService {
 
 
             for (LittlePaper littlePaper : littlePapers) {
+                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
                 map.put("coursename",littlePaper.getCoursename()) ;
                 map.put("teachername",littlePaper.getTeachname()) ;
                 map.put("classname", littlePaper.getClassname()) ;
@@ -205,7 +206,8 @@ public class RecordServiceImpl implements RecordService {
 
 
                 InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
-
+                System.out.println("上传流"+in);
+                System.out.println("filename"+filename);
                 boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/small",filename,in);
                 System.out.println(flag);
 
