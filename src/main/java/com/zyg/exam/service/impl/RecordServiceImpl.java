@@ -199,7 +199,7 @@ public class RecordServiceImpl implements RecordService {
                 replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
 
                 Long end=System.currentTimeMillis();
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
                 System.out.println("上传流"+in);
                 System.out.println("filename"+filename);
@@ -258,7 +258,7 @@ public class RecordServiceImpl implements RecordService {
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
 
             Long end=System.currentTimeMillis();
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
             System.out.println("大文件上传流："+in);
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
