@@ -7,6 +7,7 @@ import com.zyg.exam.model.Class;
 import com.zyg.exam.model.Record;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -41,7 +42,7 @@ public interface RecordDao extends BaseMapper<Record> {
 
     int setGrade(int recordid,int grade);
 
-    List<BarVO> selectAverage(Integer paperid,int[] classids);
+    List<BarVO> selectAverage( Integer paperid, int[] classids);
 
     List<SpreadVO> selectSpread(Integer paperid, Integer classid);
 

@@ -229,8 +229,8 @@
   </update>
   <select id="selectAverage" resultMap="Average">
     select max(grade) maxsource,min(grade) minsource,avg(grade) average,VAR_SAMP(grade) variance,a.classname,a.classid from  (select id,a.classname,a.classid from(select classname,a.classid from (select classid from
-    (select teachid from (select courseid from paper where paperid=#{paperid,jdbcType=INTEGER})a left join teach on teach.courseid=a.courseid)a left join getclass
-    on getclass.teachid=a.teachid)a left join class on class.classid=a.classid)a left join user on a.classid=user.classid)a left join record on record.studentid=a.id <if test="classname!=null and classname!=''">where classid in <foreach collection="array" item="classid" open="(" separator="," close=")">
+    (select teachid from (select courseid from paper where paperid=#{paperid})a left join teach on teach.courseid=a.courseid)a left join getclass
+    on getclass.teachid=a.teachid)a left join class on class.classid=a.classid)a left join user on a.classid=user.classid)a left join record on record.studentid=a.id <if test="classids !=null   ">where classid in <foreach collection="classids" item="classid" open="(" separator="," close=")">
     #{classid}
   </foreach></if> GROUP BY classid
   </select>

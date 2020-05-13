@@ -2,7 +2,7 @@ package com.zyg.exam.service.impl;
 
 import com.zyg.exam.common.DTO.CorrectPaperDTO;
 import com.zyg.exam.common.DTO.CreditDTO;
-
+import org.apache.ibatis.annotations.Param;
 import com.zyg.exam.common.DTO.LineChartDTO;
 import com.zyg.exam.common.DTO.RecordDTO;
 import com.zyg.exam.common.JsonBean;
@@ -120,8 +120,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<BarVO> selectAverage(Integer paperid) {
-        return recordDao.selectAverage(paperid);
+    public List<BarVO> selectAverage(Integer paperid,int[] classids) {
+        return recordDao.selectAverage(paperid,classids);
     }
 
     @Override
