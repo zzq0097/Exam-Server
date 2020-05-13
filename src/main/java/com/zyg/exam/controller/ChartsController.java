@@ -45,8 +45,9 @@ public class ChartsController {
     }
 
     @RequestMapping("/selectAverage")
-    public List<BarVO> selectAverage(Integer paperid){
-        return recordService.selectAverage(paperid);
+    public List<BarVO> selectAverage(Integer paperid,int[] classids){
+        System.out.println("classids   "+classids);
+        return recordService.selectAverage(paperid,classids);
     }
 
     @RequestMapping("/selectSpread")

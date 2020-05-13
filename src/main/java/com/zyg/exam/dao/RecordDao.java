@@ -41,7 +41,7 @@ public interface RecordDao extends BaseMapper<Record> {
 
     int setGrade(int recordid,int grade);
 
-    List<BarVO> selectAverage(Integer paperid);
+    List<BarVO> selectAverage(Integer paperid,int[] classids);
 
     List<SpreadVO> selectSpread(Integer paperid, Integer classid);
 

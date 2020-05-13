@@ -25,7 +25,7 @@ public interface  RecordService {
 
     JsonBean selectQuestionByRecord(Integer recordid);
 
-    List<BarVO> selectAverage(Integer paperid);
+    List<BarVO> selectAverage(Integer paperid,int[] classids);
 
     int[] selectSpread(Integer paperid,Integer classid);
 

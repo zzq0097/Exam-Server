@@ -120,8 +120,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<BarVO> selectAverage(Integer paperid) {
-        return recordDao.selectAverage(paperid);
+    public List<BarVO> selectAverage(Integer paperid,int[] classids) {
+        return recordDao.selectAverage(paperid,classids);
     }
 
     @Override
@@ -249,11 +249,12 @@ public class RecordServiceImpl implements RecordService {
             File file1=new File(c+"\\src\\main\\resources\\cache");
             FileOutputStream outputStream = new FileOutputStream(file1+"\\"+filename);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
-            inputStream.close();
+
             outputStream.close();
 
             Long end=System.currentTimeMillis();
             InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
+            System.out.println("大试卷上传输入流  "+in);
 
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
             System.out.println(flag);

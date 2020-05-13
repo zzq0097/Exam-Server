@@ -228,9 +228,11 @@
     where recordid=#{recordid,jdbcType=INTEGER}
   </update>
   <select id="selectAverage" resultMap="Average">
-    select max(grade) maxsource,min(grade) minsource,avg(grade) average,VAR_SAMP(grade) variance,a.classname from  (select id,a.classname from(select classname,a.classid from (select classid from
+    select max(grade) maxsource,min(grade) minsource,avg(grade) average,VAR_SAMP(grade) variance,a.classname,a.classid from  (select id,a.classname,a.classid from(select classname,a.classid from (select classid from
     (select teachid from (select courseid from paper where paperid=#{paperid,jdbcType=INTEGER})a left join teach on teach.courseid=a.courseid)a left join getclass
-    on getclass.teachid=a.teachid)a left join class on class.classid=a.classid)a left join user on a.classid=user.classid)a left join record on record.studentid=a.id
+    on getclass.teachid=a.teachid)a left join class on class.classid=a.classid)a left join user on a.classid=user.classid)a left join record on record.studentid=a.id <if test="classname!=null and classname!=''">where classid in <foreach collection="array" item="classid" open="(" separator="," close=")">
+    #{classid}
+  </foreach></if> GROUP BY classname
   </select>
   <select id="selectSpread" resultMap="Spread">
     select a.classid,sum(if(credit='优秀',count,0)) as num1,sum(if(credit='良好',count,0)) as num2,sum(if(credit='稳定',count,0)) as num3,sum(if(credit='及格',count,0)) as num4,sum(if(credit='不及格',count,0)) as num5 from(select count(a.studentid) count,a.credit,a.classid from  	(select classid,a.studentid,( case
