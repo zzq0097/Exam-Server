@@ -204,7 +204,7 @@ public class RecordServiceImpl implements RecordService {
 
 
 
-                InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
+                InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
 
                 boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/small",filename,in);
                 System.out.println(flag);
@@ -225,9 +225,9 @@ public class RecordServiceImpl implements RecordService {
         LargePaper2 largePaper2=recordDao.largePaper2(paperid);
         try {
 
-            String srcPath = "D:\\largePaper.docx";//模板路径
-            //InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/largePaper.docx");
-            InputStream inputStream = new FileInputStream(srcPath);
+            //String srcPath = "D:\\largePaper.docx";//模板路径
+            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/largePaper.docx");
+            //InputStream inputStream = new FileInputStream(srcPath);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             map.put("time",largePaper1.getTime());
@@ -251,7 +251,7 @@ public class RecordServiceImpl implements RecordService {
             outputStream.close();
 
             Long end=System.currentTimeMillis();
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
 
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
             System.out.println(flag);
