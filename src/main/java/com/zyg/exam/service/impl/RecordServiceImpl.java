@@ -194,13 +194,17 @@ public class RecordServiceImpl implements RecordService {
                 //String destPath = "D:\\" + "examLoad\\"+littlePaper.getNo()+littlePaper.getClassname()+littlePaper.getCoursename()+"考试信息.docx";
                 String c=System.getProperty("user.dir");
                 String filename="p"+littlePaper.getPaperid()+"c"+littlePaper.getClassid()+".docx";
-                File file1=new File(c+"\\src\\main\\resources\\cache");
-                outputStream = new FileOutputStream(file1+"\\"+filename);
+                File file = new File(c+"\\src\\main\\resources\\cache\\"+filename);
+                outputStream = new FileOutputStream(file);
                 replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
 
                 Long end=System.currentTimeMillis();
-                Thread.sleep(1000);
-                in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
+                Thread.sleep(2000);
+
+                if (!file.exists() || file.length()==0){
+                    throw new Exception("文件生成失败！");
+                }
+                in = new FileInputStream(file);
                 System.out.println("上传流"+in);
                 System.out.println("filename"+filename);
                 boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/small",filename,in);
@@ -251,15 +255,20 @@ public class RecordServiceImpl implements RecordService {
             map.put("maxnum","最高分"+largePaper2.getMaxnum());
             map.put("minnum","最低分"+largePaper2.getMinnum());
             map.put("spread","小于60分的人数:"+largePaper2.getNum0()+"  大于60小于70的人数:"+largePaper2.getNum1()+"  大于70小于80的人数:"+largePaper2.getNum2()+"  大于80小于90的人数:"+largePaper2.getNum3()+"  大于90的人数:"+largePaper2.getNum4());
-            String c=System.getProperty("user.dir");
-            String filename="p"+largePaper1.getPaperid()+".docx";
-            File file1=new File(c+"\\src\\main\\resources\\cache");
-            outputStream = new FileOutputStream(file1+"\\"+filename);
+            String c = System.getProperty("user.dir");
+            String filename = "p"+largePaper1.getPaperid()+".docx";
+            File file = new File(c+"\\src\\main\\resources\\cache\\"+filename);
+            outputStream = new FileOutputStream(file);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
 
+            Long end=System.currentTimeMillis();
+            Thread.sleep(2000);
 
-            Thread.sleep(1000);
-            in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
+            if (!file.exists() || file.length()==0){
+                throw new Exception("文件生成失败！");
+            }
+
+            in = new FileInputStream(file);
             System.out.println("大文件上传流："+in);
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
             System.out.println(flag);
