@@ -257,7 +257,7 @@ public class RecordServiceImpl implements RecordService {
             outputStream = new FileOutputStream(file1+"\\"+filename);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
 
-            Long end=System.currentTimeMillis();
+
             Thread.sleep(1000);
             in = Thread.currentThread().getContextClassLoader().getResourceAsStream("cache/"+filename);
             System.out.println("大文件上传流："+in);
