@@ -99,15 +99,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,电话未填写)");
             }
             row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
-            String role=row.getCell(3).getStringCellValue();
+            String role=row.getCell(4).getStringCellValue();
             if(role==null || role.isEmpty()){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,角色未填写)");
             }
             row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
-            String classname=row.getCell(3).getStringCellValue();
+            String classname=row.getCell(5).getStringCellValue();
             if(classname==null || role.isEmpty()){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,角色未填写)");
             }
+            System.out.println("classname"+classname);
 
             importUser.setUsername(username);
             importUser.setPassword(password);
@@ -115,7 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             importUser.setRole(role);
             importUser.setClassname(classname);
             importUser.setTel(tel);
-
+            System.out.println(importUser);
             importUsers.add(importUser);
 
 
