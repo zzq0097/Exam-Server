@@ -12,11 +12,13 @@ import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +32,7 @@ import java.util.Map;
  * @author ZZQ
  * @since 2020-04-15
  */
+@Slf4j
 @RestController
 public class UserController {
     @Autowired
@@ -98,6 +101,18 @@ public class UserController {
     @RequestMapping("/deleteUser")
     public JsonBean deleteUser(@RequestParam(value = "ids") List<Integer> ids){
         return new JsonBean(200,"success",userService.removeByIds(ids));
+    }
+    @RequestMapping("/importUser")
+    public JsonBean addQuestion(@RequestParam("file") MultipartFile file){
+        JsonBean jsonBean=new JsonBean();
+        String fileName = file.getOriginalFilename();
+        log.info("{}",fileName);
+        try {
+            jsonBean=userService.batchImport(fileName,file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  jsonBean;
     }
 }
 

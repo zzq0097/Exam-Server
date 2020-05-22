@@ -36,4 +36,9 @@
         </if>
         )a limit #{beginIndex},#{pageSize};select found_rows() count;
     </select>
+    <insert id="importUsers">
+        insert into user(username,password,name,tel,role,classid)
+        values(#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+               #{tel,jdbcType=VARCHAR},#{role,jdbcType=VARCHAR},(select classid from class where classname=#{classname,jdbcType=VARCHAR}));
+    </insert>
 </mapper>

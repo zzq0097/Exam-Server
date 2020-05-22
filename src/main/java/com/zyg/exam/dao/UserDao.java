@@ -1,6 +1,7 @@
 package com.zyg.exam.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zyg.exam.common.DTO.ImportUser;
 import com.zyg.exam.common.DTO.MultiUserDTO;
 import com.zyg.exam.common.DTO.StudentDTO;
 import com.zyg.exam.common.DTO.UserDTO;
@@ -13,19 +14,11 @@ import java.util.List;
 @Repository
 public interface UserDao extends BaseMapper<User> {
 
-    int deleteByPrimaryKey(int[] ids);
 
-    int insertSelective(User user);
 
-    int updateByPrimaryKeySelective(User user);
 
-    List<User> login(String username, String password);
 
-    List<List<Object>> selectUser(UserDTO userDTO);
-
-    List<String> selectCourse(int id);
-
-    int importUser(UserVO userVO);
+    int importUsers(ImportUser importUser);
 
     List<List<Object>> selectStudent(StudentDTO studentDTO);
 

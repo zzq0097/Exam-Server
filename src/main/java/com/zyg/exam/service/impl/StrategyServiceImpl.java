@@ -53,9 +53,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
 
     @Override
     public JsonBean formPaper(AddPaperDTO addPaperDTO) {
-
         System.out.println("addPaperDTO"+addPaperDTO);
-        AllRandom allRandom = new AllRandom();
         Paper paper = Paper.builder().
                 courseid(addPaperDTO.getCourseid()).
                 finishtime(addPaperDTO.getFinishtime()).
@@ -63,13 +61,9 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                 pattern(addPaperDTO.getPattern()).
                 ismonitor(addPaperDTO.getIsmonitor()).
                 build();
-
             paperDao.insert(paper);
-
-
         List<StrategyDTO> strategyDTOS = addPaperDTO.getStrategyDTOS();
         List<Integer> questionids = new ArrayList<>();
-
         //循环判断考试策略
         try {
             for (StrategyDTO strategyDTO : strategyDTOS) {
@@ -95,15 +89,12 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     System.out.println("strategy"+strategy);
                     //插入策略表
                     List<Integer> question1 = questionDao.selectByType(type);
-
                     //获取随机后的题目id列表
                     questionids = this.randomQuestion(question1, count);
                     System.out.println("随机后的试题"+questionids);
                     questions.add(questionids);
                     strategyDao.insertSelective(strategy);
                     this.insertPaperQuestion(questions, paper.getPaperid());
-
-
                 } else if (strategyDTO.getMode() == 2) {//按章节，难度组卷
                     List<List<Integer>> questions = new ArrayList<>();
                     System.out.println("插入前的questions"+questions);
@@ -113,9 +104,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     String difficulty = strategyDTO.getDifficulty();
                     String type = strategyDTO.getType();
                     List<Integer> question1 = questionDao.selectByChapter(difficulty, chapterid, type);
-
                     System.out.println(question1);
-
                     //插入策略表
                     Strategy strategy = new Strategy();
                     strategy.setMode(strategyDTO.getMode());
@@ -123,7 +112,6 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     strategy.setPaperid(paper.getPaperid());
                     strategy.setType(type);
                     strategy.setValue(strategyDTO.getScore());
-
                     System.out.println("strategy"+strategy);
                     strategyDao.insertSelective(strategy);
                     //插入条件表
@@ -132,15 +120,11 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     condition.setChapterid(chapterid);
                     condition.setCount(count);
                     condition.setDifficulty(difficulty);
-
                     System.out.println("condition"+condition);
-
                     conditionDao.insertSelective(condition);
                     questionids = this.randomQuestion(question1, count);
                     System.out.println("随机后的试题"+questionids);
-
                     questions.add(questionids);
-
                     System.out.println("questions"+questions);
                     this.insertPaperQuestion(questions, paper.getPaperid());
                 } else if (strategyDTO.getMode() == 3) {//手动组卷
@@ -153,7 +137,6 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     strategy.setType(strategyDTO.getType());
                     strategy.setValue(strategyDTO.getScore());
                     strategyDao.insertSelective(strategy);
-
                     int[] questionid = strategyDTO.getQuestionids();
                     for (int i = 0; i < questionid.length; i++) {
                         paperDao.insertPaperQuestion(questionid[i], paper.getPaperid());
@@ -164,10 +147,6 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
-
         return null;
     }
 }

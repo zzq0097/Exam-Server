@@ -82,7 +82,6 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public JsonBean correctPaper( CorrectPaperDTO correctPaperDTO) {
         //计算客观题分数
-
         List<Object> stuAnswer = answerDao.correctSubject(correctPaperDTO.getRecordid()).get(0);
         List<Object> answers = answerDao.correctSubject(correctPaperDTO.getRecordid()).get(1);
         //计算正确答题数
@@ -174,10 +173,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             Map<String,String> map = new HashMap<>();
             List<LittlePaper> littlePapers = recordDao.littlePaper(paperid);
-
             //String srcPath = "D:\\littlePaper.docx";//模板路径
             //InputStream inputStream = new FileInputStream(srcPath);
-
             for (LittlePaper littlePaper : littlePapers) {
                 inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/littlePaper.docx");
                 map.put("coursename",littlePaper.getCoursename()) ;
@@ -197,10 +194,8 @@ public class RecordServiceImpl implements RecordService {
                 File file = new File(c+"\\src\\main\\resources\\cache\\"+filename);
                 outputStream = new FileOutputStream(file);
                 replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
-
                 Long end=System.currentTimeMillis();
                 Thread.sleep(2000);
-
                 if (!file.exists() || file.length()==0){
                     throw new Exception("文件生成失败！");
                 }
@@ -242,7 +237,6 @@ public class RecordServiceImpl implements RecordService {
             inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("module/largePaper.docx");
             //InputStream inputStream = new FileInputStream(srcPath);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
             map.put("time",largePaper1.getTime());
             map.put("courseName",largePaper1.getCoursename());
             map.put("courseId",largePaper1.getCourseid().toString());
@@ -260,19 +254,15 @@ public class RecordServiceImpl implements RecordService {
             File file = new File(c+"\\src\\main\\resources\\cache\\"+filename);
             outputStream = new FileOutputStream(file);
             replaceText(inputStream, outputStream, map);//通过此方法来将map中的数据添加到模板中
-
             Long end=System.currentTimeMillis();
             Thread.sleep(2000);
-
             if (!file.exists() || file.length()==0){
                 throw new Exception("文件生成失败！");
             }
-
             in = new FileInputStream(file);
             System.out.println("大文件上传流："+in);
             boolean flag=uploadFile("122.51.73.146",21,"zzq","zzq123","/","analyse/big",filename,in);
             System.out.println(flag);
-
         }catch (Exception e){
             e.printStackTrace();
         } finally {

@@ -234,21 +234,19 @@
     </foreach></if> GROUP BY a.classid
   </select>
   <select id="selectSpread" resultMap="Spread">
-    select a.classid,sum(if(credit='优秀',count,0)) as num1,sum(if(credit='良好',count,0)) as num2,sum(if(credit='稳定',count,0)) as num3,sum(if(credit='及格',count,0)) as num4,sum(if(credit='不及格',count,0)) as num5 from(select count(a.studentid) count,a.credit,a.classid from  	(select classid,a.studentid,( case
-
+    select a.classid,sum(if(credit='优秀',count,0)) as num1,sum(if(credit='良好',count,0)) as num2,
+    sum(if(credit='稳定',count,0)) as num3,sum(if(credit='及格',count,0)) as num4,
+     sum(if(credit='不及格',count,0)) as num5 from(select count(a.studentid) count,a.credit,a.classid from  	(select classid,a.studentid,( case
     when a.grade >= 90 then '优秀'
     when a.grade >= 80 and a.grade &lt; 90 then '良好'
-
     when a.grade >= 70 and a.grade &lt; 80 then '稳定'
     when a.grade >= 60 and a.grade &lt; 70 then '及格'
-
     when a.grade &lt; 60 then '不及格'
-
-
     end ) as credit
-
-    from	(select studentid,grade from record  <if test="paperid!=null and paperid!=''"> where paperid=#{paperid,jdbcType=INTEGER}</if>)a left join user
-    on a.studentid=user.id)a GROUP BY a.classid,a.credit)a  <if test="classid!=null and classid!=''"> where a.classid=#{classid,jdbcType=INTEGER}</if> group by a.classid
+    from	(select studentid,grade from record  <if test="paperid!=null and paperid!=''">
+    where paperid=#{paperid,jdbcType=INTEGER}</if>)a left join user
+    on a.studentid=user.id)a GROUP BY a.classid,a.credit)a  <if test="classid!=null and classid!=''">
+    where a.classid=#{classid,jdbcType=INTEGER}</if> group by a.classid
   </select>
   <select id="selectClass" resultType="com.zyg.exam.model.Class">
     select distinct classname,a.classid from  	(select classid,a.studentid
